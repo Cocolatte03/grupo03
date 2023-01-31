@@ -1,5 +1,6 @@
 package cine.bbdd.pojos;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Cliente {
@@ -11,6 +12,7 @@ public class Cliente {
 	String direccion = null;
 	String usuario = null;
 	String password = null;
+	ArrayList<Entrada> entradas = null;
 	
 	public Cliente() {
 		
@@ -77,11 +79,20 @@ public class Cliente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public ArrayList<Entrada> getEntradas() {
+		return entradas;
+	}
+
+	public void setEntradas(ArrayList<Entrada> entradas) {
+		this.entradas = entradas;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellidos, direccion, dni, id, nombre, password, sexo, usuario);
+		return Objects.hash(apellidos, direccion, dni, entradas, id, nombre, password, sexo, usuario);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,15 +103,16 @@ public class Cliente {
 			return false;
 		Cliente other = (Cliente) obj;
 		return Objects.equals(apellidos, other.apellidos) && Objects.equals(direccion, other.direccion)
-				&& Objects.equals(dni, other.dni) && id == other.id && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(sexo, other.sexo)
-				&& Objects.equals(usuario, other.usuario);
+				&& Objects.equals(dni, other.dni) && Objects.equals(entradas, other.entradas) && id == other.id
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
+				&& Objects.equals(sexo, other.sexo) && Objects.equals(usuario, other.usuario);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo="
-				+ sexo + ", direccion=" + direccion + ", usuario=" + usuario + ", password=" + password + "]";
+				+ sexo + ", direccion=" + direccion + ", usuario=" + usuario + ", password=" + password + ", entradas="
+				+ entradas + "]";
 	}
 	
 	
