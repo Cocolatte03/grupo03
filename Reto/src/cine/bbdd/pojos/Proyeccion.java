@@ -1,84 +1,97 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
-
+	
 /**
- * Este PJP describe la tabla t_proyeccion
- * @author vaain
+ * Esta clase describe la tabla proyeccion
+ * 
+ * @author leire
  *
  */
 public class Proyeccion implements Serializable {
 
-	private static final long serialVersionUID = 5235740695129578150L;
-	private int idSala = 0;
-	private int idPelicula = 0;
-	private String fecha = null;
-	private String horaInicio = null;
-	private String horaFin = null;
+	private static final long serialVersionUID = 7177668438887100410L;
+
+	private int id = 0;
+	
+	private int precio = 0;
+	private Date fecha = null;
+	private Date hora = null;
+	
+	private Sala sala = null;
+	private Pelicula pelicula = null;
+	private ArrayList<Entrada> entradas = null;
 	
 	public Proyeccion() {
 		
 	}
 	
-	public Proyeccion(int idSala, int idPelicula, String fecha, String horaInicio, String horaFin) {
+	public Proyeccion(int id, int precio, Date fecha, Date hora, Sala sala, Pelicula pelicula,
+			ArrayList<Entrada> entradas) {
 		super();
-		this.idSala = idSala;
-		this.idPelicula = idPelicula;
+		this.id = id;
+		this.precio = precio;
 		this.fecha = fecha;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
+		this.hora = hora;
+		this.sala = sala;
+		this.pelicula = pelicula;
+		this.entradas = entradas;
 	}
-	
-	public int getIdSala() {
-		return idSala;
+
+	public int getId() {
+		return id;
 	}
-	
-	public void setIdSala(int idSala) {
-		this.idSala = idSala;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public int getIdPelicula() {
-		return idPelicula;
+	public int getPrecio() {
+		return precio;
 	}
-	
-	public void setIdPelicula(int idPelicula) {
-		this.idPelicula = idPelicula;
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
-	
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
-	
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	public String getHoraInicio() {
-		return horaInicio;
+	public Date getHora() {
+		return hora;
 	}
-	
-	public void setHoraInicio(String horaInicio) {
-		this.horaInicio = horaInicio;
+	public void setHora(Date hora) {
+		this.hora = hora;
 	}
-	
-	public String getHoraFin() {
-		return horaFin;
+	public Sala getSala() {
+		return sala;
 	}
-	
-	public void setHoraFin(String horaFin) {
-		this.horaFin = horaFin;
+	public void setSala(Sala sala) {
+		this.sala = sala;
 	}
-	
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+	public ArrayList<Entrada> getEntradas() {
+		return entradas;
+	}
+	public void setEntradas(ArrayList<Entrada> entradas) {
+		this.entradas = entradas;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, horaFin, horaInicio, idPelicula, idSala);
+		return Objects.hash(entradas, fecha, hora, id, pelicula, precio, sala);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,15 +101,15 @@ public class Proyeccion implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Proyeccion other = (Proyeccion) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(horaFin, other.horaFin)
-				&& Objects.equals(horaInicio, other.horaInicio) && idPelicula == other.idPelicula
-				&& idSala == other.idSala;
-	}
-	
-	@Override
-	public String toString() {
-		return "Proyeccion [idSala=" + idSala + ", idPelicula=" + idPelicula + ", fecha=" + fecha + ", horaInicio="
-				+ horaInicio + ", horaFin=" + horaFin + "]";
+		return Objects.equals(entradas, other.entradas) && Objects.equals(fecha, other.fecha)
+				&& Objects.equals(hora, other.hora) && id == other.id && Objects.equals(pelicula, other.pelicula)
+				&& precio == other.precio && Objects.equals(sala, other.sala);
 	}
 
+	@Override
+	public String toString() {
+		return "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora + ", sala=" + sala
+				+ ", pelicula=" + pelicula + ", entradas=" + entradas + "]";
+	}
+	
 }

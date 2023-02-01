@@ -1,40 +1,39 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
+
+/**
+ * Esta clase describe la tabla pelicula
+ * Existe una relacion de 1:N con la tabla proyeccion
+ * @author leire
+ *
+ */
 
 public class Pelicula implements Serializable {
 
-	/**Este POJO es la tabla pelicula
-	 * Relacion N:M con la tabla sala
-	 * Relacion 1:1 con la tabla entrada
-	 * 
-	 */
-	private static final long serialVersionUID = -5258555826200509689L;
-
-	private String titulo = null;
-	private int id = 0;
-	private char genero = ' ';
-	private int ano= 0;
-	private int duracion= 0;
-	private int calificacion = 0;
+	private static final long serialVersionUID = -8262918258353500416L;
 	
-	public Pelicula(String titulo, int id, char genero, int ano, int duracion, int calificacion) {
+	private int id = 0;
+	
+	private String titulo = null;
+	private int duracion = 0;
+	private String genero = null;
+	
+	ArrayList<Proyeccion> proyecciones = null;
+	
+	public Pelicula() {
+		
+	}
+
+	public Pelicula(int id, String titulo, int duracion, String genero, ArrayList<Proyeccion> proyecciones) {
 		super();
-		this.titulo = titulo;
 		this.id = id;
-		this.genero = genero;
-		this.ano = ano;
-		this.duracion = duracion;
-		this.calificacion = calificacion;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+		this.duracion = duracion;
+		this.genero = genero;
+		this.proyecciones = proyecciones;
 	}
 
 	public int getId() {
@@ -45,20 +44,12 @@ public class Pelicula implements Serializable {
 		this.id = id;
 	}
 
-	public char getGenero() {
-		return genero;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setGenero(char genero) {
-		this.genero = genero;
-	}
-
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public int getDuracion() {
@@ -69,12 +60,20 @@ public class Pelicula implements Serializable {
 		this.duracion = duracion;
 	}
 
-	public int getCalificacion() {
-		return calificacion;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setCalificacion(int calificacion) {
-		this.calificacion = calificacion;
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public ArrayList<Proyeccion> getProyecciones() {
+		return proyecciones;
+	}
+
+	public void setProyecciones(ArrayList<Proyeccion> proyecciones) {
+		this.proyecciones = proyecciones;
 	}
 
 	public static long getSerialversionuid() {
@@ -83,7 +82,7 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ano, calificacion, duracion, genero, id, titulo);
+		return Objects.hash(duracion, genero, id, proyecciones, titulo);
 	}
 
 	@Override
@@ -95,21 +94,14 @@ public class Pelicula implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pelicula other = (Pelicula) obj;
-		return ano == other.ano && calificacion == other.calificacion && duracion == other.duracion
-				&& genero == other.genero && id == other.id && Objects.equals(titulo, other.titulo);
+		return duracion == other.duracion && Objects.equals(genero, other.genero) && id == other.id
+				&& Objects.equals(proyecciones, other.proyecciones) && Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
 	public String toString() {
-		return "Pelicula [titulo=" + titulo + ", id=" + id + ", genero=" + genero + ", ano=" + ano + ", duracion="
-				+ duracion + ", calificacion=" + calificacion + "]";
+		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
+				+ ", proyecciones=" + proyecciones + "]";
 	}
-	
-	
-	
-	
-	
-	
 
-	
 }
