@@ -60,6 +60,7 @@ public class Sala implements Serializable {
 			return false;
 		Sala other = (Sala) obj;
 		return id == other.id && Objects.equals(nombre, other.nombre);
+		
 	}
 
 	@Override
