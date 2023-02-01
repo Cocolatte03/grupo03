@@ -62,7 +62,7 @@ public class Sala implements Serializable {
 		return id == other.id && Objects.equals(nombre, other.nombre);
 		
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Sala [id=" + id + ", nombre=" + nombre + "]";

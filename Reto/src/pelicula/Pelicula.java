@@ -12,7 +12,6 @@ public class Pelicula implements Serializable {
 	 */
 	private static final long serialVersionUID = -5258555826200509689L;
 
-	
 	private String titulo = null;
 	private int id = 0;
 	private char genero = ' ';
