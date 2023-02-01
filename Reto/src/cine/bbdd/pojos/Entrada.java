@@ -1,31 +1,23 @@
 package cine.bbdd.pojos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Entrada {
-	int id = 0;
-	String butaca = null;
-	double precio = 0;
-	Date fechaCompra = null;
-	int idSala = 0;
-	int idCliente = 0;
-	int idPelicula = 0;
+public class Entrada implements Serializable {
+	private static final long serialVersionUID = 1773284068804366159L;
+
+	private int id = 0;
 	
-	public Entrada() {
-		
-	}
+	private String butaca = null;
+	private double precio = 0;
+	private Date fechaCompra = null;
+	private int idSala = 0;
+	private int idCliente = 0;
+	private int idPelicula = 0;
 	
-	public Entrada(int id, String butaca, double precio, Date fechaCompra, int idSala, int idCliente, int idPelicula) {
-		super();
-		this.id = id;
-		this.butaca = butaca;
-		this.precio = precio;
-		this.fechaCompra = fechaCompra;
-		this.idSala = idSala;
-		this.idCliente = idCliente;
-		this.idPelicula = idPelicula;
-	}
+	private Pelicula pelicula = null;
+	private Sala sala = null;
 	
 	public int getId() {
 		return id;
@@ -69,6 +61,22 @@ public class Entrada {
 	public void setIdPelicula(int idPelicula) {
 		this.idPelicula = idPelicula;
 	}
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+	public Sala getSala() {
+		return sala;
+	}
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(butaca, fechaCompra, id, idCliente, idPelicula, idSala, precio);
@@ -86,11 +94,11 @@ public class Entrada {
 				&& idCliente == other.idCliente && idPelicula == other.idPelicula && idSala == other.idSala
 				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio);
 	}
+	
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", butaca=" + butaca + ", precio=" + precio + ", fechaCompra=" + fechaCompra
 				+ ", idSala=" + idSala + ", idCliente=" + idCliente + ", idPelicula=" + idPelicula + "]";
 	}
-
 	
 }
