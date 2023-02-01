@@ -8,7 +8,7 @@ import java.util.Objects;
  * Este POJO describe la tabla cliente.<br>
  * Relacion 1:N con la tabla entrada.
  * 
- * @author in1dw3
+ * @author leire
  *
  */
 

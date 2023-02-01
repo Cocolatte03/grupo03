@@ -8,7 +8,7 @@ import java.util.Objects;
  * Este POJO describe la tabla entrada.<br> Relación N:1 con la tabla sala.
  * Relación 1:1 con la tabla pelicula. Relación N:1 con la tabla cliente.
  * 
- * @author in1dw3
+ * @author leire
  *
  */
 public class Entrada implements Serializable {
