@@ -1,78 +1,121 @@
 package cine.bbdd.pojos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Entrada {
-	int id = 0;
-	String butaca = null;
-	double precio = 0;
-	Date fechaCompra = null;
-	int idSala = 0;
-	int idCliente = 0;
-	int idPelicula = 0;
+/**
+ * Este POJO describe la tabla entrada.<br> Relación N:1 con la tabla sala.
+ * Relación 1:1 con la tabla pelicula. Relación N:1 con la tabla cliente.
+ * 
+ * @author leire
+ *
+ */
+public class Entrada implements Serializable {
+
+	private static final long serialVersionUID = 1773284068804366159L;
 	
+	private int id = 0;
+
+	private double precio = 0;
+	private Date fechaCompra = null;
+	private int idSala = 0;
+	private int idCliente = 0;
+	private int idPelicula = 0;
+
+	private Pelicula pelicula = null;
+	private Sala sala = null;
+
 	public Entrada() {
-		
+
 	}
-	
-	public Entrada(int id, String butaca, double precio, Date fechaCompra, int idSala, int idCliente, int idPelicula) {
+
+	public Entrada(int id, double precio, Date fechaCompra, int idSala, int idCliente, int idPelicula,
+			Pelicula pelicula, Sala sala) {
 		super();
 		this.id = id;
-		this.butaca = butaca;
 		this.precio = precio;
 		this.fechaCompra = fechaCompra;
 		this.idSala = idSala;
 		this.idCliente = idCliente;
 		this.idPelicula = idPelicula;
+		this.pelicula = pelicula;
+		this.sala = sala;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getButaca() {
-		return butaca;
-	}
-	public void setButaca(String butaca) {
-		this.butaca = butaca;
-	}
+
 	public double getPrecio() {
 		return precio;
 	}
+
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
 	public Date getFechaCompra() {
 		return fechaCompra;
 	}
+
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
+
 	public int getIdSala() {
 		return idSala;
 	}
+
 	public void setIdSala(int idSala) {
 		this.idSala = idSala;
 	}
+
 	public int getIdCliente() {
 		return idCliente;
 	}
+
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
+
 	public int getIdPelicula() {
 		return idPelicula;
 	}
+
 	public void setIdPelicula(int idPelicula) {
 		this.idPelicula = idPelicula;
 	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+
+	public Sala getSala() {
+		return sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(butaca, fechaCompra, id, idCliente, idPelicula, idSala, precio);
+		return Objects.hash(fechaCompra, id, idCliente, idPelicula, idSala, pelicula, precio, sala);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -82,15 +125,17 @@ public class Entrada {
 		if (getClass() != obj.getClass())
 			return false;
 		Entrada other = (Entrada) obj;
-		return Objects.equals(butaca, other.butaca) && Objects.equals(fechaCompra, other.fechaCompra) && id == other.id
-				&& idCliente == other.idCliente && idPelicula == other.idPelicula && idSala == other.idSala
-				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio);
-	}
-	@Override
-	public String toString() {
-		return "Entrada [id=" + id + ", butaca=" + butaca + ", precio=" + precio + ", fechaCompra=" + fechaCompra
-				+ ", idSala=" + idSala + ", idCliente=" + idCliente + ", idPelicula=" + idPelicula + "]";
+		return Objects.equals(fechaCompra, other.fechaCompra) && id == other.id && idCliente == other.idCliente
+				&& idPelicula == other.idPelicula && idSala == other.idSala && Objects.equals(pelicula, other.pelicula)
+				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio)
+				&& Objects.equals(sala, other.sala);
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Entrada [id=" + id + ", precio=" + precio + ", fechaCompra=" + fechaCompra + ", idSala=" + idSala
+				+ ", idCliente=" + idCliente + ", idPelicula=" + idPelicula + ", pelicula=" + pelicula + ", sala="
+				+ sala + "]";
+	}
+
 }

@@ -1,25 +1,39 @@
 package cine.bbdd.pojos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cliente {
-	int id = 0;
-	String dni = null;
-	String nombre = null;
-	String apellidos = null;
-	String sexo = null;
-	String direccion = null;
-	String usuario = null;
-	String password = null;
-	ArrayList<Entrada> entradas = null;
+/**
+ * Este POJO describe la tabla cliente.<br>
+ * Relacion 1:N con la tabla entrada.
+ * 
+ * @author leire
+ *
+ */
+
+public class Cliente implements Serializable {
+
+	private static final long serialVersionUID = 963778556808301461L;
 	
+	private int id = 0;
+
+	private String dni = null;
+	private String nombre = null;
+	private String apellidos = null;
+	private String sexo = null;
+	private String direccion = null;
+	private String usuario = null;
+	private String password = null;
+
+	private ArrayList<Entrada> entradas = null;
+
 	public Cliente() {
-		
+
 	}
-	
+
 	public Cliente(int id, String dni, String nombre, String apellidos, String sexo, String direccion, String usuario,
-			String password) {
+			String password, ArrayList<Entrada> entradas) {
 		super();
 		this.id = id;
 		this.dni = dni;
@@ -29,53 +43,69 @@ public class Cliente {
 		this.direccion = direccion;
 		this.usuario = usuario;
 		this.password = password;
+		this.entradas = entradas;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getDni() {
 		return dni;
 	}
+
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getApellidos() {
 		return apellidos;
 	}
+
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+
 	public String getSexo() {
 		return sexo;
 	}
+
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
 	public String getDireccion() {
 		return direccion;
 	}
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
 	public String getUsuario() {
 		return usuario;
 	}
+
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -86,6 +116,10 @@ public class Cliente {
 
 	public void setEntradas(ArrayList<Entrada> entradas) {
 		this.entradas = entradas;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
@@ -114,7 +148,5 @@ public class Cliente {
 				+ sexo + ", direccion=" + direccion + ", usuario=" + usuario + ", password=" + password + ", entradas="
 				+ entradas + "]";
 	}
-	
-	
 
 }
