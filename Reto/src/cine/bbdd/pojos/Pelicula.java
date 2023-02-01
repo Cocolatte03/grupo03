@@ -27,13 +27,12 @@ public class Pelicula implements Serializable {
 		
 	}
 
-	public Pelicula(int id, String titulo, int duracion, String genero, ArrayList<Proyeccion> proyecciones) {
+	public Pelicula(int id, String titulo, int duracion, String genero) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.genero = genero;
-		this.proyecciones = proyecciones;
 	}
 
 	public int getId() {
