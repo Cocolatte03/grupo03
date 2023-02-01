@@ -12,8 +12,9 @@ import java.util.Objects;
  *
  */
 public class Entrada implements Serializable {
-	private static final long serialVersionUID = 1773284068804366159L;
 
+	private static final long serialVersionUID = 1773284068804366159L;
+	
 	private int id = 0;
 
 	private double precio = 0;
