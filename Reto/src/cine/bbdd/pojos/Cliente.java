@@ -4,11 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Este POJO describe la tabla t_cliente.<br>
+ * Relacion 1:N con la tabla t_entrada.
+ * 
+ * @author in1dw3
+ *
+ */
+
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 963778556808301461L;
 
 	private int id = 0;
-	
+
 	private String dni = null;
 	private String nombre = null;
 	private String apellidos = null;
@@ -16,8 +24,26 @@ public class Cliente implements Serializable {
 	private String direccion = null;
 	private String usuario = null;
 	private String password = null;
-	
+
 	private ArrayList<Entrada> entradas = null;
+
+	public Cliente() {
+
+	}
+
+	public Cliente(int id, String dni, String nombre, String apellidos, String sexo, String direccion, String usuario,
+			String password, ArrayList<Entrada> entradas) {
+		super();
+		this.id = id;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.sexo = sexo;
+		this.direccion = direccion;
+		this.usuario = usuario;
+		this.password = password;
+		this.entradas = entradas;
+	}
 
 	public int getId() {
 		return id;
@@ -121,5 +147,5 @@ public class Cliente implements Serializable {
 				+ sexo + ", direccion=" + direccion + ", usuario=" + usuario + ", password=" + password + ", entradas="
 				+ entradas + "]";
 	}
-	
+
 }
