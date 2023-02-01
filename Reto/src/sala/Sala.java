@@ -67,8 +67,5 @@ public class Sala implements Serializable {
 		return "Sala [id=" + id + ", nombre=" + nombre + "]";
 	}
 
-	
-	
-	
 
 }

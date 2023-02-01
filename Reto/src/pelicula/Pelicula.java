@@ -15,24 +15,18 @@ public class Pelicula implements Serializable {
 	private String titulo = null;
 	private int id = 0;
 	private char genero = ' ';
-	private int anio= 0;
+	private int ano= 0;
 	private int duracion= 0;
 	private int calificacion = 0;
 	
-	public Pelicula() {
-		
-	}
-	
-	public Pelicula(String titulo, int id, char genero, int anio, int duracion, int calificacion) {
-		super()	;
-		
+	public Pelicula(String titulo, int id, char genero, int ano, int duracion, int calificacion) {
+		super();
 		this.titulo = titulo;
 		this.id = id;
 		this.genero = genero;
-		this.anio = anio;
+		this.ano = ano;
 		this.duracion = duracion;
 		this.calificacion = calificacion;
-		
 	}
 
 	public String getTitulo() {
@@ -59,12 +53,12 @@ public class Pelicula implements Serializable {
 		this.genero = genero;
 	}
 
-	public int getAnio() {
-		return anio;
+	public int getAno() {
+		return ano;
 	}
 
-	public void setAnio(int anio) {
-		this.anio = anio;
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 	public int getDuracion() {
@@ -89,7 +83,7 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(anio, calificacion, duracion, genero, id, titulo);
+		return Objects.hash(ano, calificacion, duracion, genero, id, titulo);
 	}
 
 	@Override
@@ -101,15 +95,21 @@ public class Pelicula implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pelicula other = (Pelicula) obj;
-		return anio == other.anio && calificacion == other.calificacion && duracion == other.duracion
+		return ano == other.ano && calificacion == other.calificacion && duracion == other.duracion
 				&& genero == other.genero && id == other.id && Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
 	public String toString() {
-		return "Pelicula [titulo=" + titulo + ", id=" + id + ", genero=" + genero + ", anio=" + anio + ", duracion="
+		return "Pelicula [titulo=" + titulo + ", id=" + id + ", genero=" + genero + ", ano=" + ano + ", duracion="
 				+ duracion + ", calificacion=" + calificacion + "]";
 	}
+	
+	
+	
+	
+	
+	
 
 	
 }
