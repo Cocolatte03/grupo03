@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class Pelicula implements Serializable {
 
-	/**Este POJO es la tabla t_pelicula
-	 * Relacion N:M con la tabla t_sala
-	 * Relacion 1:1 con la tabla t_entrada
+	/**Este POJO es la tabla pelicula
+	 * Relacion N:M con la tabla sala
+	 * Relacion 1:1 con la tabla entrada
 	 * 
 	 */
 	private static final long serialVersionUID = -5258555826200509689L;
