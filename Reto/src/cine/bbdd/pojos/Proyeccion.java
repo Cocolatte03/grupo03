@@ -7,6 +7,9 @@ import java.util.Objects;
 	
 /**
  * Esta clase describe la tabla proyeccion
+ * Existe una relacion de 1:N con la tabla entrada
+ * Existe una relacion de N:1 con la tabla sala
+ * Existe una relacion de N:1 con la tabla pelicula
  * 
  * @author leire
  *
