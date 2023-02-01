@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Este POJO describe la tabla t_entrada.<br> Relación N:1 con la tabla t_sala.
- * Relación 1:1 con la tabla t_pelicula. Relación N:1 con la tabla t_cliente.
+ * Este POJO describe la tabla entrada.<br> Relación N:1 con la tabla sala.
+ * Relación 1:1 con la tabla pelicula. Relación N:1 con la tabla cliente.
  * 
  * @author in1dw3
  *

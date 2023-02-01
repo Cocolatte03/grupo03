@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Este POJO describe la tabla t_cliente.<br>
- * Relacion 1:N con la tabla t_entrada.
+ * Este POJO describe la tabla cliente.<br>
+ * Relacion 1:N con la tabla entrada.
  * 
  * @author in1dw3
  *
