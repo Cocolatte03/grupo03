@@ -4,15 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Este PJP describe la tabla t_proyeccion
+ * Este PJP describe la tabla t_cine
  * @author vaain
  *
  */
 public class Cine implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9039805776548704768L;
 	
 	private int id = 0;

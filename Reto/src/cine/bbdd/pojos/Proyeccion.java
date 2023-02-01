@@ -9,9 +9,7 @@ import java.util.Objects;
  *
  */
 public class Proyeccion implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 5235740695129578150L;
 	private int idSala = 0;
 	private int idPelicula = 0;
