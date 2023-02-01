@@ -13,8 +13,9 @@ import java.util.Objects;
  */
 
 public class Cliente implements Serializable {
-	private static final long serialVersionUID = 963778556808301461L;
 
+	private static final long serialVersionUID = 963778556808301461L;
+	
 	private int id = 0;
 
 	private String dni = null;
