@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Esta clase describe la tabla pelicula
- * Existe una relacion de 1:N con la tabla proyeccion
+ * Esta clase describe la tabla pelicula.
+ * 
+ * Existe una relacion de 1:N con la tabla proyeccion.
+ * 
  * @author leire
  *
  */
@@ -15,24 +17,36 @@ public class Pelicula implements Serializable {
 
 	private static final long serialVersionUID = -8262918258353500416L;
 	
+	//Clave primaria
 	private int id = 0;
 	
+	//Atributos
 	private String titulo = null;
 	private int duracion = 0;
 	private String genero = null;
+	private int coste = 0;
 	
+	//Relaciones
 	ArrayList<Proyeccion> proyecciones = null;
 	
+	/**
+	 * Constructor vacio.
+	 */
 	public Pelicula() {
 		
 	}
 
-	public Pelicula(int id, String titulo, int duracion, String genero) {
+	/**
+	 * Constructor sobrecargado.
+	 */
+	public Pelicula(int id, String titulo, int duracion, String genero, int coste, ArrayList<Proyeccion> proyecciones) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.genero = genero;
+		this.coste = coste;
+		this.proyecciones = proyecciones;
 	}
 
 	public int getId() {
@@ -67,6 +81,14 @@ public class Pelicula implements Serializable {
 		this.genero = genero;
 	}
 
+	public int getCoste() {
+		return coste;
+	}
+
+	public void setCoste(int coste) {
+		this.coste = coste;
+	}
+
 	public ArrayList<Proyeccion> getProyecciones() {
 		return proyecciones;
 	}
@@ -81,7 +103,7 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(duracion, genero, id, proyecciones, titulo);
+		return Objects.hash(coste, duracion, genero, id, proyecciones, titulo);
 	}
 
 	@Override
@@ -93,14 +115,15 @@ public class Pelicula implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pelicula other = (Pelicula) obj;
-		return duracion == other.duracion && Objects.equals(genero, other.genero) && id == other.id
-				&& Objects.equals(proyecciones, other.proyecciones) && Objects.equals(titulo, other.titulo);
+		return coste == other.coste && duracion == other.duracion && Objects.equals(genero, other.genero)
+				&& id == other.id && Objects.equals(proyecciones, other.proyecciones)
+				&& Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
-				+ ", proyecciones=" + proyecciones + "]";
+				+ ", coste=" + coste + ", proyecciones=" + proyecciones + "]";
 	}
 
 }

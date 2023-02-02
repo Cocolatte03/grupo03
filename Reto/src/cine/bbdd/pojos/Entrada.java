@@ -5,42 +5,50 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Este POJO describe la tabla entrada.<br> Relación N:1 con la tabla sala.
- * Relación 1:1 con la tabla pelicula. Relación N:1 con la tabla cliente.
+ * Esta clase describe la tabla entrada.
  * 
- * @author leire
+ * Existe una relacion N:1 con la tabla cliente.
+ * Existe una relacion N:1 con la tabla proyeccion.
+ * 
+ * @author alexis
  *
  */
 public class Entrada implements Serializable {
 
-	private static final long serialVersionUID = 1773284068804366159L;
+	private static final long serialVersionUID = -7981210032729514915L;
 	
+	//Clave primaria
 	private int id = 0;
-
-	private double precio = 0;
+	
+	//Atributos
 	private Date fechaCompra = null;
-	private int idSala = 0;
+	
+	//Claves externas
+	private int idProyeccion = 0;
 	private int idCliente = 0;
-	private int idPelicula = 0;
-
-	private Pelicula pelicula = null;
-	private Sala sala = null;
-
+	
+	//Relaciones
+	private Proyeccion proyeccion = null;
+	private Cliente cliente = null;
+	
+	/**
+	 * Constructor vacio.
+	 */
 	public Entrada() {
-
+		
 	}
 
-	public Entrada(int id, double precio, Date fechaCompra, int idSala, int idCliente, int idPelicula,
-			Pelicula pelicula, Sala sala) {
+	/**
+	 * Constructor sobrecargado.
+	 */
+	public Entrada(int id, Date fechaCompra, int idProyeccion, int idCliente, Proyeccion proyeccion, Cliente cliente) {
 		super();
 		this.id = id;
-		this.precio = precio;
 		this.fechaCompra = fechaCompra;
-		this.idSala = idSala;
+		this.idProyeccion = idProyeccion;
 		this.idCliente = idCliente;
-		this.idPelicula = idPelicula;
-		this.pelicula = pelicula;
-		this.sala = sala;
+		this.proyeccion = proyeccion;
+		this.cliente = cliente;
 	}
 
 	public int getId() {
@@ -51,14 +59,6 @@ public class Entrada implements Serializable {
 		this.id = id;
 	}
 
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
 	public Date getFechaCompra() {
 		return fechaCompra;
 	}
@@ -67,12 +67,12 @@ public class Entrada implements Serializable {
 		this.fechaCompra = fechaCompra;
 	}
 
-	public int getIdSala() {
-		return idSala;
+	public int getIdProyeccion() {
+		return idProyeccion;
 	}
 
-	public void setIdSala(int idSala) {
-		this.idSala = idSala;
+	public void setIdProyeccion(int idProyeccion) {
+		this.idProyeccion = idProyeccion;
 	}
 
 	public int getIdCliente() {
@@ -83,28 +83,20 @@ public class Entrada implements Serializable {
 		this.idCliente = idCliente;
 	}
 
-	public int getIdPelicula() {
-		return idPelicula;
+	public Proyeccion getProyeccion() {
+		return proyeccion;
 	}
 
-	public void setIdPelicula(int idPelicula) {
-		this.idPelicula = idPelicula;
+	public void setProyeccion(Proyeccion proyeccion) {
+		this.proyeccion = proyeccion;
 	}
 
-	public Pelicula getPelicula() {
-		return pelicula;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setPelicula(Pelicula pelicula) {
-		this.pelicula = pelicula;
-	}
-
-	public Sala getSala() {
-		return sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public static long getSerialversionuid() {
@@ -113,7 +105,7 @@ public class Entrada implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fechaCompra, id, idCliente, idPelicula, idSala, pelicula, precio, sala);
+		return Objects.hash(cliente, fechaCompra, id, idCliente, idProyeccion, proyeccion);
 	}
 
 	@Override
@@ -125,17 +117,15 @@ public class Entrada implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Entrada other = (Entrada) obj;
-		return Objects.equals(fechaCompra, other.fechaCompra) && id == other.id && idCliente == other.idCliente
-				&& idPelicula == other.idPelicula && idSala == other.idSala && Objects.equals(pelicula, other.pelicula)
-				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio)
-				&& Objects.equals(sala, other.sala);
+		return Objects.equals(cliente, other.cliente) && Objects.equals(fechaCompra, other.fechaCompra)
+				&& id == other.id && idCliente == other.idCliente && idProyeccion == other.idProyeccion
+				&& Objects.equals(proyeccion, other.proyeccion);
 	}
 
 	@Override
 	public String toString() {
-		return "Entrada [id=" + id + ", precio=" + precio + ", fechaCompra=" + fechaCompra + ", idSala=" + idSala
-				+ ", idCliente=" + idCliente + ", idPelicula=" + idPelicula + ", pelicula=" + pelicula + ", sala="
-				+ sala + "]";
+		return "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", idProyeccion=" + idProyeccion + ", idCliente="
+				+ idCliente + ", proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
 	}
 
 }

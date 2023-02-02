@@ -5,44 +5,54 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Este POJO describe la tabla cliente.<br>
- * Relacion 1:N con la tabla entrada.
+ * Esta clase describe la tabla cliente.
  * 
- * @author leire
+ * Existe una relacion 1:N con la tabla entrada.
+ * 
+ * @author alexis
  *
  */
 
 public class Cliente implements Serializable {
 
-	private static final long serialVersionUID = 963778556808301461L;
+	private static final long serialVersionUID = -3267796040769875697L;
 	
+	//Clave primaria
 	private int id = 0;
-
+	
+	//Atributos
 	private String dni = null;
 	private String nombre = null;
 	private String apellidos = null;
+	private String usuario = null;
+	private String contrasena = null;
 	private String sexo = null;
 	private String direccion = null;
-	private String usuario = null;
-	private String password = null;
-
+	
+	//Relaciones
 	private ArrayList<Entrada> entradas = null;
-
+	
+	/**
+	 * Constructor vacio.
+	 */
 	public Cliente() {
-
+		
 	}
 
-	public Cliente(int id, String dni, String nombre, String apellidos, String sexo, String direccion, String usuario,
-			String password, ArrayList<Entrada> entradas) {
+	/**
+	 * Constructor sobrecargado.
+	 */
+	public Cliente(int id, String dni, String nombre, String apellidos, String usuario, String contrasena, String sexo,
+			String direccion, ArrayList<Entrada> entradas) {
 		super();
 		this.id = id;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.usuario = usuario;
+		this.contrasena = contrasena;
 		this.sexo = sexo;
 		this.direccion = direccion;
-		this.usuario = usuario;
-		this.password = password;
 		this.entradas = entradas;
 	}
 
@@ -78,6 +88,22 @@ public class Cliente implements Serializable {
 		this.apellidos = apellidos;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
 	public String getSexo() {
 		return sexo;
 	}
@@ -94,22 +120,6 @@ public class Cliente implements Serializable {
 		this.direccion = direccion;
 	}
 
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public ArrayList<Entrada> getEntradas() {
 		return entradas;
 	}
@@ -124,7 +134,7 @@ public class Cliente implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellidos, direccion, dni, entradas, id, nombre, password, sexo, usuario);
+		return Objects.hash(apellidos, contrasena, direccion, dni, entradas, id, nombre, sexo, usuario);
 	}
 
 	@Override
@@ -136,16 +146,16 @@ public class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(apellidos, other.apellidos) && Objects.equals(direccion, other.direccion)
-				&& Objects.equals(dni, other.dni) && Objects.equals(entradas, other.entradas) && id == other.id
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
+		return Objects.equals(apellidos, other.apellidos) && Objects.equals(contrasena, other.contrasena)
+				&& Objects.equals(direccion, other.direccion) && Objects.equals(dni, other.dni)
+				&& Objects.equals(entradas, other.entradas) && id == other.id && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(sexo, other.sexo) && Objects.equals(usuario, other.usuario);
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo="
-				+ sexo + ", direccion=" + direccion + ", usuario=" + usuario + ", password=" + password + ", entradas="
+		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", usuario="
+				+ usuario + ", contrasena=" + contrasena + ", sexo=" + sexo + ", direccion=" + direccion + ", entradas="
 				+ entradas + "]";
 	}
 

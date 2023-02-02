@@ -1,28 +1,52 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Esta clase describe la tabla sala.
+ * 
+ * Existe una relacion N:1 con la tabla cine.
+ * Existe una relacion 1:N con la tabla proyeccion.
+ * 
+ * @author ainhoa
+ *
+ */
 public class Sala implements Serializable {
-
-	 /**
-	  * Este POJO es la tabla t_sala
-	 	Relacion N:M con la tabla t_pelicula
-	 	Relacion 1:N con la tabla t_entrada
-	 	Relacion 1:N con la tabla t_cine
-	  */
 	
-	private static final long serialVersionUID = -6070358253908309401L;
-
+	private static final long serialVersionUID = 5160892600345699704L;
+	
+	//Clave primaria
 	private int id = 0;
+	
+	//Atributos
 	private String nombre = null;
 	
-	public Sala(int id, String nombre) {
-		super()	;
+	//Claves externas
+	private int idCine = 0;
 	
-	this.id = id;
-	this.nombre = nombre;
-	
+	//Relaciones
+	private Cine cine = null;
+	private ArrayList<Proyeccion> proyecciones = null;
+
+	/**
+	 * Constructor vacio.
+	 */
+	public Sala() {
+		
+	}
+
+	/**
+	 * Constructor sobrecargado.
+	 */
+	public Sala(int id, String nombre, int idCine, Cine cine, ArrayList<Proyeccion> proyecciones) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.idCine = idCine;
+		this.cine = cine;
+		this.proyecciones = proyecciones;
 	}
 
 	public int getId() {
@@ -41,13 +65,37 @@ public class Sala implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public int getIdCine() {
+		return idCine;
+	}
+
+	public void setIdCine(int idCine) {
+		this.idCine = idCine;
+	}
+
+	public Cine getCine() {
+		return cine;
+	}
+
+	public void setCine(Cine cine) {
+		this.cine = cine;
+	}
+
+	public ArrayList<Proyeccion> getProyecciones() {
+		return proyecciones;
+	}
+
+	public void setProyecciones(ArrayList<Proyeccion> proyecciones) {
+		this.proyecciones = proyecciones;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nombre);
+		return Objects.hash(cine, id, idCine, nombre, proyecciones);
 	}
 
 	@Override
@@ -59,14 +107,14 @@ public class Sala implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Sala other = (Sala) obj;
-		return id == other.id && Objects.equals(nombre, other.nombre);
-		
+		return Objects.equals(cine, other.cine) && id == other.id && idCine == other.idCine
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(proyecciones, other.proyecciones);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Sala [id=" + id + ", nombre=" + nombre + "]";
+		return "Sala [id=" + id + ", nombre=" + nombre + ", idCine=" + idCine + ", cine=" + cine + ", proyecciones="
+				+ proyecciones + "]";
 	}
-
-
+	
 }
