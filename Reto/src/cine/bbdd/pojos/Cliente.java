@@ -43,7 +43,7 @@ public class Cliente implements Serializable {
 	 * Constructor sobrecargado.
 	 */
 	public Cliente(int id, String dni, String nombre, String apellidos, String usuario, String contrasena, String sexo,
-			String direccion, ArrayList<Entrada> entradas) {
+			String direccion) {
 		super();
 		this.id = id;
 		this.dni = dni;
@@ -53,7 +53,6 @@ public class Cliente implements Serializable {
 		this.contrasena = contrasena;
 		this.sexo = sexo;
 		this.direccion = direccion;
-		this.entradas = entradas;
 	}
 
 	public int getId() {
@@ -134,7 +133,7 @@ public class Cliente implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellidos, contrasena, direccion, dni, entradas, id, nombre, sexo, usuario);
+		return Objects.hash(apellidos, contrasena, direccion, dni, id, nombre, sexo, usuario);
 	}
 
 	@Override
@@ -147,16 +146,15 @@ public class Cliente implements Serializable {
 			return false;
 		Cliente other = (Cliente) obj;
 		return Objects.equals(apellidos, other.apellidos) && Objects.equals(contrasena, other.contrasena)
-				&& Objects.equals(direccion, other.direccion) && Objects.equals(dni, other.dni)
-				&& Objects.equals(entradas, other.entradas) && id == other.id && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(sexo, other.sexo) && Objects.equals(usuario, other.usuario);
+				&& Objects.equals(direccion, other.direccion) && Objects.equals(dni, other.dni) && id == other.id
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(sexo, other.sexo)
+				&& Objects.equals(usuario, other.usuario);
 	}
 
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", usuario="
-				+ usuario + ", contrasena=" + contrasena + ", sexo=" + sexo + ", direccion=" + direccion + ", entradas="
-				+ entradas + "]";
+				+ usuario + ", contrasena=" + contrasena + ", sexo=" + sexo + ", direccion=" + direccion + "]";
 	}
 
 }

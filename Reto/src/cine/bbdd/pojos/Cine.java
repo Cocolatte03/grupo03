@@ -36,12 +36,11 @@ public class Cine implements Serializable {
 	/**
 	 * Constructor sobrecargado.
 	 */
-	public Cine(int id, String nombre, String direccion, ArrayList<Sala> salas) {
+	public Cine(int id, String nombre, String direccion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.direccion = direccion;
-		this.salas = salas;
 	}
 
 	public int getId() {
@@ -82,7 +81,7 @@ public class Cine implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(direccion, id, nombre, salas);
+		return Objects.hash(direccion, id, nombre);
 	}
 
 	@Override
@@ -94,13 +93,12 @@ public class Cine implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cine other = (Cine) obj;
-		return Objects.equals(direccion, other.direccion) && id == other.id && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(salas, other.salas);
+		return Objects.equals(direccion, other.direccion) && id == other.id && Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
-		return "Cine [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", salas=" + salas + "]";
+		return "Cine [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
 
 }

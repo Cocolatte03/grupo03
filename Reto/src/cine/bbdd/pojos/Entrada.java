@@ -41,14 +41,12 @@ public class Entrada implements Serializable {
 	/**
 	 * Constructor sobrecargado.
 	 */
-	public Entrada(int id, Date fechaCompra, int idProyeccion, int idCliente, Proyeccion proyeccion, Cliente cliente) {
+	public Entrada(int id, Date fechaCompra, int idProyeccion, int idCliente) {
 		super();
 		this.id = id;
 		this.fechaCompra = fechaCompra;
 		this.idProyeccion = idProyeccion;
 		this.idCliente = idCliente;
-		this.proyeccion = proyeccion;
-		this.cliente = cliente;
 	}
 
 	public int getId() {
@@ -105,7 +103,7 @@ public class Entrada implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cliente, fechaCompra, id, idCliente, idProyeccion, proyeccion);
+		return Objects.hash(fechaCompra, id, idCliente, idProyeccion);
 	}
 
 	@Override
@@ -117,15 +115,14 @@ public class Entrada implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Entrada other = (Entrada) obj;
-		return Objects.equals(cliente, other.cliente) && Objects.equals(fechaCompra, other.fechaCompra)
-				&& id == other.id && idCliente == other.idCliente && idProyeccion == other.idProyeccion
-				&& Objects.equals(proyeccion, other.proyeccion);
+		return Objects.equals(fechaCompra, other.fechaCompra) && id == other.id && idCliente == other.idCliente
+				&& idProyeccion == other.idProyeccion;
 	}
 
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", idProyeccion=" + idProyeccion + ", idCliente="
-				+ idCliente + ", proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
+				+ idCliente + "]";
 	}
 
 }
