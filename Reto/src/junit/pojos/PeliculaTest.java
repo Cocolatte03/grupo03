@@ -9,41 +9,6 @@ import cine.bbdd.pojos.Pelicula;
 public class PeliculaTest {
 
 	/*
-	 * Probar el constructor vacío
-	 */
-	@Test
-	public void testConstructorVacio() {
-		Pelicula pelicula = new Pelicula();
-
-		assertEquals(pelicula.getId(), 0);
-		assertNull(pelicula.getTitulo());
-		assertEquals(pelicula.getDuracion(), 0);
-		assertNull(pelicula.getGenero());
-		assertEquals(pelicula.getCoste(), 0);
-		assertNull(pelicula.getProyecciones());
-	}
-
-	/*
-	 * Probar el constructor sobrecargado
-	 */
-	@Test
-	public void testConstructorSobrecargado() {
-		int id = 1;
-		String titulo = "Handia";
-		int duracion = 200;
-		String genero = "Drama";
-		int coste = 100000;
-
-		Pelicula pelicula = new Pelicula(id, titulo, duracion, genero, coste);
-		
-		assertEquals(pelicula.getId(), id);
-		assertEquals(pelicula.getTitulo(), titulo);
-		assertEquals(pelicula.getDuracion(), duracion);
-		assertEquals(pelicula.getGenero(), genero);
-		assertEquals(pelicula.getCoste(), coste);
-	}
-
-	/*
 	 * Probar los metodos setId() y getId()
 	 */
 	@Test
@@ -118,8 +83,14 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
-
-		Pelicula pelicula = new Pelicula(id, titulo, duracion, genero, coste);
+		
+		Pelicula pelicula = new Pelicula();
+		
+		pelicula.setId(id);
+		pelicula.setTitulo(titulo);
+		pelicula.setDuracion(duracion);
+		pelicula.setGenero(genero);
+		pelicula.setCoste(coste);
 
 		String esperado = "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
 				+ ", coste=" + coste + "]";
@@ -138,8 +109,21 @@ public class PeliculaTest {
 		String genero = "Drama";
 		int coste = 100000;
 
-		Pelicula pelicula1 = new Pelicula(id, titulo, duracion, genero, coste);
-		Pelicula pelicula2 = new Pelicula(id, titulo, duracion, genero, coste);
+		Pelicula pelicula1 = new Pelicula();
+		
+		pelicula1.setId(id);
+		pelicula1.setTitulo(titulo);
+		pelicula1.setDuracion(duracion);
+		pelicula1.setGenero(genero);
+		pelicula1.setCoste(coste);
+		
+		Pelicula pelicula2 = new Pelicula();
+		
+		pelicula2.setId(id);
+		pelicula2.setTitulo(titulo);
+		pelicula2.setDuracion(duracion);
+		pelicula2.setGenero(genero);
+		pelicula2.setCoste(coste);
 
 		assertTrue(pelicula1.equals(pelicula2));
 		assertTrue(pelicula2.equals(pelicula1));
@@ -157,8 +141,21 @@ public class PeliculaTest {
 		String genero = "Drama";
 		int coste = 100000;
 
-		Pelicula pelicula1 = new Pelicula(id, titulo, duracion, genero, coste);
-		Pelicula pelicula2 = new Pelicula(id2, titulo, duracion, genero, coste);
+		Pelicula pelicula1 = new Pelicula();
+		
+		pelicula1.setId(id);
+		pelicula1.setTitulo(titulo);
+		pelicula1.setDuracion(duracion);
+		pelicula1.setGenero(genero);
+		pelicula1.setCoste(coste);
+		
+		Pelicula pelicula2 = new Pelicula();
+		
+		pelicula2.setId(id2);
+		pelicula2.setTitulo(titulo);
+		pelicula2.setDuracion(duracion);
+		pelicula2.setGenero(genero);
+		pelicula2.setCoste(coste);
 
 		assertFalse(pelicula1.equals(pelicula2));
 		assertFalse(pelicula2.equals(pelicula1));

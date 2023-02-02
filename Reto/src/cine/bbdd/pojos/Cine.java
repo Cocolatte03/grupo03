@@ -26,23 +26,6 @@ public class Cine implements Serializable {
 	//Relaciones
 	private ArrayList<Sala> salas = null;
 
-	/**
-	 * Constructor vacio.
-	 */
-	public Cine() {
-
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Cine(int id, String nombre, String direccion) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.direccion = direccion;
-	}
-
 	public int getId() {
 		return id;
 	}

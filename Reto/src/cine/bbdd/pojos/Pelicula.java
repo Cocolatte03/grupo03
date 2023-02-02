@@ -28,25 +28,6 @@ public class Pelicula implements Serializable {
 	
 	//Relaciones
 	private ArrayList<Proyeccion> proyecciones = null;
-	
-	/**
-	 * Constructor vacio.
-	 */
-	public Pelicula() {
-		
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Pelicula(int id, String titulo, int duracion, String genero, int coste) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.duracion = duracion;
-		this.genero = genero;
-		this.coste = coste;
-	}
 
 	public int getId() {
 		return id;

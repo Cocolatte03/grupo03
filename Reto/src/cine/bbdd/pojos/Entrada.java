@@ -30,24 +30,6 @@ public class Entrada implements Serializable {
 	//Relaciones
 	private Proyeccion proyeccion = null;
 	private Cliente cliente = null;
-	
-	/**
-	 * Constructor vacio.
-	 */
-	public Entrada() {
-		
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Entrada(int id, Date fechaCompra, int idProyeccion, int idCliente) {
-		super();
-		this.id = id;
-		this.fechaCompra = fechaCompra;
-		this.idProyeccion = idProyeccion;
-		this.idCliente = idCliente;
-	}
 
 	public int getId() {
 		return id;

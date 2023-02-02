@@ -12,43 +12,6 @@ import cine.bbdd.pojos.Proyeccion;
 public class ProyeccionTest {
 
 	/*
-	 * Probar el constructor vacío
-	 */
-	@Test
-	public void testConstructorVacio() {
-		Proyeccion proyeccion = new Proyeccion();
-
-		assertEquals(proyeccion.getId(), 0);
-		assertEquals(proyeccion.getPrecio(), 0);
-		assertNull(proyeccion.getFecha());
-		assertNull(proyeccion.getHora());
-		assertEquals(proyeccion.getIdPelicula(), 0);
-		assertEquals(proyeccion.getIdSala(), 0);
-	}
-
-	/*
-	 * Probar el constructor sobrecargado
-	 */
-	@Test
-	public void testConstructorSobrecargado() {
-		int id = 1;
-		int precio = 10;
-		LocalDate fecha = LocalDate.of(2023, 02, 02);
-		LocalTime hora = LocalTime.of(12, 0);
-		int idPelicula = 1;
-		int idSala = 1;
-
-		Proyeccion proyeccion = new Proyeccion(id, precio, fecha, hora, idPelicula, idSala);
-
-		assertEquals(proyeccion.getId(), id);
-		assertEquals(proyeccion.getPrecio(), precio);
-		assertEquals(proyeccion.getFecha(), fecha);
-		assertEquals(proyeccion.getHora(), hora);
-		assertEquals(proyeccion.getIdPelicula(), idPelicula);
-		assertEquals(proyeccion.getIdSala(), idSala);
-	}
-
-	/*
 	 * Probar los metodos setId() y getId()
 	 */
 	@Test
@@ -138,7 +101,14 @@ public class ProyeccionTest {
 		int idPelicula = 1;
 		int idSala = 1;
 
-		Proyeccion proyeccion = new Proyeccion(id, precio, fecha, hora, idPelicula, idSala);
+		Proyeccion proyeccion = new Proyeccion();
+		
+		proyeccion.setId(id);
+		proyeccion.setPrecio(precio);
+		proyeccion.setFecha(fecha);
+		proyeccion.setHora(hora);
+		proyeccion.setIdPelicula(idPelicula);
+		proyeccion.setIdSala(idSala);
 
 		String esperado = "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora
 				+ ", idPelicula=" + idPelicula + ", idSala=" + idSala + "]";
@@ -158,8 +128,23 @@ public class ProyeccionTest {
 		int idPelicula = 1;
 		int idSala = 1;
 
-		Proyeccion proyeccion1 = new Proyeccion(id, precio, fecha, hora, idPelicula, idSala);
-		Proyeccion proyeccion2 = new Proyeccion(id, precio, fecha, hora, idPelicula, idSala);
+		Proyeccion proyeccion1 = new Proyeccion();
+		
+		proyeccion1.setId(id);
+		proyeccion1.setPrecio(precio);
+		proyeccion1.setFecha(fecha);
+		proyeccion1.setHora(hora);
+		proyeccion1.setIdPelicula(idPelicula);
+		proyeccion1.setIdSala(idSala);
+		
+		Proyeccion proyeccion2 = new Proyeccion();
+		
+		proyeccion2.setId(id);
+		proyeccion2.setPrecio(precio);
+		proyeccion2.setFecha(fecha);
+		proyeccion2.setHora(hora);
+		proyeccion2.setIdPelicula(idPelicula);
+		proyeccion2.setIdSala(idSala);
 		
 		assertTrue(proyeccion1.equals(proyeccion2));
 		assertTrue(proyeccion2.equals(proyeccion1));
@@ -178,8 +163,23 @@ public class ProyeccionTest {
 		int idPelicula = 1;
 		int idSala = 1;
 
-		Proyeccion proyeccion1 = new Proyeccion(id, precio, fecha, hora, idPelicula, idSala);
-		Proyeccion proyeccion2 = new Proyeccion(id2, precio, fecha, hora, idPelicula, idSala);
+		Proyeccion proyeccion1 = new Proyeccion();
+		
+		proyeccion1.setId(id);
+		proyeccion1.setPrecio(precio);
+		proyeccion1.setFecha(fecha);
+		proyeccion1.setHora(hora);
+		proyeccion1.setIdPelicula(idPelicula);
+		proyeccion1.setIdSala(idSala);
+		
+		Proyeccion proyeccion2 = new Proyeccion();
+		
+		proyeccion2.setId(id2);
+		proyeccion2.setPrecio(precio);
+		proyeccion2.setFecha(fecha);
+		proyeccion2.setHora(hora);
+		proyeccion2.setIdPelicula(idPelicula);
+		proyeccion2.setIdSala(idSala);
 		
 		assertFalse(proyeccion1.equals(proyeccion2));
 		assertFalse(proyeccion2.equals(proyeccion1));

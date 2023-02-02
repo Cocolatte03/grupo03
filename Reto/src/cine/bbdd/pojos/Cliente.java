@@ -31,29 +31,6 @@ public class Cliente implements Serializable {
 	
 	//Relaciones
 	private ArrayList<Entrada> entradas = null;
-	
-	/**
-	 * Constructor vacio.
-	 */
-	public Cliente() {
-		
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Cliente(int id, String dni, String nombre, String apellidos, String usuario, String contrasena, String sexo,
-			String direccion) {
-		super();
-		this.id = id;
-		this.dni = dni;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.usuario = usuario;
-		this.contrasena = contrasena;
-		this.sexo = sexo;
-		this.direccion = direccion;
-	}
 
 	public int getId() {
 		return id;

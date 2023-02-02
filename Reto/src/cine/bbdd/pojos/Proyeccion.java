@@ -37,26 +37,6 @@ public class Proyeccion implements Serializable {
 	private Pelicula pelicula = null;
 	private Sala sala = null;
 
-	/**
-	 * Constructor vacio.
-	 */
-	public Proyeccion() {
-
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Proyeccion(int id, int precio, LocalDate fecha, LocalTime hora, int idPelicula, int idSala) {
-		super();
-		this.id = id;
-		this.precio = precio;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.idPelicula = idPelicula;
-		this.idSala = idSala;
-	}
-
 	public int getId() {
 		return id;
 	}

@@ -30,23 +30,6 @@ public class Sala implements Serializable {
 	private Cine cine = null;
 	private ArrayList<Proyeccion> proyecciones = null;
 
-	/**
-	 * Constructor vacio.
-	 */
-	public Sala() {
-		
-	}
-
-	/**
-	 * Constructor sobrecargado.
-	 */
-	public Sala(int id, String nombre, int idCine) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.idCine = idCine;
-	}
-
 	public int getId() {
 		return id;
 	}
