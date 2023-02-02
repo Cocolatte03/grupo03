@@ -1,16 +1,17 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
-	
+
 /**
- * Esta clase describe la tabla proyeccion.
+ * Esta clase describe la tabla proyeccion. Cabe recalcar el formato de la fecha
+ * y hora, cuya libreria es java.time.
  * 
- * Existe una relacion de 1:N con la tabla entrada.
- * Existe una relacion de N:1 con la tabla sala.
- * Existe una relacion de N:1 con la tabla pelicula.
+ * Existe una relacion de 1:N con la tabla entrada. Existe una relacion de N:1
+ * con la tabla sala. Existe una relacion de N:1 con la tabla pelicula.
  * 
  * @author leire
  *
@@ -18,36 +19,35 @@ import java.util.Objects;
 public class Proyeccion implements Serializable {
 
 	private static final long serialVersionUID = -1714643404022780329L;
-	
-	//Clave primaria
+
+	// Clave primaria
 	private int id = 0;
 
-	//Atributos
+	// Atributos
 	private int precio = 0;
-	private Date fecha = null;
-	private Date hora = null;
-	
-	//Claves externas
+	private LocalDate fecha = null;
+	private LocalTime hora = null;
+
+	// Claves externas
 	private int idPelicula = 0;
 	private int idSala = 0;
-	
-	//Relaciones
+
+	// Relaciones
 	private ArrayList<Entrada> entradas = null;
 	private Pelicula pelicula = null;
 	private Sala sala = null;
-	
+
 	/**
 	 * Constructor vacio.
 	 */
 	public Proyeccion() {
-		
+
 	}
 
 	/**
 	 * Constructor sobrecargado.
 	 */
-	public Proyeccion(int id, int precio, Date fecha, Date hora, int idPelicula, int idSala,
-			ArrayList<Entrada> entradas, Pelicula pelicula, Sala sala) {
+	public Proyeccion(int id, int precio, LocalDate fecha, LocalTime hora, int idPelicula, int idSala) {
 		super();
 		this.id = id;
 		this.precio = precio;
@@ -55,9 +55,6 @@ public class Proyeccion implements Serializable {
 		this.hora = hora;
 		this.idPelicula = idPelicula;
 		this.idSala = idSala;
-		this.entradas = entradas;
-		this.pelicula = pelicula;
-		this.sala = sala;
 	}
 
 	public int getId() {
@@ -76,19 +73,19 @@ public class Proyeccion implements Serializable {
 		this.precio = precio;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
-	public Date getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
@@ -138,7 +135,7 @@ public class Proyeccion implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entradas, fecha, hora, id, idPelicula, idSala, pelicula, precio, sala);
+		return Objects.hash(fecha, hora, id, idPelicula, idSala, precio);
 	}
 
 	@Override
@@ -150,17 +147,14 @@ public class Proyeccion implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Proyeccion other = (Proyeccion) obj;
-		return Objects.equals(entradas, other.entradas) && Objects.equals(fecha, other.fecha)
-				&& Objects.equals(hora, other.hora) && id == other.id && idPelicula == other.idPelicula
-				&& idSala == other.idSala && Objects.equals(pelicula, other.pelicula) && precio == other.precio
-				&& Objects.equals(sala, other.sala);
+		return Objects.equals(fecha, other.fecha) && Objects.equals(hora, other.hora) && id == other.id
+				&& idPelicula == other.idPelicula && idSala == other.idSala && precio == other.precio;
 	}
 
 	@Override
 	public String toString() {
 		return "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora + ", idPelicula="
-				+ idPelicula + ", idSala=" + idSala + ", entradas=" + entradas + ", pelicula=" + pelicula + ", sala="
-				+ sala + "]";
+				+ idPelicula + ", idSala=" + idSala + "]";
 	}
 
 }
