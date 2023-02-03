@@ -10,7 +10,7 @@ import java.util.Objects;
  * Existe una relacion N:1 con la tabla cine.
  * Existe una relacion 1:N con la tabla proyeccion.
  * 
- * @author ainhoa
+ * @author vaain
  *
  */
 public class Sala implements Serializable {

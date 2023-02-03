@@ -9,7 +9,7 @@ import java.util.Objects;
  * 
  * Existe una relacion 1:N con la tabla sala.
  * 
- * @author ainhoa
+ * @author vaain
  *
  */
 public class Cine implements Serializable {
