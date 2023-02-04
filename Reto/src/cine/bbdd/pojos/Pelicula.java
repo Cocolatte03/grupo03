@@ -83,7 +83,7 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(coste, duracion, genero, id, titulo);
+		return Objects.hash(coste, duracion, genero, id, proyecciones, titulo);
 	}
 
 	@Override
@@ -96,13 +96,14 @@ public class Pelicula implements Serializable {
 			return false;
 		Pelicula other = (Pelicula) obj;
 		return coste == other.coste && duracion == other.duracion && Objects.equals(genero, other.genero)
-				&& id == other.id && Objects.equals(titulo, other.titulo);
+				&& id == other.id && Objects.equals(proyecciones, other.proyecciones)
+				&& Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
-				+ ", coste=" + coste + "]";
+				+ ", coste=" + coste + ", proyecciones=" + proyecciones + "]";
 	}
 
 }

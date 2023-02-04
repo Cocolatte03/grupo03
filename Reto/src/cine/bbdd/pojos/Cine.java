@@ -9,7 +9,7 @@ import java.util.Objects;
  * 
  * Existe una relacion 1:N con la tabla sala.
  * 
- * @author vaain
+ * @author ainhoa
  *
  */
 public class Cine implements Serializable {
@@ -64,7 +64,7 @@ public class Cine implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(direccion, id, nombre);
+		return Objects.hash(direccion, id, nombre, salas);
 	}
 
 	@Override
@@ -76,12 +76,13 @@ public class Cine implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cine other = (Cine) obj;
-		return Objects.equals(direccion, other.direccion) && id == other.id && Objects.equals(nombre, other.nombre);
+		return Objects.equals(direccion, other.direccion) && id == other.id && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(salas, other.salas);
 	}
 
 	@Override
 	public String toString() {
-		return "Cine [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
+		return "Cine [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", salas=" + salas + "]";
 	}
 
 }

@@ -7,26 +7,26 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla sala.
  * 
- * Existe una relacion N:1 con la tabla cine.
+ * Existe una relacion N:1 con la tabla cine. 
  * Existe una relacion 1:N con la tabla proyeccion.
  * 
- * @author vaain
+ * @author ainhoa
  *
  */
 public class Sala implements Serializable {
-	
+
 	private static final long serialVersionUID = 5160892600345699704L;
-	
-	//Clave primaria
+
+	// Clave primaria
 	private int id = 0;
-	
-	//Atributos
+
+	// Atributos
 	private String nombre = null;
-	
-	//Claves externas
+
+	// Claves externas
 	private int idCine = 0;
-	
-	//Relaciones
+
+	// Relaciones
 	private Cine cine = null;
 	private ArrayList<Proyeccion> proyecciones = null;
 
@@ -76,7 +76,7 @@ public class Sala implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, idCine, nombre);
+		return Objects.hash(cine, id, idCine, nombre, proyecciones);
 	}
 
 	@Override
@@ -88,12 +88,14 @@ public class Sala implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Sala other = (Sala) obj;
-		return id == other.id && idCine == other.idCine && Objects.equals(nombre, other.nombre);
+		return Objects.equals(cine, other.cine) && id == other.id && idCine == other.idCine
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(proyecciones, other.proyecciones);
 	}
 
 	@Override
 	public String toString() {
-		return "Sala [id=" + id + ", nombre=" + nombre + ", idCine=" + idCine + "]";
+		return "Sala [id=" + id + ", nombre=" + nombre + ", idCine=" + idCine + ", cine=" + cine + ", proyecciones="
+				+ proyecciones + "]";
 	}
-	
+
 }

@@ -2,10 +2,19 @@ package junit.pojos;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import cine.bbdd.pojos.Pelicula;
+import cine.bbdd.pojos.Proyeccion;
 
+/**
+ * Este test prueba la clase Pelicula
+ * 
+ * @author leire
+ *
+ */
 public class PeliculaTest {
 
 	/*
@@ -72,6 +81,18 @@ public class PeliculaTest {
 
 		assertEquals(pelicula.getCoste(), coste);
 	}
+	
+	/*
+	 * Probar los metodos setProyecciones() y getProyecciones()
+	 */
+	@Test
+	public void testProyecciones() {
+		Pelicula pelicula = new Pelicula();
+
+		pelicula.setProyecciones(null);
+
+		assertNull(pelicula.getProyecciones());
+	}
 
 	/*
 	 * Probar el metodo toString()
@@ -83,6 +104,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		ArrayList<Proyeccion> proyecciones = null;
 		
 		Pelicula pelicula = new Pelicula();
 		
@@ -91,9 +113,10 @@ public class PeliculaTest {
 		pelicula.setDuracion(duracion);
 		pelicula.setGenero(genero);
 		pelicula.setCoste(coste);
+		pelicula.setProyecciones(proyecciones);
 
 		String esperado = "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
-				+ ", coste=" + coste + "]";
+				+ ", coste=" + coste + ", proyecciones=" + proyecciones + "]";
 
 		assertEquals(pelicula.toString(), esperado);
 	}
@@ -108,6 +131,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
 		
@@ -116,6 +140,7 @@ public class PeliculaTest {
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
+		pelicula1.setProyecciones(proyecciones);
 		
 		Pelicula pelicula2 = new Pelicula();
 		
@@ -124,6 +149,7 @@ public class PeliculaTest {
 		pelicula2.setDuracion(duracion);
 		pelicula2.setGenero(genero);
 		pelicula2.setCoste(coste);
+		pelicula2.setProyecciones(proyecciones);
 
 		assertTrue(pelicula1.equals(pelicula2));
 		assertTrue(pelicula2.equals(pelicula1));
@@ -140,6 +166,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
 		
@@ -148,6 +175,7 @@ public class PeliculaTest {
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
+		pelicula1.setProyecciones(proyecciones);
 		
 		Pelicula pelicula2 = new Pelicula();
 		
@@ -156,6 +184,7 @@ public class PeliculaTest {
 		pelicula2.setDuracion(duracion);
 		pelicula2.setGenero(genero);
 		pelicula2.setCoste(coste);
+		pelicula2.setProyecciones(proyecciones);
 
 		assertFalse(pelicula1.equals(pelicula2));
 		assertFalse(pelicula2.equals(pelicula1));

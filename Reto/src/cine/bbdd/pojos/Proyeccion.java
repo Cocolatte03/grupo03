@@ -10,8 +10,9 @@ import java.util.Objects;
  * Esta clase describe la tabla proyeccion. Cabe recalcar el formato de la fecha
  * y hora, cuya libreria es java.time.
  * 
- * Existe una relacion de 1:N con la tabla entrada. Existe una relacion de N:1
- * con la tabla sala. Existe una relacion de N:1 con la tabla pelicula.
+ * Existe una relacion de 1:N con la tabla entrada. 
+ * Existe una relacion de N:1 con la tabla sala. 
+ * Existe una relacion de N:1 con la tabla pelicula.
  * 
  * @author leire
  *
@@ -115,7 +116,7 @@ public class Proyeccion implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, hora, id, idPelicula, idSala, precio);
+		return Objects.hash(entradas, fecha, hora, id, idPelicula, idSala, pelicula, precio, sala);
 	}
 
 	@Override
@@ -127,14 +128,17 @@ public class Proyeccion implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Proyeccion other = (Proyeccion) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(hora, other.hora) && id == other.id
-				&& idPelicula == other.idPelicula && idSala == other.idSala && precio == other.precio;
+		return Objects.equals(entradas, other.entradas) && Objects.equals(fecha, other.fecha)
+				&& Objects.equals(hora, other.hora) && id == other.id && idPelicula == other.idPelicula
+				&& idSala == other.idSala && Objects.equals(pelicula, other.pelicula) && precio == other.precio
+				&& Objects.equals(sala, other.sala);
 	}
 
 	@Override
 	public String toString() {
 		return "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora + ", idPelicula="
-				+ idPelicula + ", idSala=" + idSala + "]";
+				+ idPelicula + ", idSala=" + idSala + ", entradas=" + entradas + ", pelicula=" + pelicula + ", sala="
+				+ sala + "]";
 	}
 
 }

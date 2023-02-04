@@ -1,13 +1,13 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Esta clase describe la tabla entrada.
  * 
- * Existe una relacion N:1 con la tabla cliente.
+ * Existe una relacion N:1 con la tabla cliente. 
  * Existe una relacion N:1 con la tabla proyeccion.
  * 
  * @author alexis
@@ -16,18 +16,18 @@ import java.util.Objects;
 public class Entrada implements Serializable {
 
 	private static final long serialVersionUID = -7981210032729514915L;
-	
-	//Clave primaria
+
+	// Clave primaria
 	private int id = 0;
-	
-	//Atributos
-	private Date fechaCompra = null;
-	
-	//Claves externas
+
+	// Atributos
+	private LocalDate fechaCompra = null;
+
+	// Claves externas
 	private int idProyeccion = 0;
 	private int idCliente = 0;
-	
-	//Relaciones
+
+	// Relaciones
 	private Proyeccion proyeccion = null;
 	private Cliente cliente = null;
 
@@ -39,11 +39,11 @@ public class Entrada implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFechaCompra() {
+	public LocalDate getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(LocalDate fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
@@ -85,7 +85,7 @@ public class Entrada implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fechaCompra, id, idCliente, idProyeccion);
+		return Objects.hash(cliente, fechaCompra, id, idCliente, idProyeccion, proyeccion);
 	}
 
 	@Override
@@ -97,14 +97,15 @@ public class Entrada implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Entrada other = (Entrada) obj;
-		return Objects.equals(fechaCompra, other.fechaCompra) && id == other.id && idCliente == other.idCliente
-				&& idProyeccion == other.idProyeccion;
+		return Objects.equals(cliente, other.cliente) && Objects.equals(fechaCompra, other.fechaCompra)
+				&& id == other.id && idCliente == other.idCliente && idProyeccion == other.idProyeccion
+				&& Objects.equals(proyeccion, other.proyeccion);
 	}
 
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", idProyeccion=" + idProyeccion + ", idCliente="
-				+ idCliente + "]";
+				+ idCliente + ", proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
 	}
 
 }
