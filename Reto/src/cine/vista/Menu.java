@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class menu {
+public class Menu {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class menu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					menu window = new menu();
+					Menu window = new Menu();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class menu {
 	/**
 	 * Create the application.
 	 */
-	public menu() {
+	public Menu() {
 		initialize();
 	}
 
