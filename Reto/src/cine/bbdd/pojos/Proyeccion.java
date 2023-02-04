@@ -25,7 +25,7 @@ public class Proyeccion implements Serializable {
 	private int id = 0;
 
 	// Atributos
-	private int precio = 0;
+	private double precio = 0;
 	private LocalDate fecha = null;
 	private LocalTime hora = null;
 
@@ -46,11 +46,11 @@ public class Proyeccion implements Serializable {
 		this.id = id;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 

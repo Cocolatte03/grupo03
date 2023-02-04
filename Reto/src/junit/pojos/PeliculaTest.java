@@ -81,7 +81,7 @@ public class PeliculaTest {
 
 		assertEquals(pelicula.getCoste(), coste);
 	}
-	
+
 	/*
 	 * Probar los metodos setProyecciones() y getProyecciones()
 	 */
@@ -89,7 +89,8 @@ public class PeliculaTest {
 	public void testProyecciones() {
 		Pelicula pelicula = new Pelicula();
 
-		pelicula.setProyecciones(null);
+		ArrayList<Proyeccion> proyecciones = null;
+		pelicula.setProyecciones(proyecciones);
 
 		assertNull(pelicula.getProyecciones());
 	}
@@ -105,9 +106,9 @@ public class PeliculaTest {
 		String genero = "Drama";
 		int coste = 100000;
 		ArrayList<Proyeccion> proyecciones = null;
-		
+
 		Pelicula pelicula = new Pelicula();
-		
+
 		pelicula.setId(id);
 		pelicula.setTitulo(titulo);
 		pelicula.setDuracion(duracion);
@@ -120,7 +121,7 @@ public class PeliculaTest {
 
 		assertEquals(pelicula.toString(), esperado);
 	}
-	
+
 	/*
 	 * Probar el metodo equals() con resultado verdadero
 	 */
@@ -134,16 +135,16 @@ public class PeliculaTest {
 		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
-		
+
 		pelicula1.setId(id);
 		pelicula1.setTitulo(titulo);
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
 		pelicula1.setProyecciones(proyecciones);
-		
+
 		Pelicula pelicula2 = new Pelicula();
-		
+
 		pelicula2.setId(id);
 		pelicula2.setTitulo(titulo);
 		pelicula2.setDuracion(duracion);
@@ -154,7 +155,7 @@ public class PeliculaTest {
 		assertTrue(pelicula1.equals(pelicula2));
 		assertTrue(pelicula2.equals(pelicula1));
 	}
-	
+
 	/*
 	 * Probar el metodo equals() con resultado falso
 	 */
@@ -169,16 +170,16 @@ public class PeliculaTest {
 		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
-		
+
 		pelicula1.setId(id);
 		pelicula1.setTitulo(titulo);
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
 		pelicula1.setProyecciones(proyecciones);
-		
+
 		Pelicula pelicula2 = new Pelicula();
-		
+
 		pelicula2.setId(id2);
 		pelicula2.setTitulo(titulo);
 		pelicula2.setDuracion(duracion);
