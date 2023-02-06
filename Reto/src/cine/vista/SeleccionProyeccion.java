@@ -94,7 +94,7 @@ public class SeleccionProyeccion {
 
 	}
 	
-	private LocalDate confirmarFecha(JDatePickerImpl datePicker) {
+	private LocalDate confirmarFechaSeleccionada(JDatePickerImpl datePicker) {
 		LocalDate ret = null;
 		Date fechaSeleccionada = (Date) datePicker.getModel().getValue();
 		
