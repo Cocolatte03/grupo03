@@ -21,10 +21,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SeleccionPelicula {
 
-	private JFrame frame;
+	private JFrame spFrame;
 	private GestorPeliculas gestorPeliculas = null;
 	private ArrayList<Pelicula> peliculasDelCine = null;
 
@@ -36,7 +38,7 @@ public class SeleccionPelicula {
 			public void run() {
 				try {
 					SeleccionPelicula window = new SeleccionPelicula();
-					window.frame.setVisible(true);
+					window.spFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,22 +59,22 @@ public class SeleccionPelicula {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setTitle("Selección de la Película");
-		frame.getContentPane().setLayout(null);
+		spFrame = new JFrame();
+		spFrame.setBounds(100, 100, 1000, 700);
+		spFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		spFrame.setLocationRelativeTo(null);
+		spFrame.setTitle("Selección de la Película");
+		spFrame.getContentPane().setLayout(null);
 		
 		JLabel spLblCabecera = new JLabel("Seleccione una película:");
 		spLblCabecera.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		spLblCabecera.setBounds(66, 43, 446, 56);
-		frame.getContentPane().add(spLblCabecera);
+		spFrame.getContentPane().add(spLblCabecera);
 		
 		JPanel spPanelImg = new JPanel();
 		spPanelImg.setBackground(new Color(254, 251, 0));
 		spPanelImg.setBounds(551, 20, 426, 613);
-		frame.getContentPane().add(spPanelImg);
+		spFrame.getContentPane().add(spPanelImg);
 		spPanelImg.setLayout(new BorderLayout(0, 0));
 		
 		JLabel spLblImg = new JLabel("");
@@ -80,22 +82,22 @@ public class SeleccionPelicula {
 		
 		JPanel spPanelInfo = new JPanel();
 		spPanelInfo.setBounds(74, 267, 411, 348);
-		frame.getContentPane().add(spPanelInfo);
+		spFrame.getContentPane().add(spPanelInfo);
 		spPanelInfo.setLayout(null);
 		
 		JLabel spLblTitulo = new JLabel("Titulo: ");
 		spLblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		spLblTitulo.setBounds(22, 25, 61, 16);
+		spLblTitulo.setBounds(6, 25, 77, 16);
 		spPanelInfo.add(spLblTitulo);
 		
 		JLabel spLblGenero = new JLabel("Género:");
 		spLblGenero.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		spLblGenero.setBounds(22, 68, 61, 16);
+		spLblGenero.setBounds(6, 68, 77, 16);
 		spPanelInfo.add(spLblGenero);
 		
 		JLabel spLblDuracion = new JLabel("Duración:");
 		spLblDuracion.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		spLblDuracion.setBounds(22, 115, 61, 16);
+		spLblDuracion.setBounds(6, 115, 80, 16);
 		spPanelInfo.add(spLblDuracion);
 		
 		JLabel spLblTitulo1 = new JLabel("");
@@ -111,8 +113,16 @@ public class SeleccionPelicula {
 		spPanelInfo.add(spLblDuracion1);
 		
 		JButton spBtnContinuar = new JButton("Continuar");
+		spBtnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SeleccionProyeccion seleccionProyeccion = new SeleccionProyeccion();
+				seleccionProyeccion.frame.setVisible(true);
+				
+				spFrame.setVisible(false);
+			}
+		});
 		spBtnContinuar.setBounds(359, 161, 117, 29);
-		frame.getContentPane().add(spBtnContinuar);
+		spFrame.getContentPane().add(spBtnContinuar);
 		
 		JComboBox<String> spComboTitulos = new JComboBox<String>();
 		spComboTitulos.addItemListener(new ItemListener() {
@@ -122,11 +132,23 @@ public class SeleccionPelicula {
 			}
 		});
 		spComboTitulos.setBounds(66, 162, 237, 27);
-		frame.getContentPane().add(spComboTitulos);
+		spFrame.getContentPane().add(spComboTitulos);
 		
 		anadirPeliculasAlCombo(spComboTitulos);
 		cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
 		cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
+		
+		JButton spBtnAtras = new JButton("Atrás");
+		spBtnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaCine pantallaCine = new PantallaCine();
+				pantallaCine.frame.setVisible(true);
+				
+				spFrame.setVisible(false);
+			}
+		});
+		spBtnAtras.setBounds(6, 6, 68, 29);
+		spFrame.getContentPane().add(spBtnAtras);
 		
 	}
 	
@@ -146,7 +168,7 @@ public class SeleccionPelicula {
 		
 		label1.setText(titulo);
 		label2.setText(genero);
-		label3.setText(duracion + "min");
+		label3.setText(duracion + " min");
 	}
 	
 	private String obtenerDireccionCaratula(String titulo) {

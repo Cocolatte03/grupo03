@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
  */
 public class PantallaCine {
 
-	private JFrame frame;
+	JFrame frame;
 	private GestorCine gestorCine = null;
 	private ArrayList<Cine> cine = null;
 
