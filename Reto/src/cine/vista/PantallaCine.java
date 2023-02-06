@@ -9,6 +9,13 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import cine.bbdd.gestor.GestorCine;
+import cine.bbdd.pojos.Cine;
+
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+
 /**
  * 
  * @author vaain
@@ -17,6 +24,8 @@ import javax.swing.SwingConstants;
 public class PantallaCine {
 
 	private JFrame frame;
+	private GestorCine gestorCine = null;
+	private ArrayList<Cine> cine = null;
 
 	/**
 	 * Launch the application.
@@ -38,6 +47,8 @@ public class PantallaCine {
 	 * Create the application.
 	 */
 	public PantallaCine() {
+		gestorCine = new GestorCine();
+		
 		initialize();
 	}
 
@@ -46,8 +57,8 @@ public class PantallaCine {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Selección del Cine");
 		frame.getContentPane().setLayout(null);
@@ -59,15 +70,43 @@ public class PantallaCine {
 		frame.getContentPane().add(cabecera);
 		
 		JComboBox selectCine = new JComboBox();
+		selectCine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anadirCineAlCombo(selectCine);
+			}
+		});
 		selectCine.setBounds(30, 100, 230, 27);
 		frame.getContentPane().add(selectCine);
 		
 		JButton finalizar = new JButton("Finalizar Sesión");
+		finalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				ResumenCompra newframe = new ResumenCompra();
+//				newframe.main(null);
+//				frame.setVisible(false);
+			}
+		});
 		finalizar.setBounds(268, 207, 125, 27);
 		frame.getContentPane().add(finalizar);
 		
 		JButton irASelectPeli = new JButton("Confirmar");
+		irASelectPeli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SeleccionPelicula newframe = new SeleccionPelicula();
+				newframe.main(null);
+				frame.setVisible(false);
+			}
+		});
 		irASelectPeli.setBounds(292, 103, 100, 27);
 		frame.getContentPane().add(irASelectPeli);
 	}
+	
+	private void anadirCineAlCombo(JComboBox<String> combo) {
+		ArrayList<Cine> cines = gestorCine.getCine();
+		for (int i = 0; i < cines.size(); i++) {
+			combo.addItem(cines.get(i).getNombre());
+			cine.add(cines.get(i));
+		}
+	}
+
 }
