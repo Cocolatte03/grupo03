@@ -12,12 +12,12 @@ import cine.bbdd.utils.DBUtils;
 
 public class GestorCine {
 
-	private final String FILM_BY_CINEMA = "SELECT nombre "
+	private final String FILM_BY_CINEMA = "SELECT * "
 			+ "FROM cine";
 	
-	public ArrayList<Cine> getCine() {
+	public ArrayList<Cine> getAllCines() {
 		ArrayList<Cine> ret = null;
-		String sql = FILM_BY_CINEMA + "*" + "'";
+		String sql = FILM_BY_CINEMA;
 
 		Connection connection = null;
 

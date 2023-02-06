@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 
 public class SeleccionPelicula {
 
-	private JFrame spFrame;
+	JFrame spFrame;
 	private GestorPeliculas gestorPeliculas = null;
 	private ArrayList<Pelicula> peliculasDelCine = null;
 
@@ -116,7 +116,7 @@ public class SeleccionPelicula {
 		spBtnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SeleccionProyeccion seleccionProyeccion = new SeleccionProyeccion();
-				seleccionProyeccion.frame.setVisible(true);
+				seleccionProyeccion.sprFrame.setVisible(true);
 				
 				spFrame.setVisible(false);
 			}
@@ -134,7 +134,7 @@ public class SeleccionPelicula {
 		spComboTitulos.setBounds(66, 162, 237, 27);
 		spFrame.getContentPane().add(spComboTitulos);
 		
-		anadirPeliculasAlCombo(spComboTitulos);
+		anadirPeliculasAlCombo(spComboTitulos, "Cine Elorrieta Bilbao");
 		cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
 		cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
 		
@@ -142,7 +142,7 @@ public class SeleccionPelicula {
 		spBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PantallaCine pantallaCine = new PantallaCine();
-				pantallaCine.frame.setVisible(true);
+				pantallaCine.pcFrame.setVisible(true);
 				
 				spFrame.setVisible(false);
 			}
@@ -152,8 +152,8 @@ public class SeleccionPelicula {
 		
 	}
 	
-	private void anadirPeliculasAlCombo(JComboBox<String> combo) {
-		ArrayList<Pelicula> peliculas = gestorPeliculas.getPeliculasPorCine("Cine Elorrieta Bilbao");
+	private void anadirPeliculasAlCombo(JComboBox<String> combo, String cineSel) {
+		ArrayList<Pelicula> peliculas = gestorPeliculas.getPeliculasPorCine(cineSel);
 		for (int i = 0; i < peliculas.size(); i++) {
 			combo.addItem(peliculas.get(i).getTitulo());
 			peliculasDelCine.add(peliculas.get(i));
