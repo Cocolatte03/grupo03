@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 /**
  * 
@@ -50,13 +52,22 @@ public class PantallaCine {
 		frame.setTitle("Selección del Cine");
 		frame.getContentPane().setLayout(null);
 		
-		JLabel spLblCabecera = new JLabel("Seleccione un cine:");
-		spLblCabecera.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		spLblCabecera.setBounds(66, 43, 446, 56);
-		frame.getContentPane().add(spLblCabecera);
+		JLabel cabecera = new JLabel("Seleccione un cine:");
+		cabecera.setHorizontalAlignment(SwingConstants.CENTER);
+		cabecera.setFont(new Font("Dialog", Font.PLAIN, 20));
+		cabecera.setBounds(30, 43, 230, 56);
+		frame.getContentPane().add(cabecera);
 		
 		JComboBox selectCine = new JComboBox();
 		selectCine.setBounds(30, 100, 230, 27);
 		frame.getContentPane().add(selectCine);
+		
+		JButton finalizar = new JButton("Finalizar Sesión");
+		finalizar.setBounds(268, 207, 125, 27);
+		frame.getContentPane().add(finalizar);
+		
+		JButton irASelectPeli = new JButton("Confirmar");
+		irASelectPeli.setBounds(292, 103, 100, 27);
+		frame.getContentPane().add(irASelectPeli);
 	}
 }
