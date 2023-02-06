@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 
 public class ResumenCompra {
 
-	private JFrame rcFrame;
+	JFrame rcFrame;
 
 	/**
 	 * Launch the application.
