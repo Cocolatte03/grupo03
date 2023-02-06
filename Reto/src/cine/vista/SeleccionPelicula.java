@@ -71,7 +71,7 @@ public class SeleccionPelicula {
 		
 		JPanel spPanelImg = new JPanel();
 		spPanelImg.setBackground(new Color(254, 251, 0));
-		spPanelImg.setBounds(577, 20, 300, 400);
+		spPanelImg.setBounds(551, 20, 426, 613);
 		frame.getContentPane().add(spPanelImg);
 		spPanelImg.setLayout(new BorderLayout(0, 0));
 		
@@ -79,9 +79,36 @@ public class SeleccionPelicula {
 		spPanelImg.add(spLblImg, BorderLayout.CENTER);
 		
 		JPanel spPanelInfo = new JPanel();
-		spPanelInfo.setBounds(577, 452, 321, 201);
+		spPanelInfo.setBounds(74, 267, 411, 348);
 		frame.getContentPane().add(spPanelInfo);
 		spPanelInfo.setLayout(null);
+		
+		JLabel spLblTitulo = new JLabel("Titulo: ");
+		spLblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		spLblTitulo.setBounds(22, 25, 61, 16);
+		spPanelInfo.add(spLblTitulo);
+		
+		JLabel spLblGenero = new JLabel("Género:");
+		spLblGenero.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		spLblGenero.setBounds(22, 68, 61, 16);
+		spPanelInfo.add(spLblGenero);
+		
+		JLabel spLblDuracion = new JLabel("Duración:");
+		spLblDuracion.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		spLblDuracion.setBounds(22, 115, 61, 16);
+		spPanelInfo.add(spLblDuracion);
+		
+		JLabel spLblTitulo1 = new JLabel("");
+		spLblTitulo1.setBounds(103, 25, 284, 16);
+		spPanelInfo.add(spLblTitulo1);
+		
+		JLabel spLblGenero1 = new JLabel("");
+		spLblGenero1.setBounds(103, 68, 284, 16);
+		spPanelInfo.add(spLblGenero1);
+		
+		JLabel spLblDuracion1 = new JLabel("");
+		spLblDuracion1.setBounds(103, 115, 284, 16);
+		spPanelInfo.add(spLblDuracion1);
 		
 		JButton spBtnContinuar = new JButton("Continuar");
 		spBtnContinuar.setBounds(359, 161, 117, 29);
@@ -91,6 +118,7 @@ public class SeleccionPelicula {
 		spComboTitulos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
+				cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
 			}
 		});
 		spComboTitulos.setBounds(66, 162, 237, 27);
@@ -98,6 +126,7 @@ public class SeleccionPelicula {
 		
 		anadirPeliculasAlCombo(spComboTitulos);
 		cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
+		cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
 		
 	}
 	
@@ -107,6 +136,17 @@ public class SeleccionPelicula {
 			combo.addItem(peliculas.get(i).getTitulo());
 			peliculasDelCine.add(peliculas.get(i));
 		}
+	}
+	
+	private void anadirInformacionPeli(JLabel label1, JLabel label2, JLabel label3, ArrayList<Pelicula> peliculas, int i) {
+		
+		String titulo = peliculas.get(i).getTitulo();
+		String genero = peliculas.get(i).getGenero();
+		int duracion = peliculas.get(i).getDuracion();
+		
+		label1.setText(titulo);
+		label2.setText(genero);
+		label3.setText(duracion + "min");
 	}
 	
 	private String obtenerDireccionCaratula(String titulo) {
@@ -131,5 +171,13 @@ public class SeleccionPelicula {
 	
 	private void cambiarCaratulaPorSeleccion(JComboBox<String> combo, JPanel panel, JLabel label) {
 		anadirImagen(panel, label, obtenerDireccionCaratula(combo.getSelectedItem().toString()));
+	}
+	
+	private void cambiarInformacionPorSeleccion(JComboBox<String> combo, JLabel label1, JLabel label2, JLabel label3) {
+		for (int i = 0; i < peliculasDelCine.size(); i++) {
+			if (combo.getSelectedItem().toString().equalsIgnoreCase(peliculasDelCine.get(i).getTitulo())) {
+				anadirInformacionPeli(label1, label2, label3, peliculasDelCine, i);
+			}
+		}
 	}
 }
