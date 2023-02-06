@@ -76,9 +76,9 @@ public class PantallaCine {
 		JButton finalizar = new JButton("Finalizar Sesión");
 		finalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				ResumenCompra newframe = new ResumenCompra();
-//				newframe.main(null);
-//				frame.setVisible(false);
+				ResumenCompra resumenCompra = new ResumenCompra();
+				resumenCompra.rcFrame.setVisible(true);
+				pcFrame.setVisible(false);
 			}
 		});
 		finalizar.setBounds(268, 207, 125, 27);
