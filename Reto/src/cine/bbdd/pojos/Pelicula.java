@@ -25,6 +25,7 @@ public class Pelicula implements Serializable {
 	private int duracion = 0;
 	private String genero = null;
 	private int coste = 0;
+	private String caratula = null;
 	
 	//Relaciones
 	private ArrayList<Proyeccion> proyecciones = null;
@@ -69,6 +70,14 @@ public class Pelicula implements Serializable {
 		this.coste = coste;
 	}
 
+	public String getCaratula() {
+		return caratula;
+	}
+
+	public void setCaratula(String caratula) {
+		this.caratula = caratula;
+	}
+
 	public ArrayList<Proyeccion> getProyecciones() {
 		return proyecciones;
 	}
@@ -83,7 +92,7 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(coste, duracion, genero, id, proyecciones, titulo);
+		return Objects.hash(caratula, coste, duracion, genero, id, proyecciones, titulo);
 	}
 
 	@Override
@@ -95,15 +104,15 @@ public class Pelicula implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pelicula other = (Pelicula) obj;
-		return coste == other.coste && duracion == other.duracion && Objects.equals(genero, other.genero)
-				&& id == other.id && Objects.equals(proyecciones, other.proyecciones)
-				&& Objects.equals(titulo, other.titulo);
+		return Objects.equals(caratula, other.caratula) && coste == other.coste && duracion == other.duracion
+				&& Objects.equals(genero, other.genero) && id == other.id
+				&& Objects.equals(proyecciones, other.proyecciones) && Objects.equals(titulo, other.titulo);
 	}
 
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
-				+ ", coste=" + coste + ", proyecciones=" + proyecciones + "]";
+				+ ", coste=" + coste + ", caratula=" + caratula + ", proyecciones=" + proyecciones + "]";
 	}
 
 }
