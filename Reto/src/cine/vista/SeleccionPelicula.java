@@ -56,7 +56,8 @@ public class SeleccionPelicula {
 		spFrame.getContentPane().setLayout(null);
 		
 		JLabel spLblCabecera = new JLabel("Seleccione una película:");
-		spLblCabecera.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		spLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		spLblCabecera.setForeground(new Color(72, 138, 246));
 		spLblCabecera.setBounds(66, 43, 446, 56);
 		spFrame.getContentPane().add(spLblCabecera);
 		

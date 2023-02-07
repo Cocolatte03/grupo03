@@ -2,6 +2,7 @@ package cine.vista;
 
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import cine.bbdd.gestor.GestorProyeccion;
 import cine.bbdd.gestor.GestorSala;
 import cine.bbdd.pojos.Proyeccion;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +30,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class SeleccionProyeccion {
 
@@ -78,7 +82,8 @@ public class SeleccionProyeccion {
 		sprFrame.getContentPane().add(sprBtnAtras);
 		
 		JLabel sprLblCabecera = new JLabel("Seleccione una fecha:");
-		sprLblCabecera.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		sprLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		sprLblCabecera.setForeground(new Color(72, 138, 246));
 		sprLblCabecera.setBounds(66, 43, 329, 56);
 		sprFrame.getContentPane().add(sprLblCabecera);
 		
@@ -87,9 +92,11 @@ public class SeleccionProyeccion {
 		sprFrame.getContentPane().add(sprPanelSesion);
 		sprPanelSesion.setLayout(null);
 		sprPanelSesion.setVisible(false);
+		sprPanelSesion.setOpaque(false);
 		
 		JLabel sprLblCabeceraSesion = new JLabel("Seleccione una sesión:");
-		sprLblCabeceraSesion.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		sprLblCabeceraSesion.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		sprLblCabeceraSesion.setForeground(new Color(72, 138, 246));
 		sprLblCabeceraSesion.setBounds(25, 20, 370, 56);
 		sprPanelSesion.add(sprLblCabeceraSesion);
 		
@@ -159,8 +166,17 @@ public class SeleccionProyeccion {
 		sprLblPeliSel.setHorizontalAlignment(SwingConstants.CENTER);
 		sprLblPeliSel.setBounds(551, 634, 426, 27);
 		sprFrame.getContentPane().add(sprLblPeliSel);
+		
+		JPanel sprPanelImgFondo = new JPanel();
+		sprPanelImgFondo.setLayout(new BorderLayout(0, 0));
+		sprPanelImgFondo.setBounds(0, 0, 1000, 700);
+		
+		JLabel sprLblImgFondo = new JLabel("");
+		sprPanelImgFondo.add(sprLblImgFondo, BorderLayout.CENTER);
+		sprFrame.getContentPane().add(sprPanelImgFondo);
 
 		crearSelectorFecha(sprFrame);
+		anadirImagen(sprPanelImgFondo, sprLblImgFondo, "img/sFecha.jpg");
 		
 	}
 	
@@ -220,4 +236,11 @@ public class SeleccionProyeccion {
 		}
 	}
 	
+	private void anadirImagen(JPanel panel, JLabel label, String path) {
+		ImageIcon icon = new ImageIcon(path);
+		Image img = icon.getImage();
+		Image resizedImg = img.getScaledInstance(panel.getWidth(), panel.getHeight(), Image.SCALE_SMOOTH);
+		icon.setImage(resizedImg);
+		label.setIcon(icon);
+	}
 }
