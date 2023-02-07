@@ -81,6 +81,19 @@ public class PeliculaTest {
 
 		assertEquals(pelicula.getCoste(), coste);
 	}
+	
+	/*
+	 * Probar los metodos setCaratula() y getCaratula()
+	 */
+	@Test
+	public void testCaratula() {
+		Pelicula pelicula = new Pelicula();
+
+		String caractula = "img/p1.jpg";
+		pelicula.setCaratula(caractula);
+
+		assertEquals(pelicula.getCaratula(), caractula);
+	}
 
 	/*
 	 * Probar los metodos setProyecciones() y getProyecciones()
@@ -105,6 +118,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		String caratula = "img/p1.jpg";
 		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula = new Pelicula();
@@ -114,10 +128,11 @@ public class PeliculaTest {
 		pelicula.setDuracion(duracion);
 		pelicula.setGenero(genero);
 		pelicula.setCoste(coste);
+		pelicula.setCaratula(caratula);
 		pelicula.setProyecciones(proyecciones);
 
 		String esperado = "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", genero=" + genero
-				+ ", coste=" + coste + ", proyecciones=" + proyecciones + "]";
+				+ ", coste=" + coste + ", caratula=" + caratula + ", proyecciones=" + proyecciones + "]";
 
 		assertEquals(pelicula.toString(), esperado);
 	}
@@ -132,6 +147,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		String caratula = "img/p1.jpg";
 		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
@@ -141,6 +157,7 @@ public class PeliculaTest {
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
+		pelicula1.setCaratula(caratula);
 		pelicula1.setProyecciones(proyecciones);
 
 		Pelicula pelicula2 = new Pelicula();
@@ -150,6 +167,7 @@ public class PeliculaTest {
 		pelicula2.setDuracion(duracion);
 		pelicula2.setGenero(genero);
 		pelicula2.setCoste(coste);
+		pelicula2.setCaratula(caratula);
 		pelicula2.setProyecciones(proyecciones);
 
 		assertTrue(pelicula1.equals(pelicula2));
@@ -167,6 +185,7 @@ public class PeliculaTest {
 		int duracion = 200;
 		String genero = "Drama";
 		int coste = 100000;
+		String caratula = "img/p1.jpg";
 		ArrayList<Proyeccion> proyecciones = null;
 
 		Pelicula pelicula1 = new Pelicula();
@@ -176,6 +195,7 @@ public class PeliculaTest {
 		pelicula1.setDuracion(duracion);
 		pelicula1.setGenero(genero);
 		pelicula1.setCoste(coste);
+		pelicula1.setCaratula(caratula);
 		pelicula1.setProyecciones(proyecciones);
 
 		Pelicula pelicula2 = new Pelicula();
@@ -185,6 +205,7 @@ public class PeliculaTest {
 		pelicula2.setDuracion(duracion);
 		pelicula2.setGenero(genero);
 		pelicula2.setCoste(coste);
+		pelicula2.setCaratula(caratula);
 		pelicula2.setProyecciones(proyecciones);
 
 		assertFalse(pelicula1.equals(pelicula2));
