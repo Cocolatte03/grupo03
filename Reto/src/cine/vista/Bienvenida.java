@@ -1,41 +1,60 @@
 package cine.vista;
 
-
-
+import java.awt.EventQueue;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
 
-public class Bienvenida {
+public class Bienvenida extends JFrame {
 
-	public JFrame bFrame;
+	private JPanel contentPane;	
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public Bienvenida() {
-		initialize();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 807, 583);
+		setLocationRelativeTo(null);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel bLblBienvenida = new JLabel("BIENVENID@S A CINE ELORRIETA");
+		bLblBienvenida.setForeground(new Color(128, 0, 0));
+		bLblBienvenida.setFont(new Font("Microsoft YaHei", Font.BOLD, 20));
+		bLblBienvenida.setBounds(336, 236, 351, 107);
+		contentPane.add(bLblBienvenida);
+		
+		JLabel bLblImgBienvenida = new JLabel();
+		ImageIcon img = new ImageIcon("img/imgBienvenida.png");		
+		bLblImgBienvenida.setBounds(0, 0, 791,544);
+		bLblImgBienvenida.setIcon(img);
+		getContentPane().add(bLblImgBienvenida);
+		
+		
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Launch the application.
 	 */
-	private void initialize() {
-		bFrame = new JFrame();
-		bFrame.getContentPane().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				SeleccionCine seleccionCine = new SeleccionCine();
-				seleccionCine.scFrame.setVisible(true);
-				
-				bFrame.dispose();
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Bienvenida frame = new Bienvenida();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-		bFrame.setBounds(100, 100, 1000, 700);
-		bFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		bFrame.setLocationRelativeTo(null);
-		bFrame.setTitle("Cines Elorrieta");
-		bFrame.getContentPane().setLayout(null);
 	}
-
 }
