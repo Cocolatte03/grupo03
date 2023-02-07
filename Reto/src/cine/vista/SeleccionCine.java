@@ -21,9 +21,9 @@ import java.awt.event.ActionEvent;
  * @author vaain
  *
  */
-public class PantallaCine {
+public class SeleccionCine {
 
-	JFrame pcFrame;
+	JFrame scFrame;
 	private GestorCine gestorCine = null;
 	private ArrayList<Cine> cinesSeleccion = null;
 
@@ -34,8 +34,8 @@ public class PantallaCine {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaCine window = new PantallaCine();
-					window.pcFrame.setVisible(true);
+					SeleccionCine window = new SeleccionCine();
+					window.scFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,7 +46,7 @@ public class PantallaCine {
 	/**
 	 * Create the application.
 	 */
-	public PantallaCine() {
+	public SeleccionCine() {
 		gestorCine = new GestorCine();
 		cinesSeleccion = new ArrayList<Cine>();
 		initialize();
@@ -56,44 +56,48 @@ public class PantallaCine {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		pcFrame = new JFrame();
-		pcFrame.setBounds(100, 100, 1000, 700);
-		pcFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pcFrame.setLocationRelativeTo(null);
-		pcFrame.setTitle("Selección de la Película");
-		pcFrame.getContentPane().setLayout(null);
+		scFrame = new JFrame();
+		scFrame.setBounds(100, 100, 1000, 700);
+		scFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		scFrame.setLocationRelativeTo(null);
+		scFrame.setTitle("Selección de la Película");
+		scFrame.getContentPane().setLayout(null);
 		
 		JLabel cabecera = new JLabel("Seleccione un cine:");
 		cabecera.setHorizontalAlignment(SwingConstants.CENTER);
 		cabecera.setFont(new Font("Dialog", Font.PLAIN, 20));
 		cabecera.setBounds(30, 43, 230, 56);
-		pcFrame.getContentPane().add(cabecera);
+		scFrame.getContentPane().add(cabecera);
 		
 		JComboBox<String> selectCine = new JComboBox<String>();
 		selectCine.setBounds(30, 100, 230, 27);
-		pcFrame.getContentPane().add(selectCine);
+		scFrame.getContentPane().add(selectCine);
 		
 		JButton finalizar = new JButton("Finalizar Sesión");
 		finalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ResumenCompra resumenCompra = new ResumenCompra();
 				resumenCompra.rcFrame.setVisible(true);
-				pcFrame.setVisible(false);
+				scFrame.setVisible(false);
 			}
 		});
 		finalizar.setBounds(268, 207, 125, 27);
-		pcFrame.getContentPane().add(finalizar);
+		scFrame.getContentPane().add(finalizar);
 		
 		JButton irASelectPeli = new JButton("Confirmar");
 		irASelectPeli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SeleccionPelicula seleccionPelicula = new SeleccionPelicula();
+				String cineSeleccionado = selectCine.getSelectedItem().toString();
+				SeleccionPelicula seleccionPelicula = new SeleccionPelicula(cineSeleccionado);
+				
+				seleccionPelicula.spLblCineSel.setText("Cine seleccionado: " + cineSeleccionado);
 				seleccionPelicula.spFrame.setVisible(true);
-				pcFrame.setVisible(false);
+				
+				scFrame.dispose();
 			}
 		});
 		irASelectPeli.setBounds(292, 103, 100, 27);
-		pcFrame.getContentPane().add(irASelectPeli);
+		scFrame.getContentPane().add(irASelectPeli);
 		
 		anadirCineAlCombo(selectCine);
 	}
