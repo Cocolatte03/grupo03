@@ -1,6 +1,6 @@
 package cine.vista;
 
-import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,31 +38,15 @@ public class SeleccionProyeccion {
 	private GestorProyeccion gestorProyeccion = null;
 	private GestorSala gestorSala = null;
 	private ArrayList<Proyeccion> proyeccionesPorFecha = null;
-	private static String cineSeleccionado = null;
-	private static String peliSeleccionada = null;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionProyeccion window = new SeleccionProyeccion(cineSeleccionado, peliSeleccionada);
-					window.sprFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private String cineSeleccionado = null;
+	private String peliSeleccionada = null;
 
 	/**
 	 * Create the application.
 	 */
 	public SeleccionProyeccion(String cineSeleccionado, String peliSeleccionada) {
-		SeleccionProyeccion.cineSeleccionado = cineSeleccionado;
-		SeleccionProyeccion.peliSeleccionada = peliSeleccionada;
+		this.cineSeleccionado = cineSeleccionado;
+		this.peliSeleccionada = peliSeleccionada;
 		
 		gestorProyeccion = new GestorProyeccion();
 		gestorSala = new GestorSala();
@@ -218,7 +202,6 @@ public class SeleccionProyeccion {
 	
 	private void anadirSesionesAlCombo(JComboBox<String> combo) {
 		String fecha = confirmarFechaSeleccionada().toString();
-		System.out.println(fecha);
 		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getSesionPorCinePeliculaYFecha(cineSeleccionado, peliSeleccionada, fecha);
 		if (null != proyecciones) {
 			for (int i = 0; i < proyecciones.size(); i++) {

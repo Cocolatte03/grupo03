@@ -1,6 +1,6 @@
 package cine.vista;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,29 +31,14 @@ public class SeleccionPelicula {
 	JFrame spFrame;
 	private GestorPeliculas gestorPeliculas = null;
 	private ArrayList<Pelicula> peliculasDelCine = null;
-	private static String cineSeleccionado = null;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionPelicula window = new SeleccionPelicula(cineSeleccionado);
-					window.spFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private String cineSeleccionado = null;
 
 	/**
 	 * Create the application.
 	 */
 	public SeleccionPelicula(String cineSeleccionado) {
-		SeleccionPelicula.cineSeleccionado = cineSeleccionado;
+		this.cineSeleccionado = cineSeleccionado;
+		
 		gestorPeliculas = new GestorPeliculas();
 		peliculasDelCine = new ArrayList<Pelicula>();
 		initialize();

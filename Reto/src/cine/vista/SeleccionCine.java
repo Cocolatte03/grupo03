@@ -1,11 +1,14 @@
 package cine.vista;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -15,6 +18,10 @@ import cine.bbdd.pojos.Cine;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * 
@@ -26,22 +33,6 @@ public class SeleccionCine {
 	JFrame scFrame;
 	private GestorCine gestorCine = null;
 	private ArrayList<Cine> cinesSeleccion = null;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionCine window = new SeleccionCine();
-					window.scFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -60,34 +51,46 @@ public class SeleccionCine {
 		scFrame.setBounds(100, 100, 1000, 700);
 		scFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		scFrame.setLocationRelativeTo(null);
-		scFrame.setTitle("Selección de la Película");
+		scFrame.setTitle("Selección del Cine");
 		scFrame.getContentPane().setLayout(null);
 		
-		JLabel cabecera = new JLabel("Seleccione un cine:");
-		cabecera.setHorizontalAlignment(SwingConstants.CENTER);
-		cabecera.setFont(new Font("Dialog", Font.PLAIN, 20));
-		cabecera.setBounds(30, 43, 230, 56);
-		scFrame.getContentPane().add(cabecera);
+		JLabel scLblCabecera = new JLabel("Seleccione un cine:");
+		scLblCabecera.setHorizontalAlignment(SwingConstants.CENTER);
+		scLblCabecera.setFont(new Font("Dialog", Font.PLAIN, 20));
+		scLblCabecera.setBounds(30, 43, 230, 56);
+		scFrame.getContentPane().add(scLblCabecera);
 		
-		JComboBox<String> selectCine = new JComboBox<String>();
-		selectCine.setBounds(30, 100, 230, 27);
-		scFrame.getContentPane().add(selectCine);
+		JPanel scPanelImg = new JPanel();
+		scPanelImg.setBounds(186, 203, 660, 400);
+		scFrame.getContentPane().add(scPanelImg);
+		scPanelImg.setLayout(new BorderLayout(0, 0));
 		
-		JButton finalizar = new JButton("Finalizar Sesión");
-		finalizar.addActionListener(new ActionListener() {
+		JLabel scLblImg = new JLabel("");
+		scPanelImg.add(scLblImg, BorderLayout.CENTER);
+		
+		JComboBox<String> scComboCines = new JComboBox<String>();
+		scComboCines.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+			}
+		});
+		scComboCines.setBounds(53, 116, 230, 27);
+		scFrame.getContentPane().add(scComboCines);
+		
+		JButton scBtnFin = new JButton("Finalizar Sesión");
+		scBtnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ResumenCompra resumenCompra = new ResumenCompra();
 				resumenCompra.rcFrame.setVisible(true);
 				scFrame.setVisible(false);
 			}
 		});
-		finalizar.setBounds(268, 207, 125, 27);
-		scFrame.getContentPane().add(finalizar);
+		scBtnFin.setBounds(869, 6, 125, 27);
+		scFrame.getContentPane().add(scBtnFin);
 		
-		JButton irASelectPeli = new JButton("Confirmar");
-		irASelectPeli.addActionListener(new ActionListener() {
+		JButton scBtnConfirmar = new JButton("Confirmar");
+		scBtnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cineSeleccionado = selectCine.getSelectedItem().toString();
+				String cineSeleccionado = scComboCines.getSelectedItem().toString();
 				SeleccionPelicula seleccionPelicula = new SeleccionPelicula(cineSeleccionado);
 				
 				seleccionPelicula.spLblCineSel.setText("Cine seleccionado: " + cineSeleccionado);
@@ -96,10 +99,12 @@ public class SeleccionCine {
 				scFrame.dispose();
 			}
 		});
-		irASelectPeli.setBounds(292, 103, 100, 27);
-		scFrame.getContentPane().add(irASelectPeli);
+		scBtnConfirmar.setBounds(305, 116, 100, 27);
+		scFrame.getContentPane().add(scBtnConfirmar);
 		
-		anadirCineAlCombo(selectCine);
+		anadirCineAlCombo(scComboCines);
+		anadirImagen(scPanelImg, scLblImg, "img/mapa.png");
+		
 	}
 	
 	private void anadirCineAlCombo(JComboBox<String> combo) {
@@ -109,5 +114,12 @@ public class SeleccionCine {
 			cinesSeleccion.add(cines.get(i));
 		}
 	}
-
+	
+	private void anadirImagen(JPanel panel, JLabel label, String path) {
+		ImageIcon icon = new ImageIcon(path);
+		Image img = icon.getImage();
+		Image resizedImg = img.getScaledInstance(panel.getWidth(), panel.getHeight(), Image.SCALE_SMOOTH);
+		icon.setImage(resizedImg);
+		label.setIcon(icon);
+	}
 }
