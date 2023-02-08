@@ -10,10 +10,6 @@ import java.util.Objects;
  * Esta clase describe la tabla proyeccion. Cabe recalcar el formato de la fecha
  * y hora, cuya libreria es java.time.
  * 
- * Existe una relacion de 1:N con la tabla entrada. 
- * Existe una relacion de N:1 con la tabla sala. 
- * Existe una relacion de N:1 con la tabla pelicula.
- * 
  * @author leire
  *
  */
@@ -30,8 +26,11 @@ public class Proyeccion implements Serializable {
 	private LocalTime hora = null;
 
 	// Relaciones
+	// Existe una relacion de 1:N con la tabla entrada.
 	private ArrayList<Entrada> entradas = null;
+	// Existe una relacion de N:1 con la tabla pelicula.
 	private Pelicula pelicula = null;
+	// Existe una relacion de N:1 con la tabla sala.
 	private Sala sala = null;
 	
 	public int getId() {

@@ -7,8 +7,6 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla cliente.
  * 
- * Existe una relacion 1:N con la tabla entrada.
- * 
  * @author alexis
  *
  */
@@ -30,6 +28,7 @@ public class Cliente implements Serializable {
 	private String direccion = null;
 	
 	//Relaciones
+	//Existe una relacion 1:N con la tabla entrada.
 	private ArrayList<Entrada> entradas = null;
 
 	public int getId() {

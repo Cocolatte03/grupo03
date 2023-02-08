@@ -7,9 +7,6 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla entrada.
  * 
- * Existe una relacion N:1 con la tabla cliente. 
- * Existe una relacion N:1 con la tabla proyeccion.
- * 
  * @author alexis
  *
  */
@@ -24,7 +21,9 @@ public class Entrada implements Serializable {
 	private LocalDate fechaCompra = null;
 
 	// Relaciones
+	// Existe una relacion N:1 con la tabla proyeccion.
 	private Proyeccion proyeccion = null;
+	// Existe una relacion N:1 con la tabla cliente.
 	private Cliente cliente = null;
 	
 	public int getId() {

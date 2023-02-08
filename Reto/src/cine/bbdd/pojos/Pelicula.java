@@ -7,8 +7,6 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla pelicula.
  * 
- * Existe una relacion de 1:N con la tabla proyeccion.
- * 
  * @author leire
  *
  */
@@ -28,6 +26,7 @@ public class Pelicula implements Serializable {
 	private String caratula = null;
 	
 	//Relaciones
+	//Existe una relacion de 1:N con la tabla proyeccion.
 	private ArrayList<Proyeccion> proyecciones = null;
 
 	public int getId() {

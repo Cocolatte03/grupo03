@@ -7,9 +7,6 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla sala.
  * 
- * Existe una relacion N:1 con la tabla cine. 
- * Existe una relacion 1:N con la tabla proyeccion.
- * 
  * @author ainhoa
  *
  */
@@ -24,7 +21,9 @@ public class Sala implements Serializable {
 	private String nombre = null;
 
 	// Relaciones
+	// Existe una relacion N:1 con la tabla cine.
 	private Cine cine = null;
+	// Existe una relacion 1:N con la tabla proyeccion.
 	private ArrayList<Proyeccion> proyecciones = null;
 	
 	public int getId() {
