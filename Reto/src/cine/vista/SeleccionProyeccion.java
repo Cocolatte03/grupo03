@@ -2,13 +2,9 @@ package cine.vista;
 
 
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -18,43 +14,37 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import cine.bbdd.gestor.GestorProyeccion;
-import cine.bbdd.gestor.GestorSala;
+import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
+import cine.controlador.Controlador;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 public class SeleccionProyeccion {
-
-	JLabel sprLblPeliSel;
-	JLabel sprLblCineSel;
-	JFrame sprFrame;
+	public JFrame sprFrame;
 	JDatePickerImpl datePicker;
-	private GestorProyeccion gestorProyeccion = null;
-	private GestorSala gestorSala = null;
-	private ArrayList<Proyeccion> proyeccionesPorFecha = null;
-	private String cineSeleccionado = null;
-	private String peliSeleccionada = null;
+	private ArrayList<Proyeccion> proyecciones = null;
+	private Cine cineSeleccionado = null;
+	private Pelicula peliSeleccionada = null;
+	private Controlador controlador = null;
 
 	/**
 	 * Create the application.
 	 */
-	public SeleccionProyeccion(String cineSeleccionado, String peliSeleccionada) {
+	public SeleccionProyeccion(Cine cineSeleccionado, Pelicula peliSeleccionada) {
 		this.cineSeleccionado = cineSeleccionado;
 		this.peliSeleccionada = peliSeleccionada;
 		
-		gestorProyeccion = new GestorProyeccion();
-		gestorSala = new GestorSala();
-		proyeccionesPorFecha = new ArrayList<Proyeccion>();
+		controlador = new Controlador();
+		
+		proyecciones = controlador.guardarArrayListProyecciones(cineSeleccionado, peliSeleccionada);
+		System.out.println(proyecciones.toString());
 		initialize();
 	}
 
@@ -88,7 +78,7 @@ public class SeleccionProyeccion {
 		sprFrame.getContentPane().add(sprLblCabecera);
 		
 		JPanel sprPanelSesion = new JPanel();
-		sprPanelSesion.setBounds(509, 23, 455, 154);
+		sprPanelSesion.setBounds(40, 320, 455, 154);
 		sprFrame.getContentPane().add(sprPanelSesion);
 		sprPanelSesion.setLayout(null);
 		sprPanelSesion.setVisible(false);
@@ -134,10 +124,6 @@ public class SeleccionProyeccion {
 		sprPanelInfo.add(sprLblPrecio1);
 		
 		JComboBox<String> sprComboSesion = new JComboBox<String>();
-		sprComboSesion.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-			}
-		});
 		sprComboSesion.setBounds(25, 95, 194, 27);
 		sprPanelSesion.add(sprComboSesion);
 		
@@ -153,19 +139,13 @@ public class SeleccionProyeccion {
 		JButton sprBtnFecha = new JButton("Seleccionar");
 		sprBtnFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				confirmarFechaSeleccionada();
-				sprComboSesion.removeAllItems();
-				anadirSesionesAlCombo(sprComboSesion);
-				sprPanelSesion.setVisible(true);
+
 			}
 		});
 		sprBtnFecha.setBounds(303, 116, 117, 29);
 		sprFrame.getContentPane().add(sprBtnFecha);
 		
-		sprLblPeliSel = new JLabel("");
-		sprLblPeliSel.setHorizontalAlignment(SwingConstants.CENTER);
-		sprLblPeliSel.setBounds(551, 634, 426, 27);
-		sprFrame.getContentPane().add(sprLblPeliSel);
+		crearSelectorFecha(sprFrame);
 		
 		JPanel sprPanelImgFondo = new JPanel();
 		sprPanelImgFondo.setLayout(new BorderLayout(0, 0));
@@ -175,8 +155,7 @@ public class SeleccionProyeccion {
 		sprPanelImgFondo.add(sprLblImgFondo, BorderLayout.CENTER);
 		sprFrame.getContentPane().add(sprPanelImgFondo);
 
-		crearSelectorFecha(sprFrame);
-		anadirImagen(sprPanelImgFondo, sprLblImgFondo, "img/sFecha.jpg");
+		controlador.anadirImagen(sprPanelImgFondo, sprLblImgFondo, "img/sFecha.jpg");
 		
 	}
 	
@@ -193,54 +172,7 @@ public class SeleccionProyeccion {
 		model.setSelected(true);
 		datePicker.setVisible(true);
 		frame.getContentPane().add(datePicker);
-		
-		sprLblCineSel = new JLabel("");
-		sprLblCineSel.setHorizontalAlignment(SwingConstants.CENTER);
-		sprLblCineSel.setBounds(551, 586, 426, 27);
-		sprFrame.getContentPane().add(sprLblCineSel);
 
 	}
-	
-	private LocalDate confirmarFechaSeleccionada() {
-		LocalDate ret = null;
-		Date fechaSeleccionada = (Date) datePicker.getModel().getValue();
-		
-		ret = convertir(fechaSeleccionada);
-		
-		return ret;
-	}
-	
-	private static LocalDate convertir (Date date) {
-	    return date.toInstant()
-	      .atZone(ZoneId.of("GMT+1"))
-	      .toLocalDate();
-	}
-	
-	private void anadirSesionesAlCombo(JComboBox<String> combo) {
-		String fecha = confirmarFechaSeleccionada().toString();
-		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getSesionPorCinePeliculaYFecha(cineSeleccionado, peliSeleccionada, fecha);
-		if (null != proyecciones) {
-			for (int i = 0; i < proyecciones.size(); i++) {
-				Proyeccion proyeccion = proyecciones.get(i);
-				proyeccion.setSala(gestorSala.getSalaPorId(proyeccion.getId()));
-				proyeccionesPorFecha.add(proyeccion);
-				
-				String hora = proyeccion.getHora().toString();
-				String nombreSala = proyeccion.getSala().getNombre();
-				String precio = "" + proyeccion.getPrecio();
-				
-				combo.addItem(hora + " - " + nombreSala + " - " + precio + " €");
-			}
-		} else {
-			combo.addItem("No hay sesiones");
-		}
-	}
-	
-	private void anadirImagen(JPanel panel, JLabel label, String path) {
-		ImageIcon icon = new ImageIcon(path);
-		Image img = icon.getImage();
-		Image resizedImg = img.getScaledInstance(panel.getWidth(), panel.getHeight(), Image.SCALE_SMOOTH);
-		icon.setImage(resizedImg);
-		label.setIcon(icon);
-	}
+
 }

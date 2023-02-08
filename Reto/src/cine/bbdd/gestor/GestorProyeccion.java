@@ -2,6 +2,7 @@ package cine.bbdd.gestor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,22 +10,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.bbdd.utils.DBUtils;
 
 public class GestorProyeccion {
-	private final String SESION_BY = "SELECT * "
+	
+	private final String ALL_SESIONS_BY_CINE = "SELECT * "
 			+ "FROM cine C JOIN sala S ON C.id = S.idCine JOIN proyeccion PR ON S.id = PR.idSala "
-			+ "JOIN pelicula P ON PR.idPelicula = P.id " + "WHERE C.nombre = '";
-
-	public ArrayList<Proyeccion> getSesionPorCinePeliculaYFecha(String nomCine, String tituloPeli, String fechaSel) {
+			+ "JOIN pelicula P ON PR.idPelicula = P.id " 
+			+ "WHERE C.id = ? "
+			+ "AND P.id = ? ";
+	
+	public ArrayList<Proyeccion> getProyeccionesPorCineYPelicula(Cine cine, Pelicula pelicula) {
 		ArrayList<Proyeccion> ret = null;
-		String sql = SESION_BY + nomCine + "' AND P.titulo = '" + tituloPeli + "' AND PR.fecha = '" + fechaSel
-				+ "' ORDER BY PR.hora ASC";
+		String sql = ALL_SESIONS_BY_CINE;
 
 		Connection connection = null;
 
-		Statement statement = null;
+		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
 		try {
@@ -32,8 +37,10 @@ public class GestorProyeccion {
 
 			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
 
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, cine.getId());
+			preparedStatement.setInt(2, pelicula.getId());
+			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
 
@@ -48,16 +55,12 @@ public class GestorProyeccion {
 				LocalDate fecha = sqlDate.toLocalDate();
 				java.sql.Time sqlTime = resultSet.getTime("hora");
 				LocalTime hora = sqlTime.toLocalTime();
-				int idPelicula = resultSet.getInt("idPelicula");
-				int idSala = resultSet.getInt("idSala");
 
 				// Metemos los datos a Ejemplo
 				proyeccion.setId(id);
 				proyeccion.setPrecio(precio);
 				proyeccion.setFecha(fecha);
 				proyeccion.setHora(hora);
-				proyeccion.setIdPelicula(idPelicula);
-				proyeccion.setIdPelicula(idSala);
 				
 
 				ret.add(proyeccion);
@@ -74,8 +77,8 @@ public class GestorProyeccion {
 			}
 			;
 			try {
-				if (statement != null)
-					statement.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
 			} catch (Exception e) {
 			}
 			;

@@ -2,30 +2,33 @@ package cine.bbdd.gestor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Statement;
 
+import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.utils.DBUtils;
 
 
-public class GestorPeliculas {
+public class GestorPelicula {
 	
 	private final String FILM_BY_CINEMA = "SELECT * "
 			+ "FROM cine C JOIN sala S ON C.id = S.idCine "
 			+ "JOIN proyeccion PR ON S.id = PR.idSala "
 			+ "JOIN pelicula P ON PR.idPelicula = P.id "
-			+ "WHERE C.nombre = '";
+			+ "WHERE C.id = ? "
+			+ "GROUP BY P.id "
+			+ "ORDER BY PR.fecha";
 
-	public ArrayList<Pelicula> getPeliculasPorCine(String nomCine) {
+	public ArrayList<Pelicula> getPeliculasPorCine(Cine cine) {
 		ArrayList<Pelicula> ret = null;
-		String sql = FILM_BY_CINEMA + nomCine + "'" + " GROUP BY P.id ORDER BY PR.fecha";
+		String sql = FILM_BY_CINEMA;
 
 		Connection connection = null;
 
-		Statement statement = null;
+		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
 		try {
@@ -34,9 +37,10 @@ public class GestorPeliculas {
 
 			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
 
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(sql);
-
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, cine.getId());
+			resultSet = preparedStatement.executeQuery();
+			
 			while (resultSet.next()) {
 
 				if (null == ret)
@@ -44,7 +48,7 @@ public class GestorPeliculas {
 
 				Pelicula pelicula = new Pelicula();
 
-				int id = resultSet.getInt("id");
+				int id = resultSet.getInt("P.id");
 				String titulo = resultSet.getString("titulo");
 				int duracion = resultSet.getInt("duracion");
 				String genero = resultSet.getString("genero");
@@ -73,8 +77,8 @@ public class GestorPeliculas {
 			}
 			;
 			try {
-				if (statement != null)
-					statement.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
 			} catch (Exception e) {
 			}
 			;
