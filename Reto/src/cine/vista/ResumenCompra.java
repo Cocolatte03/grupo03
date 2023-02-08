@@ -55,8 +55,8 @@ public class ResumenCompra {
 		JButton btnNewButton = new JButton("Cancelar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaCine pantallaCine = new PantallaCine();
-				pantallaCine.pcFrame.setVisible(true);
+				SeleccionCine seleccionCine = new SeleccionCine();
+				seleccionCine.scFrame.setVisible(true);
 				
 				rcFrame.setVisible(false);
 			}
