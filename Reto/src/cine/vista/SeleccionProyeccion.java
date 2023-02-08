@@ -44,7 +44,7 @@ public class SeleccionProyeccion {
 		controlador = new Controlador();
 		
 		proyecciones = controlador.guardarArrayListProyecciones(cineSeleccionado, peliSeleccionada);
-		System.out.println(proyecciones.toString());
+		
 		initialize();
 	}
 
