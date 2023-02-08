@@ -113,7 +113,7 @@ public class SeleccionProyeccion {
 		sprBtnFecha.setBounds(303, 116, 117, 29);
 		sprFrame.getContentPane().add(sprBtnFecha);
 		
-		crearSelectorFecha(sprFrame);
+		crearSelectorFecha(sprFrame, sprPanelSesion);
 		
 		JPanel sprPanelImgFondo = new JPanel();
 		sprPanelImgFondo.setLayout(new BorderLayout(0, 0));
@@ -127,7 +127,7 @@ public class SeleccionProyeccion {
 		
 	}
 	
-	private void crearSelectorFecha(JFrame frame) {
+	private void crearSelectorFecha(JFrame frame, JPanel panel) {
 		UtilDateModel model = new UtilDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
@@ -135,6 +135,11 @@ public class SeleccionProyeccion {
 		p.put("text.year", "Year");
 		
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		datePanel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(false);
+			}
+		});
 		datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
 		datePicker.setBounds(70, 120, 200, 25);
 		model.setSelected(true);

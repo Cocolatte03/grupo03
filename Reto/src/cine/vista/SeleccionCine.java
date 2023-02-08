@@ -91,7 +91,7 @@ public class SeleccionCine {
 		scBtnConfirmar.setBounds(305, 116, 100, 27);
 		scFrame.getContentPane().add(scBtnConfirmar);
 		
-		controlador.anadirCineAlComboYArrayList(scComboCines, cines);
+		controlador.anadirCineAlCombo(scComboCines, cines);
 		controlador.cambiarImagen(scComboCines, scPanelImg, scLblImg);
 		
 	}
