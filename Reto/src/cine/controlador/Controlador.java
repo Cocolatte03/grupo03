@@ -25,6 +25,8 @@ import cine.vista.ResumenCompra;
 import cine.vista.SeleccionCine;
 import cine.vista.SeleccionPelicula;
 import cine.vista.SeleccionProyeccion;
+import cine.vista.SeleccionLogin;
+import cine.vista.SeleccionRegistro;
 
 public class Controlador {
 	
@@ -229,6 +231,7 @@ public class Controlador {
 	}
 	
 	//SELECCION LOGIN:
+	
 	public void volverAResumenCompra(JFrame frame) {
 		ResumenCompra resumenCompra = new ResumenCompra();
 		resumenCompra.rcFrame.setVisible(true);
@@ -236,4 +239,20 @@ public class Controlador {
 		frame.dispose();
 	}
 	
+	public void irASeleccionRegistro(JFrame frame) {
+		SeleccionRegistro seleccionRegistro = new SeleccionRegistro();
+		
+		seleccionRegistro.srFrame.setVisible(true);
+		
+		frame.dispose();
+	}
+	
+	//SELECCION REGISTRO:
+	
+	public void volverASeleccionLogin(JFrame frame) {
+		SeleccionLogin seleccionLogin = new SeleccionLogin();
+		seleccionLogin.slFrame.setVisible(true);
+		
+		frame.dispose();
+	}
 }
