@@ -5,42 +5,40 @@ package cine.vista;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import cine.bbdd.gestor.GestorPeliculas;
+import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Pelicula;
+import cine.controlador.Controlador;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 public class SeleccionPelicula {
-
-	JLabel spLblCineSel;
-	JFrame spFrame;
-	private GestorPeliculas gestorPeliculas = null;
-	private ArrayList<Pelicula> peliculasDelCine = null;
-	private String cineSeleccionado = null;
+	public JFrame spFrame;
+	private ArrayList<Pelicula> peliculas = null;
+	private Cine cineSeleccionado = null;
+	private Controlador controlador = null;
 
 	/**
 	 * Create the application.
 	 */
-	public SeleccionPelicula(String cineSeleccionado) {
+	public SeleccionPelicula(Cine cineSeleccionado) {
 		this.cineSeleccionado = cineSeleccionado;
 		
-		gestorPeliculas = new GestorPeliculas();
-		peliculasDelCine = new ArrayList<Pelicula>();
+		controlador = new Controlador();
+		
+		peliculas = controlador.guardarArrayListPeliculas(cineSeleccionado);
+		
 		initialize();
 	}
 
@@ -105,8 +103,8 @@ public class SeleccionPelicula {
 		JComboBox<String> spComboTitulos = new JComboBox<String>();
 		spComboTitulos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
-				cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
+				controlador.cambiarCaratulaPorSeleccion(peliculas, spComboTitulos, spPanelImg, spLblImg);
+				controlador.cambiarInformacionPorSeleccion(peliculas, spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
 			}
 		});
 		spComboTitulos.setBounds(66, 162, 237, 27);
@@ -115,93 +113,25 @@ public class SeleccionPelicula {
 		JButton spBtnContinuar = new JButton("Continuar");
 		spBtnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String peliSeleccionada = spComboTitulos.getSelectedItem().toString();
-				SeleccionProyeccion seleccionProyeccion = new SeleccionProyeccion(cineSeleccionado, peliSeleccionada);
-				
-				seleccionProyeccion.sprLblCineSel.setText("Cine seleccionado: " + cineSeleccionado);
-				seleccionProyeccion.sprLblPeliSel.setText("Película seleccionada: " + peliSeleccionada);
-				
-				seleccionProyeccion.sprFrame.setVisible(true);
-				
-				spFrame.dispose();
+				Pelicula peliSeleccionada = controlador.determinarPeliSeleccionada(spComboTitulos, peliculas);
+				controlador.irASeleccionProyeccion(spComboTitulos, spFrame, cineSeleccionado, peliSeleccionada);
 			}
 		});
 		spBtnContinuar.setBounds(359, 161, 117, 29);
 		spFrame.getContentPane().add(spBtnContinuar);
 		
-		anadirPeliculasAlCombo(spComboTitulos);
-		cambiarCaratulaPorSeleccion(spComboTitulos, spPanelImg, spLblImg);
-		cambiarInformacionPorSeleccion(spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
+		controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
+		controlador.cambiarCaratulaPorSeleccion(peliculas, spComboTitulos, spPanelImg, spLblImg);
+		controlador.cambiarInformacionPorSeleccion(peliculas, spComboTitulos, spLblTitulo1, spLblGenero1, spLblDuracion1);
 		
 		JButton spBtnAtras = new JButton("Atrás");
 		spBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SeleccionCine seleccionCine = new SeleccionCine();
-				seleccionCine.scFrame.setVisible(true);
-				
-				spFrame.dispose();
+				controlador.volverASeleccionCine(spFrame);
 			}
 		});
 		spBtnAtras.setBounds(6, 6, 68, 29);
 		spFrame.getContentPane().add(spBtnAtras);
 		
-		spLblCineSel = new JLabel("");
-		spLblCineSel.setHorizontalAlignment(SwingConstants.CENTER);
-		spLblCineSel.setBounds(551, 634, 426, 27);
-		spFrame.getContentPane().add(spLblCineSel);
-		
-	}
-	
-	private void anadirPeliculasAlCombo(JComboBox<String> combo) {
-		ArrayList<Pelicula> peliculas = gestorPeliculas.getPeliculasPorCine(cineSeleccionado);
-		if (null != peliculas) {
-			for (int i = 0; i < peliculas.size(); i++) {
-				combo.addItem(peliculas.get(i).getTitulo());
-				peliculasDelCine.add(peliculas.get(i));
-			}
-		}
-	}
-	
-	private void anadirInformacionPeli(JLabel label1, JLabel label2, JLabel label3, ArrayList<Pelicula> peliculas, int i) {
-		
-		String titulo = peliculas.get(i).getTitulo();
-		String genero = peliculas.get(i).getGenero();
-		int duracion = peliculas.get(i).getDuracion();
-		
-		label1.setText(titulo);
-		label2.setText(genero);
-		label3.setText(duracion + " min");
-	}
-	
-	private String obtenerDireccionCaratula(String titulo) {
-		String ret = null;
-		
-		for (int i = 0; i < peliculasDelCine.size(); i++) {
-			if (peliculasDelCine.get(i).getTitulo().equalsIgnoreCase(titulo)) {
-				ret = peliculasDelCine.get(i).getCaratula();
-			}
-		}
-		
-		return ret;
-	}
-	
-	private void anadirImagen(JPanel panel, JLabel label, String path) {
-		ImageIcon icon = new ImageIcon(path);
-		Image img = icon.getImage();
-		Image resizedImg = img.getScaledInstance(panel.getWidth(), panel.getHeight(), Image.SCALE_SMOOTH);
-		icon.setImage(resizedImg);
-		label.setIcon(icon);
-	}
-	
-	private void cambiarCaratulaPorSeleccion(JComboBox<String> combo, JPanel panel, JLabel label) {
-		anadirImagen(panel, label, obtenerDireccionCaratula(combo.getSelectedItem().toString()));
-	}
-	
-	private void cambiarInformacionPorSeleccion(JComboBox<String> combo, JLabel label1, JLabel label2, JLabel label3) {
-		for (int i = 0; i < peliculasDelCine.size(); i++) {
-			if (combo.getSelectedItem().toString().equalsIgnoreCase(peliculasDelCine.get(i).getTitulo())) {
-				anadirInformacionPeli(label1, label2, label3, peliculasDelCine, i);
-			}
-		}
 	}
 }
