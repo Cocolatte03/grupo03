@@ -270,4 +270,13 @@ public class Controlador {
 	public LocalDate convertir(Date date) {
 		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
 	}
+	
+	//SELECCION LOGIN:
+	public void volverAResumenCompra(JFrame frame) {
+		ResumenCompra resumenCompra = new ResumenCompra();
+		resumenCompra.rcFrame.setVisible(true);
+		
+		frame.dispose();
+	}
+	
 }

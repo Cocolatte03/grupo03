@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class ResumenCompra {
 
@@ -65,7 +66,19 @@ public class ResumenCompra {
 		rcFrame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Confirmar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SeleccionLogin seleccionLogin = new SeleccionLogin();
+				seleccionLogin.slFrame.setVisible(true);
+				
+				rcFrame.setVisible(false);
+			}
+		});
 		btnNewButton_1.setBounds(567, 569, 90, 27);
 		rcFrame.getContentPane().add(btnNewButton_1);
+		
+		JList list = new JList();
+		list.setBounds(70, 120, 680, 350);
+		rcFrame.getContentPane().add(list);
 	}
 }
