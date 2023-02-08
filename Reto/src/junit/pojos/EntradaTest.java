@@ -43,33 +43,7 @@ public class EntradaTest {
 
 		assertEquals(entrada.getFechaCompra(), fechaCompra);
 	}
-
-	/*
-	 * Probar los metodos setIdProyeccion() y getIdProyeccion()
-	 */
-	@Test
-	public void testIdProyeccion() {
-		Entrada entrada = new Entrada();
-
-		int idProyeccion = 1;
-		entrada.setIdProyeccion(idProyeccion);
-
-		assertEquals(entrada.getIdProyeccion(), idProyeccion);
-	}
-
-	/*
-	 * Probar los metodos setIdCliente() y getIdCliente()
-	 */
-	@Test
-	public void testIdCliente() {
-		Entrada entrada = new Entrada();
-
-		int idCliente = 1;
-		entrada.setIdCliente(idCliente);
-
-		assertEquals(entrada.getIdCliente(), idCliente);
-	}
-
+	
 	/*
 	 * Probar los metodos setProyeccion() y getProyeccion()
 	 */
@@ -95,17 +69,14 @@ public class EntradaTest {
 
 		assertNull(entrada.getCliente());
 	}
-
+	
 	/*
 	 * Probar el metodo toString()
 	 */
 	@Test
 	public void testToString() {
-
 		int id = 1;
 		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
-		int idProyeccion = 1;
-		int idCliente = 1;
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
@@ -113,18 +84,16 @@ public class EntradaTest {
 
 		entrada.setId(id);
 		entrada.setFechaCompra(fechaCompra);
-		entrada.setIdProyeccion(idProyeccion);
-		entrada.setIdCliente(idCliente);
 		entrada.setProyeccion(proyeccion);
 		entrada.setCliente(cliente);
 
-		String esperado = "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", idProyeccion=" + idProyeccion
-				+ ", idCliente=" + idCliente + ", proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
+		String esperado = "Entrada [id=" + id + ", fechaCompra=" + fechaCompra 
+				+ " proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
 
 		assertEquals(entrada.toString(), esperado);
 
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado verdadero
 	 */
@@ -133,8 +102,6 @@ public class EntradaTest {
 	public void testEqualsTrue() {
 		int id = 1;
 		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
-		int idProyeccion = 1;
-		int idCliente = 1;
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
@@ -142,8 +109,6 @@ public class EntradaTest {
 
 		entrada1.setId(id);
 		entrada1.setFechaCompra(fechaCompra);
-		entrada1.setIdProyeccion(idProyeccion);
-		entrada1.setIdCliente(idCliente);
 		entrada1.setProyeccion(proyeccion);
 		entrada1.setCliente(cliente);
 
@@ -151,15 +116,13 @@ public class EntradaTest {
 
 		entrada2.setId(id);
 		entrada2.setFechaCompra(fechaCompra);
-		entrada2.setIdProyeccion(idProyeccion);
-		entrada2.setIdCliente(idCliente);
 		entrada2.setProyeccion(proyeccion);
 		entrada2.setCliente(cliente);
 
 		assertTrue(entrada1.equals(entrada2));
 		assertTrue(entrada2.equals(entrada1));
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado falso
 	 */
@@ -168,8 +131,6 @@ public class EntradaTest {
 		int id = 1;
 		int id2 = 2;
 		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
-		int idProyeccion = 1;
-		int idCliente = 1;
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
@@ -177,8 +138,6 @@ public class EntradaTest {
 
 		entrada1.setId(id);
 		entrada1.setFechaCompra(fechaCompra);
-		entrada1.setIdProyeccion(idProyeccion);
-		entrada1.setIdCliente(idCliente);
 		entrada1.setProyeccion(proyeccion);
 		entrada1.setCliente(cliente);
 
@@ -186,8 +145,6 @@ public class EntradaTest {
 
 		entrada2.setId(id2);
 		entrada2.setFechaCompra(fechaCompra);
-		entrada2.setIdProyeccion(idProyeccion);
-		entrada2.setIdCliente(idCliente);
 		entrada2.setProyeccion(proyeccion);
 		entrada2.setCliente(cliente);
 

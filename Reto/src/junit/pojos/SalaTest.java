@@ -43,20 +43,7 @@ public class SalaTest {
 
 		assertEquals(sala.getNombre(), nombre);
 	}
-
-	/*
-	 * Probar los metodos setIdCine() y getIdCine()
-	 */
-	@Test
-	public void testIdCine() {
-		Sala sala = new Sala();
-
-		int idCine = 1;
-		sala.setIdCine(idCine);
-
-		assertEquals(sala.getIdCine(), idCine);
-	}
-
+	
 	/*
 	 * Probar los metodos setCine() y getCine()
 	 */
@@ -82,7 +69,7 @@ public class SalaTest {
 
 		assertNull(sala.getProyecciones());
 	}
-
+	
 	/*
 	 * Probar el metodo toString()
 	 */
@@ -90,7 +77,6 @@ public class SalaTest {
 	public void testToString() {
 		int id = 1;
 		String nombre = "Sala 1";
-		int idCine = 1;
 		Cine cine = null;
 		ArrayList<Proyeccion> proyecciones = null;
 
@@ -98,16 +84,15 @@ public class SalaTest {
 
 		sala.setId(id);
 		sala.setNombre(nombre);
-		sala.setIdCine(idCine);
 		sala.setCine(cine);
 		sala.setProyecciones(proyecciones);
 
-		String esperado = "Sala [id=" + id + ", nombre=" + nombre + ", idCine=" + idCine + ", cine=" + cine
+		String esperado = "Sala [id=" + id + ", nombre=" + nombre + ", cine=" + cine 
 				+ ", proyecciones=" + proyecciones + "]";
 
 		assertEquals(sala.toString(), esperado);
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado verdadero
 	 */
@@ -115,7 +100,6 @@ public class SalaTest {
 	public void testEqualsTrue() {
 		int id = 1;
 		String nombre = "Sala 1";
-		int idCine = 1;
 		Cine cine = null;
 		ArrayList<Proyeccion> proyecciones = null;
 
@@ -123,7 +107,6 @@ public class SalaTest {
 
 		sala1.setId(id);
 		sala1.setNombre(nombre);
-		sala1.setIdCine(idCine);
 		sala1.setCine(cine);
 		sala1.setProyecciones(proyecciones);
 
@@ -131,14 +114,13 @@ public class SalaTest {
 
 		sala2.setId(id);
 		sala2.setNombre(nombre);
-		sala2.setIdCine(idCine);
 		sala2.setCine(cine);
 		sala2.setProyecciones(proyecciones);
 
 		assertTrue(sala1.equals(sala2));
 		assertTrue(sala2.equals(sala1));
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado falso
 	 */
@@ -147,7 +129,6 @@ public class SalaTest {
 		int id = 1;
 		int id2 = 2;
 		String nombre = "Sala 1";
-		int idCine = 1;
 		Cine cine = null;
 		ArrayList<Proyeccion> proyecciones = null;
 
@@ -155,7 +136,6 @@ public class SalaTest {
 
 		sala1.setId(id);
 		sala1.setNombre(nombre);
-		sala1.setIdCine(idCine);
 		sala1.setCine(cine);
 		sala1.setProyecciones(proyecciones);
 
@@ -163,7 +143,6 @@ public class SalaTest {
 
 		sala2.setId(id2);
 		sala2.setNombre(nombre);
-		sala2.setIdCine(idCine);
 		sala2.setCine(cine);
 		sala2.setProyecciones(proyecciones);
 

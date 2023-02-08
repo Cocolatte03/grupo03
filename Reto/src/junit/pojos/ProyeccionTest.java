@@ -13,6 +13,12 @@ import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.bbdd.pojos.Sala;
 
+/**
+ * Este test prueba la clase Proyeccion
+ * 
+ * @author leire
+ *
+ */
 public class ProyeccionTest {
 
 	/*
@@ -66,33 +72,7 @@ public class ProyeccionTest {
 
 		assertEquals(proyeccion.getHora(), hora);
 	}
-
-	/*
-	 * Probar los metodos setIdPelicula() y getIdPelicula()
-	 */
-	@Test
-	public void testIdPelicula() {
-		Proyeccion proyeccion = new Proyeccion();
-
-		int idPelicula = 1;
-		proyeccion.setIdPelicula(idPelicula);
-
-		assertEquals(proyeccion.getIdPelicula(), idPelicula);
-	}
-
-	/*
-	 * Probar los metodos setIdSala() y getIdSala()
-	 */
-	@Test
-	public void testIdSala() {
-		Proyeccion proyeccion = new Proyeccion();
-
-		int idSala = 1;
-		proyeccion.setIdSala(idSala);
-
-		assertEquals(proyeccion.getIdSala(), idSala);
-	}
-
+	
 	/*
 	 * Probar los metodos setEntradas() y getEntradas()
 	 */
@@ -131,7 +111,7 @@ public class ProyeccionTest {
 
 		assertNull(proyeccion.getSala());
 	}
-
+	
 	/*
 	 * Probar el metodo toString()
 	 */
@@ -141,8 +121,6 @@ public class ProyeccionTest {
 		double precio = 8.5;
 		LocalDate fecha = LocalDate.of(2023, 02, 02);
 		LocalTime hora = LocalTime.of(12, 0);
-		int idPelicula = 1;
-		int idSala = 1;
 		ArrayList<Entrada> entradas = null;
 		Pelicula pelicula = null;
 		Sala sala = null;
@@ -153,19 +131,16 @@ public class ProyeccionTest {
 		proyeccion.setPrecio(precio);
 		proyeccion.setFecha(fecha);
 		proyeccion.setHora(hora);
-		proyeccion.setIdPelicula(idPelicula);
-		proyeccion.setIdSala(idSala);
 		proyeccion.setEntradas(entradas);
 		proyeccion.setPelicula(pelicula);
 		proyeccion.setSala(sala);
 
 		String esperado = "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora
-				+ ", idPelicula=" + idPelicula + ", idSala=" + idSala + ", entradas=" + entradas + ", pelicula="
-				+ pelicula + ", sala=" + sala + "]";
+				+ " entradas=" + entradas + ", pelicula=" + pelicula + ", sala=" + sala + "]";
 
 		assertEquals(proyeccion.toString(), esperado);
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado verdadero
 	 */
@@ -175,8 +150,6 @@ public class ProyeccionTest {
 		double precio = 8.5;
 		LocalDate fecha = LocalDate.of(2023, 02, 02);
 		LocalTime hora = LocalTime.of(12, 0);
-		int idPelicula = 1;
-		int idSala = 1;
 		ArrayList<Entrada> entradas = null;
 		Pelicula pelicula = null;
 		Sala sala = null;
@@ -187,8 +160,6 @@ public class ProyeccionTest {
 		proyeccion1.setPrecio(precio);
 		proyeccion1.setFecha(fecha);
 		proyeccion1.setHora(hora);
-		proyeccion1.setIdPelicula(idPelicula);
-		proyeccion1.setIdSala(idSala);
 		proyeccion1.setEntradas(entradas);
 		proyeccion1.setPelicula(pelicula);
 		proyeccion1.setSala(sala);
@@ -199,8 +170,6 @@ public class ProyeccionTest {
 		proyeccion2.setPrecio(precio);
 		proyeccion2.setFecha(fecha);
 		proyeccion2.setHora(hora);
-		proyeccion2.setIdPelicula(idPelicula);
-		proyeccion2.setIdSala(idSala);
 		proyeccion2.setEntradas(entradas);
 		proyeccion2.setPelicula(pelicula);
 		proyeccion2.setSala(sala);
@@ -208,7 +177,7 @@ public class ProyeccionTest {
 		assertTrue(proyeccion1.equals(proyeccion2));
 		assertTrue(proyeccion2.equals(proyeccion1));
 	}
-
+	
 	/*
 	 * Probar el metodo equals() con resultado falso
 	 */
@@ -219,8 +188,6 @@ public class ProyeccionTest {
 		double precio = 8.5;
 		LocalDate fecha = LocalDate.of(2023, 02, 02);
 		LocalTime hora = LocalTime.of(12, 0);
-		int idPelicula = 1;
-		int idSala = 1;
 		ArrayList<Entrada> entradas = null;
 		Pelicula pelicula = null;
 		Sala sala = null;
@@ -231,8 +198,6 @@ public class ProyeccionTest {
 		proyeccion1.setPrecio(precio);
 		proyeccion1.setFecha(fecha);
 		proyeccion1.setHora(hora);
-		proyeccion1.setIdPelicula(idPelicula);
-		proyeccion1.setIdSala(idSala);
 		proyeccion1.setEntradas(entradas);
 		proyeccion1.setPelicula(pelicula);
 		proyeccion1.setSala(sala);
@@ -243,8 +208,6 @@ public class ProyeccionTest {
 		proyeccion2.setPrecio(precio);
 		proyeccion2.setFecha(fecha);
 		proyeccion2.setHora(hora);
-		proyeccion2.setIdPelicula(idPelicula);
-		proyeccion2.setIdSala(idSala);
 		proyeccion2.setEntradas(entradas);
 		proyeccion2.setPelicula(pelicula);
 		proyeccion2.setSala(sala);
