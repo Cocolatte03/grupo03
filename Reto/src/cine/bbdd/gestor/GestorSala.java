@@ -45,7 +45,6 @@ public class GestorSala {
 				// Metemos los datos a Ejemplo
 				ret.setId(id);
 				ret.setNombre(nombre);
-				ret.setIdCine(idCine);
 				
 			}
 		} catch (SQLException sqle) {

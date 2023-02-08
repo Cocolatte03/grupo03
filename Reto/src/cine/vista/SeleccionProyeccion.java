@@ -90,39 +90,6 @@ public class SeleccionProyeccion {
 		sprLblCabeceraSesion.setBounds(25, 20, 370, 56);
 		sprPanelSesion.add(sprLblCabeceraSesion);
 		
-		JPanel sprPanelInfo = new JPanel();
-		sprPanelInfo.setBounds(545, 199, 419, 176);
-		sprFrame.getContentPane().add(sprPanelInfo);
-		sprPanelInfo.setLayout(null);
-		sprPanelInfo.setVisible(false);
-		
-		JLabel sprLblSesion = new JLabel("Sesión: ");
-		sprLblSesion.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		sprLblSesion.setBounds(6, 25, 77, 16);
-		sprPanelInfo.add(sprLblSesion);
-		
-		JLabel sprLblSala = new JLabel("Sala: ");
-		sprLblSala.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		sprLblSala.setBounds(6, 68, 77, 16);
-		sprPanelInfo.add(sprLblSala);
-		
-		JLabel sprLblPrecio = new JLabel("Precio: ");
-		sprLblPrecio.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		sprLblPrecio.setBounds(6, 115, 80, 16);
-		sprPanelInfo.add(sprLblPrecio);
-		
-		JLabel sprLblSesion1 = new JLabel("");
-		sprLblSesion1.setBounds(103, 25, 284, 16);
-		sprPanelInfo.add(sprLblSesion1);
-		
-		JLabel sprLblSala1 = new JLabel("");
-		sprLblSala1.setBounds(103, 68, 284, 16);
-		sprPanelInfo.add(sprLblSala1);
-		
-		JLabel sprLblPrecio1 = new JLabel("");
-		sprLblPrecio1.setBounds(103, 115, 284, 16);
-		sprPanelInfo.add(sprLblPrecio1);
-		
 		JComboBox<String> sprComboSesion = new JComboBox<String>();
 		sprComboSesion.setBounds(25, 95, 194, 27);
 		sprPanelSesion.add(sprComboSesion);
@@ -130,7 +97,6 @@ public class SeleccionProyeccion {
 		JButton sprBtnSesion = new JButton("Seleccionar");
 		sprBtnSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sprPanelInfo.setVisible(true);
 			}
 		});
 		sprBtnSesion.setBounds(263, 95, 117, 29);
@@ -139,7 +105,9 @@ public class SeleccionProyeccion {
 		JButton sprBtnFecha = new JButton("Seleccionar");
 		sprBtnFecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				sprComboSesion.removeAllItems();
+				controlador.anadirSesionesAlCombo(sprComboSesion, datePicker, proyecciones);
+				sprPanelSesion.setVisible(true);
 			}
 		});
 		sprBtnFecha.setBounds(303, 116, 117, 29);
