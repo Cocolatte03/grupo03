@@ -23,62 +23,51 @@ public class Sala implements Serializable {
 	// Atributos
 	private String nombre = null;
 
-	// Claves externas
-	private int idCine = 0;
-
 	// Relaciones
 	private Cine cine = null;
 	private ArrayList<Proyeccion> proyecciones = null;
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
-
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public int getIdCine() {
-		return idCine;
-	}
-
-	public void setIdCine(int idCine) {
-		this.idCine = idCine;
-	}
-
+	
 	public Cine getCine() {
 		return cine;
 	}
-
+	
 	public void setCine(Cine cine) {
 		this.cine = cine;
 	}
-
+	
 	public ArrayList<Proyeccion> getProyecciones() {
 		return proyecciones;
 	}
-
+	
 	public void setProyecciones(ArrayList<Proyeccion> proyecciones) {
 		this.proyecciones = proyecciones;
 	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cine, id, idCine, nombre, proyecciones);
+		return Objects.hash(cine, id, nombre, proyecciones);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,14 +77,13 @@ public class Sala implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Sala other = (Sala) obj;
-		return Objects.equals(cine, other.cine) && id == other.id && idCine == other.idCine
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(proyecciones, other.proyecciones);
+		return Objects.equals(cine, other.cine) && id == other.id && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(proyecciones, other.proyecciones);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Sala [id=" + id + ", nombre=" + nombre + ", idCine=" + idCine + ", cine=" + cine + ", proyecciones="
-				+ proyecciones + "]";
+		return "Sala [id=" + id + ", nombre=" + nombre + ", cine=" + cine + ", proyecciones=" + proyecciones + "]";
 	}
 
 }

@@ -29,96 +29,76 @@ public class Proyeccion implements Serializable {
 	private LocalDate fecha = null;
 	private LocalTime hora = null;
 
-	// Claves externas
-	private int idPelicula = 0;
-	private int idSala = 0;
-
 	// Relaciones
 	private ArrayList<Entrada> entradas = null;
 	private Pelicula pelicula = null;
 	private Sala sala = null;
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public double getPrecio() {
 		return precio;
 	}
-
+	
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
+	
 	public LocalDate getFecha() {
 		return fecha;
 	}
-
+	
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
+	
 	public LocalTime getHora() {
 		return hora;
 	}
-
+	
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
-
-	public int getIdPelicula() {
-		return idPelicula;
-	}
-
-	public void setIdPelicula(int idPelicula) {
-		this.idPelicula = idPelicula;
-	}
-
-	public int getIdSala() {
-		return idSala;
-	}
-
-	public void setIdSala(int idSala) {
-		this.idSala = idSala;
-	}
-
+	
 	public ArrayList<Entrada> getEntradas() {
 		return entradas;
 	}
-
+	
 	public void setEntradas(ArrayList<Entrada> entradas) {
 		this.entradas = entradas;
 	}
-
+	
 	public Pelicula getPelicula() {
 		return pelicula;
 	}
-
+	
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
 	}
-
+	
 	public Sala getSala() {
 		return sala;
 	}
-
+	
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(entradas, fecha, hora, id, idPelicula, idSala, pelicula, precio, sala);
+		return Objects.hash(entradas, fecha, hora, id, pelicula, precio, sala);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -129,16 +109,15 @@ public class Proyeccion implements Serializable {
 			return false;
 		Proyeccion other = (Proyeccion) obj;
 		return Objects.equals(entradas, other.entradas) && Objects.equals(fecha, other.fecha)
-				&& Objects.equals(hora, other.hora) && id == other.id && idPelicula == other.idPelicula
-				&& idSala == other.idSala && Objects.equals(pelicula, other.pelicula) && precio == other.precio
+				&& Objects.equals(hora, other.hora) && id == other.id && Objects.equals(pelicula, other.pelicula)
+				&& Double.doubleToLongBits(precio) == Double.doubleToLongBits(other.precio)
 				&& Objects.equals(sala, other.sala);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora + ", idPelicula="
-				+ idPelicula + ", idSala=" + idSala + ", entradas=" + entradas + ", pelicula=" + pelicula + ", sala="
-				+ sala + "]";
+		return "Proyeccion [id=" + id + ", precio=" + precio + ", fecha=" + fecha + ", hora=" + hora + ", entradas="
+				+ entradas + ", pelicula=" + pelicula + ", sala=" + sala + "]";
 	}
 
 }
