@@ -48,14 +48,6 @@ public class ImpresionTicket {
 		itFrame.setTitle("Impresión de Tickets");
 		itFrame.getContentPane().setLayout(null);
 		
-		JButton itBtnAtras = new JButton("Atrás");
-		itBtnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		itBtnAtras.setBounds(25, 612, 85, 29);
-		itFrame.getContentPane().add(itBtnAtras);
-		
 		JLabel itLblAgradecimiento = new JLabel("¡GRACIAS POR SU COMPRA!");
 		itLblAgradecimiento.setForeground(Color.RED);
 		itLblAgradecimiento.setFont(new Font("Dialog", Font.BOLD, 20));
