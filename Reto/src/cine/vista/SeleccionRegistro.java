@@ -167,6 +167,11 @@ public class SeleccionRegistro {
 		srFrame.getContentPane().add(srBtnAtras);
 		
 		JButton srBtnRegistrarme = new JButton("Registrarme");
+		srBtnRegistrarme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.volverASeleccionLogin(srFrame);
+			}
+		});
 		srBtnRegistrarme.setForeground(Color.WHITE);
 		srBtnRegistrarme.setFont(new Font("Tahoma", Font.BOLD, 10));
 		srBtnRegistrarme.setBackground(Color.RED);

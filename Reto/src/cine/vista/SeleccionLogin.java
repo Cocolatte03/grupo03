@@ -93,6 +93,11 @@ public class SeleccionLogin {
 		JButton slBtnIniciarSesion = new JButton("Iniciar Sesión");
 		slBtnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ImpresionTicket impresionTicket = new ImpresionTicket();
+				
+				impresionTicket.itFrame.setVisible(true);
+				
+				slFrame.dispose();
 			}
 		});
 		slBtnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 10));
