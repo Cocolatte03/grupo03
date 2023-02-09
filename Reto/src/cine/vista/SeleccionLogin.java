@@ -52,7 +52,7 @@ public class SeleccionLogin {
 		slFrame = new JFrame();
 		slFrame.setBounds(100, 100, 1000, 700);
 		slFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		slFrame.getContentPane().setLayout(null);
+		slFrame.setLocationRelativeTo(null);
 		slFrame.setTitle("Seleccion de Login");
 		slFrame.getContentPane().setLayout(null);
 		

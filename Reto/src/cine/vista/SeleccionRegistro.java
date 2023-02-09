@@ -59,6 +59,8 @@ public class SeleccionRegistro {
 		srFrame = new JFrame();
 		srFrame.setBounds(100, 100, 1000, 700);
 		srFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		srFrame.setLocationRelativeTo(null);
+		srFrame.setTitle("Selección de Registro");
 		srFrame.getContentPane().setLayout(null);
 		
 		JLabel srLblRegistro = new JLabel("Registro");
