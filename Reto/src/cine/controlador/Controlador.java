@@ -28,34 +28,59 @@ import cine.vista.SeleccionProyeccion;
 import cine.vista.SeleccionLogin;
 import cine.vista.SeleccionRegistro;
 
+/**
+ * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
+ * y el gestor. Gestiona la lógica.
+ * 
+ * @author leire
+ *
+ */
 public class Controlador {
-	
+
 	private GestorCine gestorCine = null;
 	private GestorPelicula gestorPelicula = null;
 	private GestorSala gestorSala = null;
 	private GestorProyeccion gestorProyeccion = null;
-	
+
 	public Controlador() {
 		gestorCine = new GestorCine();
 		gestorPelicula = new GestorPelicula();
 		gestorSala = new GestorSala();
 		gestorProyeccion = new GestorProyeccion();
 	}
-	
-	//SELECCION CINE:
-	
+
+	// SELECCION CINE:
+
+	/**
+	 * Realiza una consulta a la BBDD para un ArrayList con todos los cines.
+	 * 
+	 * @return ArrayList de cines
+	 */
 	public ArrayList<Cine> guardarArrayListCines() {
 		ArrayList<Cine> ret = gestorCine.getAllCines();
 		return ret;
 	}
 
-	public void anadirCineAlComboYArrayList(JComboBox<String> combo, ArrayList<Cine> cines) {
-		cines = gestorCine.getAllCines();
+	/**
+	 * Añade el nombre de los cines a un JComboBox.
+	 * 
+	 * @param combo JComboBox al que se añaden los cines
+	 * @param cines ArrayList que contiene los cines
+	 */
+	public void anadirCineAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
+
 		for (int i = 0; i < cines.size(); i++) {
 			combo.addItem(cines.get(i).getNombre());
 		}
 	}
-	
+
+	/**
+	 * Añade una imagen a un JLabel que se encuentra dentro de un JPanel.
+	 * 
+	 * @param panel JPanel en el que se encuentra la JLabel
+	 * @param label JLabel en el que se añade la imagen
+	 * @param path  ruta de la imagen
+	 */
 	public void anadirImagen(JPanel panel, JLabel label, String path) {
 		ImageIcon icon = new ImageIcon(path);
 		Image img = icon.getImage();
@@ -63,7 +88,15 @@ public class Controlador {
 		icon.setImage(resizedImg);
 		label.setIcon(icon);
 	}
-	
+
+	/**
+	 * Cambia la imagen de la localización del cine, dependiendo de la opcion
+	 * seleccionada en el JComboBox.
+	 * 
+	 * @param combo JComboBox que contiene el nombre de los cines
+	 * @param panel JPanel en el que se encuentra el JLabel
+	 * @param label JLabel en el que se añade la imagen
+	 */
 	public void cambiarImagen(JComboBox<String> combo, JPanel panel, JLabel label) {
 		if (combo.getSelectedItem().toString().equalsIgnoreCase("Cine Elorrieta Bilbao")) {
 			anadirImagen(panel, label, "img/cBilbao.png");
@@ -75,21 +108,27 @@ public class Controlador {
 			anadirImagen(panel, label, "img/cDurango.png");
 		}
 	}
-	
+
+	/**
+	 * Abre la pantalla de SeleccionPelicula y oculta el JFrame actual.
+	 * 
+	 * @param cine Cine seleccionado en el apartado de Seleccion de Cine
+	 * @param frame JFrame actual que se oculta
+	 */
 	public void irASeleccionPelicula(Cine cine, JFrame frame) {
 		SeleccionPelicula seleccionPelicula = new SeleccionPelicula(cine);
-		
+
 		seleccionPelicula.spFrame.setVisible(true);
-		
+
 		frame.dispose();
 	}
-	
+
 	public void irAFinalizarSesion(JFrame frame) {
 		ResumenCompra resumenCompra = new ResumenCompra();
 		resumenCompra.rcFrame.setVisible(true);
 		frame.setVisible(false);
 	}
-	
+
 	public Cine determinarCineSeleccionado(JComboBox<String> combo, ArrayList<Cine> cines) {
 		Cine ret = null;
 		String nombreCine = combo.getSelectedItem().toString();
@@ -100,18 +139,18 @@ public class Controlador {
 				ret = cine;
 			}
 		}
-		
+
 		return ret;
-		
+
 	}
-	
-	//SELECCION PELICULA:
-	
+
+	// SELECCION PELICULA:
+
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
 		return ret;
 	}
-	
+
 	public void anadirPeliculasAlCombo(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
 		if (null != peliculas) {
 			for (int i = 0; i < peliculas.size(); i++) {
@@ -119,49 +158,52 @@ public class Controlador {
 			}
 		}
 	}
-	
-	public void anadirInformacionPeli(JLabel label1, JLabel label2, JLabel label3, ArrayList<Pelicula> peliculas, int i) {
-		
+
+	public void anadirInformacionPeli(JLabel label1, JLabel label2, JLabel label3, ArrayList<Pelicula> peliculas,
+			int i) {
+
 		String titulo = peliculas.get(i).getTitulo();
 		String genero = peliculas.get(i).getGenero();
 		int duracion = peliculas.get(i).getDuracion();
-		
+
 		label1.setText(titulo);
 		label2.setText(genero);
 		label3.setText(duracion + " min");
 	}
-	
-	public void cambiarInformacionPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JLabel label1, JLabel label2, JLabel label3) {
+
+	public void cambiarInformacionPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JLabel label1,
+			JLabel label2, JLabel label3) {
 		for (int i = 0; i < peliculas.size(); i++) {
 			if (combo.getSelectedItem().toString().equalsIgnoreCase(peliculas.get(i).getTitulo())) {
 				anadirInformacionPeli(label1, label2, label3, peliculas, i);
 			}
 		}
 	}
-	
+
 	private String obtenerDireccionCaratula(ArrayList<Pelicula> peliculas, String titulo) {
 		String ret = null;
-		
+
 		for (int i = 0; i < peliculas.size(); i++) {
 			if (peliculas.get(i).getTitulo().equalsIgnoreCase(titulo)) {
 				ret = peliculas.get(i).getCaratula();
 			}
 		}
-		
+
 		return ret;
 	}
-	
-	public void cambiarCaratulaPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JPanel panel, JLabel label) {
+
+	public void cambiarCaratulaPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JPanel panel,
+			JLabel label) {
 		anadirImagen(panel, label, obtenerDireccionCaratula(peliculas, combo.getSelectedItem().toString()));
 	}
-	
+
 	public void volverASeleccionCine(JFrame frame) {
 		SeleccionCine seleccionCine = new SeleccionCine();
 		seleccionCine.scFrame.setVisible(true);
-		
+
 		frame.dispose();
 	}
-	
+
 	public Pelicula determinarPeliSeleccionada(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
 		Pelicula ret = null;
 		String nombrePeli = combo.getSelectedItem().toString();
@@ -172,41 +214,44 @@ public class Controlador {
 				ret = pelicula;
 			}
 		}
-		
+
 		return ret;
-		
+
 	}
-	
-	public void irASeleccionProyeccion(JComboBox<String> combo, JFrame frame, Cine cineSeleccionado, Pelicula peliSeleccionada) {
+
+	public void irASeleccionProyeccion(JComboBox<String> combo, JFrame frame, Cine cineSeleccionado,
+			Pelicula peliSeleccionada) {
 		SeleccionProyeccion seleccionProyeccion = new SeleccionProyeccion(cineSeleccionado, peliSeleccionada);
-		
+
 		seleccionProyeccion.sprFrame.setVisible(true);
-		
+
 		frame.dispose();
 	}
-	
-	//SELECCION PROYECCION:
-	
+
+	// SELECCION PROYECCION:
+
 	public ArrayList<Proyeccion> guardarArrayListProyecciones(Cine cineSeleccionado, Pelicula peliSeleccionada) {
-		
-		ArrayList<Proyeccion> ret = gestorProyeccion.getProyeccionesPorCineYPelicula(cineSeleccionado, peliSeleccionada);
-		
+
+		ArrayList<Proyeccion> ret = gestorProyeccion.getProyeccionesPorCineYPelicula(cineSeleccionado,
+				peliSeleccionada);
+
 		return ret;
 	}
-	
-	public void anadirSesionesAlCombo(JComboBox<String> combo, JDatePickerImpl datePicker, ArrayList<Proyeccion> proyecciones) {
+
+	public void anadirSesionesAlCombo(JComboBox<String> combo, JDatePickerImpl datePicker,
+			ArrayList<Proyeccion> proyecciones) {
 		String fecha = confirmarFechaSeleccionada(datePicker).toString();
-		
+
 		if (null != proyecciones) {
 			for (int i = 0; i < proyecciones.size(); i++) {
 				Proyeccion proyeccion = proyecciones.get(i);
 				if (proyeccion.getFecha().toString().equals(fecha)) {
 					proyeccion.setSala(gestorSala.getSalaPorId(proyeccion.getId()));
-					
+
 					String hora = proyeccion.getHora().toString();
 					String nombreSala = proyeccion.getSala().getNombre();
 					String precio = "" + proyeccion.getPrecio();
-					
+
 					combo.addItem(hora + " - " + nombreSala + " - " + precio + " €");
 				}
 			}
@@ -214,20 +259,18 @@ public class Controlador {
 			combo.addItem("No hay sesiones");
 		}
 	}
-	
+
 	public LocalDate confirmarFechaSeleccionada(JDatePickerImpl datePicker) {
 		LocalDate ret = null;
 		Date fechaSeleccionada = (Date) datePicker.getModel().getValue();
-		
+
 		ret = convertir(fechaSeleccionada);
-		
+
 		return ret;
 	}
-	
-	public LocalDate convertir (Date date) {
-	    return date.toInstant()
-	      .atZone(ZoneId.of("GMT+1"))
-	      .toLocalDate();
+
+	public LocalDate convertir(Date date) {
+		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
 	}
 	
 	//SELECCION LOGIN:
