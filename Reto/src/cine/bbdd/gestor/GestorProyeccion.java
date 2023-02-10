@@ -172,13 +172,15 @@ public class GestorProyeccion {
 		return ret;
 	}
 	
-	public ArrayList<Proyeccion> getProyeccionesPorFechaConSesionYPelicula(Cine cineSeleccionado, Pelicula peliSeleccionada, String fecha){
+	public ArrayList<Proyeccion> getProyeccionesPorFechaConSesionPeliculaYCine(Cine cineSeleccionado, Pelicula peliSeleccionada, String fecha){
 		ArrayList<Proyeccion> ret = getProyeccionesPorCineYPelicula(cineSeleccionado, peliSeleccionada, fecha);
 		for (int i = 0; i < ret.size(); i++) {
 			ret.get(i).setSala((new GestorSala()).getSalaPorProyeccion(ret.get(i)));
+			ret.get(i).getSala().setCine(cineSeleccionado);
 			ret.get(i).setPelicula(peliSeleccionada);
 		}
 		
 		return ret;
 	}
+	
 }

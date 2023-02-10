@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -21,6 +22,7 @@ import cine.bbdd.gestor.GestorSala;
 import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
+import cine.vista.Bienvenida;
 import cine.vista.ResumenCompra;
 import cine.vista.SeleccionCine;
 import cine.vista.SeleccionPelicula;
@@ -75,7 +77,7 @@ public class Controlador {
 	 * @param combo JComboBox al que se añaden los cines
 	 * @param cines ArrayList que contiene los cines
 	 */
-	public void anadirCineAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
+	public void anadirCinesAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
 
 		combo.removeAllItems();
 
@@ -159,10 +161,11 @@ public class Controlador {
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
 		for (int i = 0; i < ret.size(); i++) {
-			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine, ret.get(i));
+			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+					ret.get(i));
 			ret.get(i).setProyecciones(proyecciones);
 		}
-		
+
 		return ret;
 	}
 
@@ -248,10 +251,10 @@ public class Controlador {
 	// SELECCION PROYECCION:
 
 	public void anadirFechasAlCombo(JComboBox<String> combo, Cine cineSeleccionado, Pelicula peliSeleccionada) {
-		
-		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado,
-				peliSeleccionada);
-		
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion
+				.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
+
 		combo.removeAllItems();
 
 		if (null != proyecciones) {
@@ -261,12 +264,19 @@ public class Controlador {
 		}
 	}
 
-	public void anadirSesionesAlCombo(JComboBox<String> comboFecha, JComboBox<String> comboSesion, Cine cineSeleccionado, Pelicula peliSeleccionada) {
-		comboSesion.removeAllItems();
-		
+	public ArrayList<Proyeccion> guardarArrayListProyecciones(JComboBox<String> comboFecha, Cine cineSeleccionado,
+			Pelicula peliSeleccionada) {
+		ArrayList<Proyeccion> ret = null;
 		String fecha = comboFecha.getSelectedItem().toString();
-		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorFechaConSesionYPelicula(cineSeleccionado, peliSeleccionada, fecha);
 
+		ret = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cineSeleccionado, peliSeleccionada, fecha);
+
+		return ret;
+
+	}
+
+	public void anadirSesionesAlCombo(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones) {
+		comboSesion.removeAllItems();
 
 		if (null != proyecciones) {
 			for (int i = 0; i < proyecciones.size(); i++) {
@@ -281,6 +291,48 @@ public class Controlador {
 		}
 	}
 
+	public Proyeccion guardarProyeccionSeleccionada(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones) {
+		Proyeccion ret = null;
+
+		int index = comboSesion.getSelectedIndex();
+		ret = proyecciones.get(index);
+
+		return ret;
+	}
+	
+	public int preguntarConfirmacionProyeccion(Proyeccion proyeccion) {
+		JFrame frame = new JFrame();
+		String[] options = new String[2];
+		options[0] = "Cancelar";
+		options[1] = "Confirmar";
+		
+		String titulo = "Confirmar Selección";
+		
+		String msg = "<html>Datos de la selección: <br><br>"
+				+ "<b>Película: </b>" + proyeccion.getPelicula().getTitulo() + "<br>"
+				+ "<b>Fecha: </b>" + proyeccion.getFecha().toString() + "<br>"
+				+ "<b>Hora: </b>" + proyeccion.getHora().toString() + "<br>"
+				+ "<b>Sala: </b>" + proyeccion.getSala().getNombre() + "<br>"
+				+ "<b>Cine: </b>" + proyeccion.getSala().getCine().getNombre() + "<br><br>"
+				+ "¿Desea confirmar la selección?</html>";
+
+		int ret = JOptionPane.showOptionDialog(frame.getContentPane(), msg, titulo, 0, JOptionPane.INFORMATION_MESSAGE,
+				null, options, null);
+		
+		return ret;
+	}
+
+	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelBienvenida, JPanel panelSeleccionProyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
+		int respuesta = preguntarConfirmacionProyeccion(proyeccion);
+		if (respuesta == 1) {
+			proyeccionesSeleccionadas.add(proyeccion);
+			panelSeleccionProyeccion.setVisible(false);
+			panelBienvenida.setVisible(true);
+		}
+		
+
+	}
+
 	public LocalDate confirmarFechaSeleccionada(JDatePickerImpl datePicker) {
 		LocalDate ret = null;
 		Date fechaSeleccionada = (Date) datePicker.getModel().getValue();
@@ -293,7 +345,7 @@ public class Controlador {
 	public LocalDate convertir(Date date) {
 		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
 	}
-	
+
 	// SELECCION LOGIN:
 
 	public void volverAResumenCompra(JFrame frame) {
@@ -302,23 +354,22 @@ public class Controlador {
 
 		frame.dispose();
 	}
-	
+
 	public void irASeleccionRegistro(JFrame frame) {
 		SeleccionRegistro seleccionRegistro = new SeleccionRegistro();
-		
+
 		seleccionRegistro.srFrame.setVisible(true);
-		
-		frame.dispose();
-	}
-	
-	//SELECCION REGISTRO:
-	
-	public void volverASeleccionLogin(JFrame frame) {
-		SeleccionLogin seleccionLogin = new SeleccionLogin();
-		seleccionLogin.slFrame.setVisible(true);
-		
+
 		frame.dispose();
 	}
 
+	// SELECCION REGISTRO:
+
+	public void volverASeleccionLogin(JFrame frame) {
+		SeleccionLogin seleccionLogin = new SeleccionLogin();
+		seleccionLogin.slFrame.setVisible(true);
+
+		frame.dispose();
+	}
 
 }

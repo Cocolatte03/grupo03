@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Proyeccion;
 import cine.controlador.Controlador;
 
 import java.awt.event.ActionListener;
@@ -30,6 +31,7 @@ public class SeleccionCine {
 	 * Create the application.
 	 */
 	public SeleccionCine() {
+		
 		controlador = new Controlador();
 		cines = controlador.guardarArrayListCines();
 		
@@ -91,9 +93,18 @@ public class SeleccionCine {
 		scBtnConfirmar.setBounds(305, 116, 100, 27);
 		scFrame.getContentPane().add(scBtnConfirmar);
 		
-		controlador.anadirCineAlCombo(scComboCines, cines);
+		controlador.anadirCinesAlCombo(scComboCines, cines);
 		controlador.cambiarImagen(scComboCines, scPanelImg, scLblImg);
 		
+		JPanel scPanelCarrito = new JPanel();
+		scPanelCarrito.setBounds(904, 43, 40, 40);
+		scFrame.getContentPane().add(scPanelCarrito);
+		scPanelCarrito.setLayout(new BorderLayout(0, 0));
+		
+		JLabel scLblCarrito = new JLabel("");
+		scPanelCarrito.add(scLblCarrito, BorderLayout.CENTER);
+		
+		controlador.anadirImagen(scPanelCarrito, scLblCarrito, "img/carrito.png");
+		
 	}
-	
 }

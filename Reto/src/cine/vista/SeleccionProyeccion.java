@@ -34,6 +34,8 @@ public class SeleccionProyeccion {
 	private Cine cineSeleccionado = null;
 	private Pelicula peliSeleccionada = null;
 	private Controlador controlador = null;
+	private ArrayList<Proyeccion> proyecciones = null;
+	private Proyeccion proyeccionSeleccionada = null;
 
 	/**
 	 * Create the application.
@@ -43,6 +45,7 @@ public class SeleccionProyeccion {
 		this.peliSeleccionada = peliSeleccionada;
 		
 		controlador = new Controlador();
+		proyecciones = new ArrayList<Proyeccion>();
 		
 		initialize();
 	}
@@ -89,7 +92,8 @@ public class SeleccionProyeccion {
 		JComboBox<String> sprComboFecha = new JComboBox<String>();
 		sprComboFecha.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				controlador.anadirSesionesAlCombo(sprComboFecha, sprComboSesion, cineSeleccionado, peliSeleccionada);
+				proyecciones = controlador.guardarArrayListProyecciones(sprComboFecha, cineSeleccionado, peliSeleccionada);
+				controlador.anadirSesionesAlCombo(sprComboSesion, proyecciones);
 			}
 		});
 		sprComboFecha.setBounds(66, 117, 225, 27);
@@ -98,6 +102,8 @@ public class SeleccionProyeccion {
 		JButton sprBtnSesion = new JButton("Seleccionar");
 		sprBtnSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(sprComboSesion, proyecciones);
+				
 			}
 		});
 		sprBtnSesion.setBounds(303, 257, 117, 29);
