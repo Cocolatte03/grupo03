@@ -47,6 +47,14 @@ public class Controlador {
 		gestorProyeccion = new GestorProyeccion();
 	}
 
+	// BIENVENIDA:
+	public void irASeleccionCine(JFrame frame) {
+		SeleccionCine seleccionCine = new SeleccionCine();
+		seleccionCine.scFrame.setVisible(true);
+
+		frame.dispose();
+	}
+
 	// SELECCION CINE:
 
 	/**
@@ -66,6 +74,8 @@ public class Controlador {
 	 * @param cines ArrayList que contiene los cines
 	 */
 	public void anadirCineAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
+
+		combo.removeAllItems();
 
 		for (int i = 0; i < cines.size(); i++) {
 			combo.addItem(cines.get(i).getNombre());
@@ -110,7 +120,7 @@ public class Controlador {
 	/**
 	 * Abre la pantalla de SeleccionPelicula y oculta el JFrame actual.
 	 * 
-	 * @param cine Cine seleccionado en el apartado de Seleccion de Cine
+	 * @param cine  Cine seleccionado en el apartado de Seleccion de Cine
 	 * @param frame JFrame actual que se oculta
 	 */
 	public void irASeleccionPelicula(Cine cine, JFrame frame) {
@@ -146,10 +156,17 @@ public class Controlador {
 
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
+		for (int i = 0; i < ret.size(); i++) {
+			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine, ret.get(i));
+			ret.get(i).setProyecciones(proyecciones);
+		}
+		
 		return ret;
 	}
 
 	public void anadirPeliculasAlCombo(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
+		combo.removeAllItems();
+
 		if (null != peliculas) {
 			for (int i = 0; i < peliculas.size(); i++) {
 				combo.addItem(peliculas.get(i).getTitulo());
@@ -228,33 +245,37 @@ public class Controlador {
 
 	// SELECCION PROYECCION:
 
-	public ArrayList<Proyeccion> guardarArrayListProyecciones(Cine cineSeleccionado, Pelicula peliSeleccionada) {
-
-		ArrayList<Proyeccion> ret = gestorProyeccion.getProyeccionesPorCineYPelicula(cineSeleccionado,
+	public void anadirFechasAlCombo(JComboBox<String> combo, Cine cineSeleccionado, Pelicula peliSeleccionada) {
+		
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado,
 				peliSeleccionada);
+		
+		combo.removeAllItems();
 
-		return ret;
+		if (null != proyecciones) {
+			for (int i = 0; i < proyecciones.size(); i++) {
+				combo.addItem(proyecciones.get(i).getFecha().toString());
+			}
+		}
 	}
 
-	public void anadirSesionesAlCombo(JComboBox<String> combo, JDatePickerImpl datePicker,
-			ArrayList<Proyeccion> proyecciones) {
-		String fecha = confirmarFechaSeleccionada(datePicker).toString();
+	public void anadirSesionesAlCombo(JComboBox<String> comboFecha, JComboBox<String> comboSesion, Cine cineSeleccionado, Pelicula peliSeleccionada) {
+		comboSesion.removeAllItems();
+		
+		String fecha = comboFecha.getSelectedItem().toString();
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorFechaConSesionYPelicula(cineSeleccionado, peliSeleccionada, fecha);
+
 
 		if (null != proyecciones) {
 			for (int i = 0; i < proyecciones.size(); i++) {
 				Proyeccion proyeccion = proyecciones.get(i);
-				if (proyeccion.getFecha().toString().equals(fecha)) {
-					proyeccion.setSala(gestorSala.getSalaPorId(proyeccion.getId()));
 
-					String hora = proyeccion.getHora().toString();
-					String nombreSala = proyeccion.getSala().getNombre();
-					String precio = "" + proyeccion.getPrecio();
+				String hora = proyeccion.getHora().toString();
+				String nombreSala = proyeccion.getSala().getNombre();
+				String precio = "" + proyeccion.getPrecio();
 
-					combo.addItem(hora + " - " + nombreSala + " - " + precio + " €");
-				}
+				comboSesion.addItem(hora + " - " + nombreSala + " - " + precio + " €");
 			}
-		} else {
-			combo.addItem("No hay sesiones");
 		}
 	}
 
@@ -270,13 +291,13 @@ public class Controlador {
 	public LocalDate convertir(Date date) {
 		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
 	}
-	
-	//SELECCION LOGIN:
+
+	// SELECCION LOGIN:
 	public void volverAResumenCompra(JFrame frame) {
 		ResumenCompra resumenCompra = new ResumenCompra();
 		resumenCompra.rcFrame.setVisible(true);
-		
+
 		frame.dispose();
 	}
-	
+
 }

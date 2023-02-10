@@ -25,11 +25,12 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class SeleccionProyeccion {
 	public JFrame sprFrame;
 	JDatePickerImpl datePicker;
-	private ArrayList<Proyeccion> proyecciones = null;
 	private Cine cineSeleccionado = null;
 	private Pelicula peliSeleccionada = null;
 	private Controlador controlador = null;
@@ -42,8 +43,6 @@ public class SeleccionProyeccion {
 		this.peliSeleccionada = peliSeleccionada;
 		
 		controlador = new Controlador();
-		
-		proyecciones = controlador.guardarArrayListProyecciones(cineSeleccionado, peliSeleccionada);
 		
 		initialize();
 	}
@@ -77,53 +76,36 @@ public class SeleccionProyeccion {
 		sprLblCabecera.setBounds(66, 43, 329, 56);
 		sprFrame.getContentPane().add(sprLblCabecera);
 		
-		JPanel sprPanelSesion = new JPanel();
-		sprPanelSesion.setBounds(40, 320, 455, 154);
-		sprFrame.getContentPane().add(sprPanelSesion);
-		sprPanelSesion.setLayout(null);
-		sprPanelSesion.setVisible(false);
-		sprPanelSesion.setOpaque(false);
-		
 		JLabel sprLblCabeceraSesion = new JLabel("Seleccione una sesión:");
 		sprLblCabeceraSesion.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		sprLblCabeceraSesion.setForeground(new Color(72, 138, 246));
-		sprLblCabeceraSesion.setBounds(25, 20, 370, 56);
-		sprPanelSesion.add(sprLblCabeceraSesion);
+		sprLblCabeceraSesion.setBounds(66, 180, 370, 56);
+		sprFrame.getContentPane().add(sprLblCabeceraSesion);
 		
 		JComboBox<String> sprComboSesion = new JComboBox<String>();
-		sprComboSesion.setBounds(25, 95, 194, 27);
-		sprPanelSesion.add(sprComboSesion);
+		sprComboSesion.setBounds(66, 258, 225, 27);
+		sprFrame.getContentPane().add(sprComboSesion);
+		
+		JComboBox<String> sprComboFecha = new JComboBox<String>();
+		sprComboFecha.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				controlador.anadirSesionesAlCombo(sprComboFecha, sprComboSesion, cineSeleccionado, peliSeleccionada);
+			}
+		});
+		sprComboFecha.setBounds(66, 117, 225, 27);
+		sprFrame.getContentPane().add(sprComboFecha);
 		
 		JButton sprBtnSesion = new JButton("Seleccionar");
 		sprBtnSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		sprBtnSesion.setBounds(263, 95, 117, 29);
-		sprPanelSesion.add(sprBtnSesion);
+		sprBtnSesion.setBounds(303, 257, 117, 29);
+		sprFrame.getContentPane().add(sprBtnSesion);
 		
-		JButton sprBtnFecha = new JButton("Seleccionar");
-		sprBtnFecha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sprComboSesion.removeAllItems();
-				controlador.anadirSesionesAlCombo(sprComboSesion, datePicker, proyecciones);
-				sprPanelSesion.setVisible(true);
-			}
-		});
-		sprBtnFecha.setBounds(303, 116, 117, 29);
-		sprFrame.getContentPane().add(sprBtnFecha);
+		controlador.anadirFechasAlCombo(sprComboFecha, cineSeleccionado, peliSeleccionada);
 		
-		crearSelectorFecha(sprFrame, sprPanelSesion);
-		
-		JPanel sprPanelImgFondo = new JPanel();
-		sprPanelImgFondo.setLayout(new BorderLayout(0, 0));
-		sprPanelImgFondo.setBounds(0, 0, 1000, 700);
-		
-		JLabel sprLblImgFondo = new JLabel("");
-		sprPanelImgFondo.add(sprLblImgFondo, BorderLayout.CENTER);
-		sprFrame.getContentPane().add(sprPanelImgFondo);
-
-		controlador.anadirImagen(sprPanelImgFondo, sprLblImgFondo, "img/sFecha.jpg");
+		crearPanelFondo();
 		
 	}
 	
@@ -147,5 +129,16 @@ public class SeleccionProyeccion {
 		frame.getContentPane().add(datePicker);
 
 	}
-
+	
+	private void crearPanelFondo() {
+		JPanel sprPanelImgFondo = new JPanel();
+		sprPanelImgFondo.setLayout(new BorderLayout(0, 0));
+		sprPanelImgFondo.setBounds(0, 0, 1000, 700);
+		
+		JLabel sprLblImgFondo = new JLabel("");
+		sprPanelImgFondo.add(sprLblImgFondo, BorderLayout.CENTER);
+		sprFrame.getContentPane().add(sprPanelImgFondo);
+		
+		controlador.anadirImagen(sprPanelImgFondo, sprLblImgFondo, "img/sFecha.jpg");
+	}
 }

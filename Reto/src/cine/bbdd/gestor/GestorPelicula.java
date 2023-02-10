@@ -20,7 +20,7 @@ public class GestorPelicula {
 			+ "JOIN pelicula P ON PR.idPelicula = P.id "
 			+ "WHERE C.id = ? "
 			+ "GROUP BY P.id "
-			+ "ORDER BY PR.fecha";
+			+ "ORDER BY PR.fecha, PR.hora";
 
 	public ArrayList<Pelicula> getPeliculasPorCine(Cine cine) {
 		ArrayList<Pelicula> ret = null;
