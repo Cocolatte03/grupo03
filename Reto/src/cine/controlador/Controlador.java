@@ -25,6 +25,8 @@ import cine.vista.ResumenCompra;
 import cine.vista.SeleccionCine;
 import cine.vista.SeleccionPelicula;
 import cine.vista.SeleccionProyeccion;
+import cine.vista.SeleccionLogin;
+import cine.vista.SeleccionRegistro;
 
 /**
  * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
@@ -291,13 +293,32 @@ public class Controlador {
 	public LocalDate convertir(Date date) {
 		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
 	}
-
+	
 	// SELECCION LOGIN:
+
 	public void volverAResumenCompra(JFrame frame) {
 		ResumenCompra resumenCompra = new ResumenCompra();
 		resumenCompra.rcFrame.setVisible(true);
 
 		frame.dispose();
 	}
+	
+	public void irASeleccionRegistro(JFrame frame) {
+		SeleccionRegistro seleccionRegistro = new SeleccionRegistro();
+		
+		seleccionRegistro.srFrame.setVisible(true);
+		
+		frame.dispose();
+	}
+	
+	//SELECCION REGISTRO:
+	
+	public void volverASeleccionLogin(JFrame frame) {
+		SeleccionLogin seleccionLogin = new SeleccionLogin();
+		seleccionLogin.slFrame.setVisible(true);
+		
+		frame.dispose();
+	}
+
 
 }

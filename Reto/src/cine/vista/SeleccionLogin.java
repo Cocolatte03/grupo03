@@ -16,7 +16,7 @@ import java.awt.Color;
 
 public class SeleccionLogin {
 
-	JFrame slFrame;
+	public JFrame slFrame;
 	private Controlador controlador = null;
 	private JTextField slTextFielUsuario;
 	private JTextField slTextFielContrasena;
@@ -52,7 +52,7 @@ public class SeleccionLogin {
 		slFrame = new JFrame();
 		slFrame.setBounds(100, 100, 1000, 700);
 		slFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		slFrame.getContentPane().setLayout(null);
+		slFrame.setLocationRelativeTo(null);
 		slFrame.setTitle("Seleccion de Login");
 		slFrame.getContentPane().setLayout(null);
 		
@@ -75,15 +75,15 @@ public class SeleccionLogin {
 		slLblUsuario.setBounds(678, 114, 150, 56);
 		slFrame.getContentPane().add(slLblUsuario);
 		
-		JLabel slLblContrasena = new JLabel("Contraseña");
-		slLblContrasena.setFont(new Font("Dialog", Font.PLAIN, 20));
-		slLblContrasena.setBounds(678, 226, 150, 56);
-		slFrame.getContentPane().add(slLblContrasena);
-		
 		slTextFielUsuario = new JTextField();
 		slTextFielUsuario.setBounds(678, 180, 150, 36);
 		slFrame.getContentPane().add(slTextFielUsuario);
 		slTextFielUsuario.setColumns(10);
+		
+		JLabel slLblContraseña = new JLabel("Contraseña");
+		slLblContraseña.setFont(new Font("Dialog", Font.PLAIN, 20));
+		slLblContraseña.setBounds(678, 226, 150, 56);
+		slFrame.getContentPane().add(slLblContraseña);
 		
 		slTextFielContrasena = new JTextField();
 		slTextFielContrasena.setColumns(10);
@@ -91,6 +91,15 @@ public class SeleccionLogin {
 		slFrame.getContentPane().add(slTextFielContrasena);
 		
 		JButton slBtnIniciarSesion = new JButton("Iniciar Sesión");
+		slBtnIniciarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ImpresionTicket impresionTicket = new ImpresionTicket();
+				
+				impresionTicket.itFrame.setVisible(true);
+				
+				slFrame.dispose();
+			}
+		});
 		slBtnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 10));
 		slBtnIniciarSesion.setForeground(Color.WHITE);
 		slBtnIniciarSesion.setBackground(Color.RED);
@@ -102,7 +111,12 @@ public class SeleccionLogin {
 		slLblNoTengoCuenta.setBounds(678, 481, 200, 56);
 		slFrame.getContentPane().add(slLblNoTengoCuenta);
 		
-		JButton slBtnRegistrarse = new JButton("Registrarse");
+		JButton slBtnRegistrarse = new JButton("Registrarme");
+		slBtnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.irASeleccionRegistro(slFrame);
+			}
+		});
 		slBtnRegistrarse.setForeground(Color.RED);
 		slBtnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 10));
 		slBtnRegistrarse.setBackground(Color.LIGHT_GRAY);
