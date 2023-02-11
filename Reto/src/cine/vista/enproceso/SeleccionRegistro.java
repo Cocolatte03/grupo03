@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -13,6 +16,8 @@ import cine.controlador.Controlador;
 
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class SeleccionRegistro {
@@ -94,6 +99,11 @@ public class SeleccionRegistro {
 		srFrame.getContentPane().add(srLblDNI);
 		
 		srTextFieldDNI = new JTextField();
+		srTextFieldDNI.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		srTextFieldDNI.setColumns(10);
 		srTextFieldDNI.setBounds(94, 390, 300, 36);
 		srFrame.getContentPane().add(srTextFieldDNI);
@@ -169,7 +179,47 @@ public class SeleccionRegistro {
 		JButton srBtnRegistrarme = new JButton("Registrarme");
 		srBtnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.volverASeleccionLogin(srFrame);
+				if (srTextFieldNombre.getText().isEmpty()) {
+					srTextFieldNombre.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldNombre.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldApellidos.getText().isEmpty()) {
+					srTextFieldApellidos.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldApellidos.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldDNI.getText().isEmpty()) {
+					srTextFieldDNI.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldDNI.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldDireccion.getText().isEmpty()) {
+					srTextFieldDireccion.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldDireccion.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldCorreo.getText().isEmpty()) {
+					srTextFieldCorreo.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldCorreo.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldUsuario.getText().isEmpty()) {
+					srTextFieldUsuario.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldUsuario.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldContraseña.getText().isEmpty()) {
+					srTextFieldContraseña.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldContraseña.setBackground(new Color(255, 255, 255));
+				}
+				if (srTextFieldRepContra.getText().isEmpty()) {
+					srTextFieldRepContra.setBackground(new Color(255, 128, 128));
+				} else {
+					srTextFieldRepContra.setBackground(new Color(255, 255, 255));
+				}
+				//controlador.volverASeleccionLogin(srFrame);
 			}
 		});
 		srBtnRegistrarme.setForeground(Color.WHITE);
