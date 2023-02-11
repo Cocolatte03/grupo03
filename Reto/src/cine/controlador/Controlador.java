@@ -82,9 +82,9 @@ public class Controlador {
 		descuento = Math.round(descuento * 100.0) / 100.0;
 		total = Math.round(total * 100.0) / 100.0;
 
-		labelSubtotal.setText("" + subtotal);
-		labelDescuento.setText("" + descuento);
-		labelTotal.setText("" + total);
+		labelSubtotal.setText(subtotal + " €");
+		labelDescuento.setText(descuento + " €");
+		labelTotal.setText(total + " €");
 	}
 
 	// SELECCION CINE:
@@ -267,38 +267,41 @@ public class Controlador {
 
 	}
 
-	public void anadirSesionesAlCombo(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones) {
-		comboSesion.removeAllItems();
+	public void cargarTablaConSesiones(DefaultTableModel tableModel, ArrayList<Proyeccion> proyecciones) {
+		tableModel.setRowCount(0);
 
-		if (null != proyecciones) {
-			for (int i = 0; i < proyecciones.size(); i++) {
-				Proyeccion proyeccion = proyecciones.get(i);
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
 
-				String hora = proyeccion.getHora().toString();
+			String hora = proyeccion.getHora().toString();
+			String sala = proyeccion.getSala().getNombre();
+			String precio = "" + proyeccion.getPrecio();
 
-				comboSesion.addItem(hora);
-			}
+			tableModel.addRow(new String[] { hora, sala, precio });
 		}
 	}
 	
-	public void anadirInformacionSesion(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones,
-			JLabel labelSala, JLabel labelPrecio) {
-
-		int index = comboSesion.getSelectedIndex();
+	public boolean seHaSeleccionadoProyeccion(JTable table) {
+		boolean ret = false;
 		
-		Proyeccion proyeccion = proyecciones.get(index);
+		int index = table.getSelectedRow();
 		
-		String nombreSala = proyeccion.getSala().getNombre();
-		String precio = "" + proyeccion.getPrecio();
-
-		labelSala.setText(nombreSala);
-		labelPrecio.setText(precio + " €");
+		if (index == -1) {
+			JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna sesión",
+				      "Selección de la sesión", JOptionPane.ERROR_MESSAGE);
+			
+		} else {
+			ret = true;
+		}
+		
+		return ret;
 	}
 
-	public Proyeccion guardarProyeccionSeleccionada(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones) {
+	public Proyeccion guardarProyeccionSeleccionada(JTable table, ArrayList<Proyeccion> proyecciones) {
 		Proyeccion ret = null;
 
-		int index = comboSesion.getSelectedIndex();
+		int index = table.getSelectedRow();
+		
 		ret = proyecciones.get(index);
 
 		return ret;
