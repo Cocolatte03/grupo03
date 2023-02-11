@@ -1,0 +1,547 @@
+INSERT INTO cine (nombre, direccion) VALUES ('Cine Elorrieta Bilbao', 'Gran Vía de Don Diego López de Haro, 13, Bilbao');
+INSERT INTO cine (nombre, direccion) VALUES ('Cine Elorrieta Mungia', 'Trobika Kalea, 1, Mungia');
+INSERT INTO cine (nombre, direccion) VALUES ('Cine Elorrieta Barakaldo', 'Erribera Etorbidea, 5, Barakaldo');
+INSERT INTO cine (nombre, direccion) VALUES ('Cine Elorrieta Durango', 'Uribarri Kalea, 8, Durango');
+
+
+
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 1', 1);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 2', 1);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 3', 1);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 4', 1);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 1', 2);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 2', 2);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 3', 2);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 4', 2);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 1', 3);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 2', 3);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 3', 3);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 4', 3);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 1', 4);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 2', 4);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 3', 4);
+INSERT INTO sala (nombre, idCine) VALUES ('Sala 4', 4);
+
+
+
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Handia', 116, 'Drama', 3500000, 'img/pd1.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Million Dollar Baby', 133, 'Drama', 30000000, 'img/pd2.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Intocable', 112, 'Drama', 10000000, 'img/pd3.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Precio del Poder', 165, 'Drama', 25000000, 'img/pd4.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Pianista', 148, 'Drama', 35000000, 'img/pd5.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Planeta de los Simios', 115, 'Ciencia Ficción', 5800000, 'img/pcf1.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('La Novia de Frankenstein', 75, 'Ciencia Ficción', 400000, 'img/pcf2.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('WALL·E Batallón de Limpieza', 97, 'Ciencia Ficción', 180000000, 'img/pcf3.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Origen', 148, 'Ciencia Ficción', 160000000, 'img/pcf4.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Interstellar', 169, 'Ciencia Ficción', 165000000, 'img/pcf5.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Scary Movie', 90, 'Comedia', 19000000, 'img/pc1.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Gran Lebowski', 119, 'Comedia', 15000000, 'img/pc2.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Toy Story (Juguetes)', 77, 'Comedia', 30000000, 'img/pc3.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Del Revés (Inside Out)', 95, 'Comedia', 175000000, 'img/pc4.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Gran Dictador', 125, 'Comedia', 2000000, 'img/pc5.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Psicosis', 109, 'Terror', 800000, 'img/pt1.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Cisne Negro', 110, 'Terror', 13000000, 'img/pt2.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Resplandor', 143, 'Terror', 19000, 'img/pt3.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('El Exorcista', 121, 'Terror', 12000000, 'img/pt4.jpg');
+INSERT INTO pelicula (titulo, duracion, genero, coste, caratula) VALUES ('Drácula de Bram Stoker', 128, 'Terror', 40000000, 'img/pt5.jpg');
+
+
+
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('16099121H', 'Leire', 'Lasa Amo', 'leiretxula', 'retoprueba', 'Mujer', 'Aldai Azpi, 29, Gorliz');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('15456421F', 'Alexis', 'Guzman Tangara', 'ale', 'retoprueba', 'Hombre', 'Altamira, 4, Bilbao');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('21654562A', 'Ainhoa', 'Vázquez Alarcón', 'vaainhoa', 'retoprueba', 'Mujer', 'Gaztelumendi, 9E, Getxo');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('56454156G', 'Juan', 'Lorca Diaz', 'juanlorca', 'diaz23', 'Hombre', 'Eixample Esquerra, 3, Barcelona');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('65452165Y', 'Sol', 'Mayordomo Sala', 'solmayor', 'sala25ma', 'Mujer', 'Eixample Dreta - Passeig de Gràcia, 2, Barcelona');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('15545954U', 'Carlos', 'Perez Guimez', 'carlosperez', 'car19gui', 'Hombre', 'Horta Guinardo, 1, Barcelona');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('23154123O', 'Sara', 'Barrieta Guimenez', 'saraba', 'ba80gui', 'Mujer', 'Eixample Dreta - Plaça catalunya, 3, Barcelona');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('17083429N', 'Iker', 'Pérez Hidalgo', 'ikerperez', 'perez91', 'Hombre', 'Sertutxa, 23, Barakaldo');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('70383422S', 'Pello', 'García Bilbao', 'pellogarcia', 'garcia2023', 'Hombre', 'Itsasbide, 12, Bakio');
+INSERT INTO cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('20343520R', 'Ana', 'Etxebarrieta Hernández', 'anaetxe', 'anita89', 'Mujer', 'Trobika, 34, Algorta');
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 1, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 1, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 1, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 2, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 2, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 2, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 3, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 3, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 3, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 4, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 4, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 4, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 5, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 5, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 5, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 1, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 1, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 1, 1);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 2, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 2, 1);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 2, 1);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 11, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 11, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 11, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 12, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 12, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 12, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 13, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 13, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 13, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 14, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 14, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 14, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 15, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 15, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 15, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 11, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 11, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 11, 2);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 12, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 12, 2);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 12, 2);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 16, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 16, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 16, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 17, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 17, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 17, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 18, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 18, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 18, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 19, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 19, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 19, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 20, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 20, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 20, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 16, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 16, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 16, 3);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 17, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 17, 3);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 17, 3);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 6, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 6, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 6, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 7, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 7, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 7, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 8, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 8, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 8, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 9, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 9, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 9, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 10, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 10, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 10, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 6, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 6, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 6, 4);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 7, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 7, 4);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 7, 4);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 1, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 1, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 1, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 2, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 2, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 2, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 3, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 3, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 3, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 4, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 4, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 4, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 5, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 5, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 5, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 1, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 1, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 1, 5);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 2, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 2, 5);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 2, 5);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 11, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 11, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 11, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 12, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 12, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 12, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 13, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 13, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 13, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 14, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 14, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 14, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 15, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 15, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 15, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 11, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 11, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 11, 6);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 12, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 12, 6);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 12, 6);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 16, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 16, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 16, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 17, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 17, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 17, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 18, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 18, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 18, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 19, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 19, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 19, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 20, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 20, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 20, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 16, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 16, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 16, 7);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 17, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 17, 7);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 17, 7);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 6, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 6, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 6, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 7, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 7, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 7, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 8, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 8, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 8, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 9, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 9, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 9, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 10, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 10, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 10, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 6, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 6, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 6, 8);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 7, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 7, 8);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 7, 8);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 1, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 1, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 1, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 2, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 2, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 2, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 3, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 3, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 3, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 4, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 4, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 4, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 5, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 5, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 5, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 1, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 1, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 1, 9);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 2, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 2, 9);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 2, 9);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 11, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 11, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 11, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 12, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 12, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 12, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 13, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 13, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 13, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 14, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 14, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 14, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 15, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 15, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 15, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 11, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 11, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 11, 10);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 12, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 12, 10);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 12, 10);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 16, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 16, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 16, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 17, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 17, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 17, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 18, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 18, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 18, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 19, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 19, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 19, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 20, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 20, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 20, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 16, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 16, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 16, 11);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 17, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 17, 11);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 17, 11);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 6, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 6, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 6, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 7, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 7, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 7, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 8, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 8, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 8, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 9, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 9, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 9, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 10, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 10, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 10, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 6, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 6, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 6, 12);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 7, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 7, 12);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 7, 12);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 1, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 1, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 1, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 2, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 2, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 2, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 3, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 3, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 3, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 4, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 4, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 4, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 5, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 5, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 5, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 1, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 1, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 1, 13);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 2, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 2, 13);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 2, 13);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 11, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 11, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 11, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 12, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 12, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 12, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 13, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 13, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 13, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 14, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 14, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 14, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 15, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 15, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 15, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 11, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 11, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 11, 14);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 12, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 12, 14);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 12, 14);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 16, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 16, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 16, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 17, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 17, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 17, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 18, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 18, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 18, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 19, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 19, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 19, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 20, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 20, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 20, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 16, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 16, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 16, 15);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 17, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 17, 15);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 17, 15);
+
+
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '12:00', 6, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (3.95, '2023-03-01', '18:00', 6, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (5.95, '2023-03-01', '22:00', 6, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '12:00', 7, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-02', '18:00', 7, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-02', '22:00', 7, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '12:00', 8, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-03', '18:00', 8, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-03', '22:00', 8, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '12:00', 9, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '18:00', 9, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-04', '22:00', 9, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '12:00', 10, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '18:00', 10, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (12.95, '2023-03-05', '22:00', 10, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '12:00', 6, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-06', '18:00', 6, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-06', '22:00', 6, 16);
+
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '12:00', 7, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (7.95, '2023-03-07', '18:00', 7, 16);
+INSERT INTO proyeccion (precio, fecha, hora, idPelicula, idSala) VALUES (9.95, '2023-03-07', '22:00', 7, 16);
+
+
+
+INSERT INTO entrada (fechaCompra, idProyeccion, idCliente) VALUES ('2023-02-01 12:00', 10, 1);
+INSERT INTO entrada (fechaCompra, idProyeccion, idCliente) VALUES ('2023-01-28 10:00', 25, 2);
+INSERT INTO entrada (fechaCompra, idProyeccion, idCliente) VALUES ('2023-01-20 19:00', 258, 3);
+INSERT INTO entrada (fechaCompra, idProyeccion, idCliente) VALUES ('2023-02-02 22:00', 159, 4);
+INSERT INTO entrada (fechaCompra, idProyeccion, idCliente) VALUES ('2023-02-02 22:00', 308, 4);

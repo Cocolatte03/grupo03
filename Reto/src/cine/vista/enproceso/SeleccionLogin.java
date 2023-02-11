@@ -1,4 +1,4 @@
-package cine.vista;
+package cine.vista.enproceso;
 
 import java.awt.EventQueue;
 import java.awt.Font;

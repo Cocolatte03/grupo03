@@ -1,10 +1,20 @@
 package cine;
 
-import cine.vista.Bienvenida;
+import java.awt.EventQueue;
+
+import cine.vista.Menu;
 
 public class Cine {
 	public static void main(String[] args) {
-		Bienvenida bienvenida = new Bienvenida();
-		bienvenida.bFrame.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Menu window = new Menu();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

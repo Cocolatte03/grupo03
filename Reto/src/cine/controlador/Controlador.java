@@ -1,10 +1,8 @@
 package cine.controlador;
 
 import java.awt.Image;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -12,23 +10,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import org.jdatepicker.impl.JDatePickerImpl;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import cine.bbdd.gestor.GestorCine;
 import cine.bbdd.gestor.GestorPelicula;
 import cine.bbdd.gestor.GestorProyeccion;
-import cine.bbdd.gestor.GestorSala;
 import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
-import cine.vista.Bienvenida;
-import cine.vista.ResumenCompra;
-import cine.vista.SeleccionCine;
-import cine.vista.SeleccionPelicula;
-import cine.vista.SeleccionProyeccion;
-import cine.vista.SeleccionLogin;
-import cine.vista.SeleccionRegistro;
 
 /**
  * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
@@ -41,22 +31,60 @@ public class Controlador {
 
 	private GestorCine gestorCine = null;
 	private GestorPelicula gestorPelicula = null;
-	private GestorSala gestorSala = null;
 	private GestorProyeccion gestorProyeccion = null;
 
 	public Controlador() {
 		gestorCine = new GestorCine();
 		gestorPelicula = new GestorPelicula();
-		gestorSala = new GestorSala();
 		gestorProyeccion = new GestorProyeccion();
 	}
 
 	// BIENVENIDA:
-	public void irASeleccionCine(JFrame frame) {
-		SeleccionCine seleccionCine = new SeleccionCine();
-		seleccionCine.scFrame.setVisible(true);
 
-		frame.dispose();
+	public void finalizarSesion(ArrayList<Proyeccion> proyecciones, JPanel panelCine, JPanel panelResumen, JFrame frame,
+			DefaultTableModel tableModel, JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal,
+			double subtotal, double descuento, double total) {
+
+		if (proyecciones.size() == 0) {
+			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+		} else {
+			panelCine.setVisible(false);
+			panelResumen.setVisible(true);
+
+			cargarTablaConProyeccionesSeleccionadas(tableModel, proyecciones);
+
+			aplicarTotalesALabels(labelSubtotal, labelDescuento, labelTotal, subtotal, descuento, total);
+
+		}
+	}
+
+	public void cargarTablaConProyeccionesSeleccionadas(DefaultTableModel tableModel,
+			ArrayList<Proyeccion> proyecciones) {
+		tableModel.setRowCount(0);
+
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			String titulo = proyeccion.getPelicula().getTitulo();
+			String fecha = proyeccion.getFecha().toString();
+			String hora = proyeccion.getHora().toString();
+			String sala = proyeccion.getSala().getNombre();
+			String cine = proyeccion.getSala().getCine().getNombre();
+			String precio = "" + proyeccion.getPrecio();
+
+			tableModel.addRow(new String[] { titulo, fecha, hora, sala, cine, precio });
+		}
+	}
+
+	public void aplicarTotalesALabels(JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal, double subtotal,
+			double descuento, double total) {
+
+		subtotal = Math.round(subtotal * 100.0) / 100.0;
+		descuento = Math.round(descuento * 100.0) / 100.0;
+		total = Math.round(total * 100.0) / 100.0;
+
+		labelSubtotal.setText("" + subtotal);
+		labelDescuento.setText("" + descuento);
+		labelTotal.setText("" + total);
 	}
 
 	// SELECCION CINE:
@@ -119,26 +147,6 @@ public class Controlador {
 		} else if (combo.getSelectedItem().toString().equalsIgnoreCase("Cine Elorrieta Durango")) {
 			anadirImagen(panel, label, "img/cDurango.png");
 		}
-	}
-
-	/**
-	 * Abre la pantalla de SeleccionPelicula y oculta el JFrame actual.
-	 * 
-	 * @param cine  Cine seleccionado en el apartado de Seleccion de Cine
-	 * @param frame JFrame actual que se oculta
-	 */
-	public void irASeleccionPelicula(Cine cine, JFrame frame) {
-		SeleccionPelicula seleccionPelicula = new SeleccionPelicula(cine);
-
-		seleccionPelicula.spFrame.setVisible(true);
-
-		frame.dispose();
-	}
-
-	public void irAFinalizarSesion(JFrame frame) {
-		ResumenCompra resumenCompra = new ResumenCompra();
-		resumenCompra.rcFrame.setVisible(true);
-		frame.setVisible(false);
 	}
 
 	public Cine determinarCineSeleccionado(JComboBox<String> combo, ArrayList<Cine> cines) {
@@ -217,13 +225,6 @@ public class Controlador {
 		anadirImagen(panel, label, obtenerDireccionCaratula(peliculas, combo.getSelectedItem().toString()));
 	}
 
-	public void volverASeleccionCine(JFrame frame) {
-		SeleccionCine seleccionCine = new SeleccionCine();
-		seleccionCine.scFrame.setVisible(true);
-
-		frame.dispose();
-	}
-
 	public Pelicula determinarPeliSeleccionada(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
 		Pelicula ret = null;
 		String nombrePeli = combo.getSelectedItem().toString();
@@ -237,15 +238,6 @@ public class Controlador {
 
 		return ret;
 
-	}
-
-	public void irASeleccionProyeccion(JComboBox<String> combo, JFrame frame, Cine cineSeleccionado,
-			Pelicula peliSeleccionada) {
-		SeleccionProyeccion seleccionProyeccion = new SeleccionProyeccion(cineSeleccionado, peliSeleccionada);
-
-		seleccionProyeccion.sprFrame.setVisible(true);
-
-		frame.dispose();
 	}
 
 	// SELECCION PROYECCION:
@@ -283,12 +275,24 @@ public class Controlador {
 				Proyeccion proyeccion = proyecciones.get(i);
 
 				String hora = proyeccion.getHora().toString();
-				String nombreSala = proyeccion.getSala().getNombre();
-				String precio = "" + proyeccion.getPrecio();
 
-				comboSesion.addItem(hora + " - " + nombreSala + " - " + precio + " €");
+				comboSesion.addItem(hora);
 			}
 		}
+	}
+	
+	public void anadirInformacionSesion(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones,
+			JLabel labelSala, JLabel labelPrecio) {
+
+		int index = comboSesion.getSelectedIndex();
+		
+		Proyeccion proyeccion = proyecciones.get(index);
+		
+		String nombreSala = proyeccion.getSala().getNombre();
+		String precio = "" + proyeccion.getPrecio();
+
+		labelSala.setText(nombreSala);
+		labelPrecio.setText(precio + " €");
 	}
 
 	public Proyeccion guardarProyeccionSeleccionada(JComboBox<String> comboSesion, ArrayList<Proyeccion> proyecciones) {
@@ -299,77 +303,79 @@ public class Controlador {
 
 		return ret;
 	}
-	
+
 	public int preguntarConfirmacionProyeccion(Proyeccion proyeccion) {
 		JFrame frame = new JFrame();
 		String[] options = new String[2];
 		options[0] = "Cancelar";
 		options[1] = "Confirmar";
-		
+
 		String titulo = "Confirmar Selección";
-		
-		String msg = "<html>Datos de la selección: <br><br>"
-				+ "<b>Película: </b>" + proyeccion.getPelicula().getTitulo() + "<br>"
-				+ "<b>Fecha: </b>" + proyeccion.getFecha().toString() + "<br>"
-				+ "<b>Hora: </b>" + proyeccion.getHora().toString() + "<br>"
-				+ "<b>Sala: </b>" + proyeccion.getSala().getNombre() + "<br>"
-				+ "<b>Cine: </b>" + proyeccion.getSala().getCine().getNombre() + "<br><br>"
-				+ "¿Desea confirmar la selección?</html>";
+
+		String msg = "<html>Datos de la selección: <br><br>" + "<b>Película: </b>"
+				+ proyeccion.getPelicula().getTitulo() + "<br>" + "<b>Fecha: </b>" + proyeccion.getFecha().toString()
+				+ "<br>" + "<b>Hora: </b>" + proyeccion.getHora().toString() + "<br>" + "<b>Sala: </b>"
+				+ proyeccion.getSala().getNombre() + "<br>" + "<b>Cine: </b>"
+				+ proyeccion.getSala().getCine().getNombre() + "<br>" + "<b>Precio: </b>" + proyeccion.getPrecio()
+				+ " €" + "<br><br>" + "¿Desea confirmar la selección?</html>";
 
 		int ret = JOptionPane.showOptionDialog(frame.getContentPane(), msg, titulo, 0, JOptionPane.INFORMATION_MESSAGE,
 				null, options, null);
-		
+
 		return ret;
 	}
 
-	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelBienvenida, JPanel panelSeleccionProyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
+	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelBienvenida,
+			JPanel panelSeleccionProyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
 		int respuesta = preguntarConfirmacionProyeccion(proyeccion);
 		if (respuesta == 1) {
 			proyeccionesSeleccionadas.add(proyeccion);
 			panelSeleccionProyeccion.setVisible(false);
 			panelBienvenida.setVisible(true);
 		}
-		
 
 	}
 
-	public LocalDate confirmarFechaSeleccionada(JDatePickerImpl datePicker) {
-		LocalDate ret = null;
-		Date fechaSeleccionada = (Date) datePicker.getModel().getValue();
+	// RESUMEN COMPRA:
+	public double calcularSubtotal(JTable table, ArrayList<Proyeccion> proyecciones) {
+		double ret = 0;
 
-		ret = convertir(fechaSeleccionada);
+		int numeroEntradas = proyecciones.size();
+
+		for (int i = 0; i < numeroEntradas; i++) {
+			double precioEntrada = proyecciones.get(i).getPrecio();
+			ret += precioEntrada;
+		}
 
 		return ret;
 	}
 
-	public LocalDate convertir(Date date) {
-		return date.toInstant().atZone(ZoneId.of("GMT+1")).toLocalDate();
+	public double calcularDescuento(ArrayList<Proyeccion> proyecciones, double subtotal) {
+		double ret = 0;
+
+		int numeroProyecciones = proyecciones.size();
+
+		if (numeroProyecciones == 1) {
+			ret = 0;
+		} else if (numeroProyecciones == 2) {
+			ret = 0.2 * subtotal * (-1);
+		} else if (numeroProyecciones == 3) {
+			ret = 0.3 * subtotal * (-1);
+		} else if (numeroProyecciones == 4) {
+			ret = 0.4 * subtotal * (-1);
+		} else if (numeroProyecciones >= 5) {
+			ret = 0.5 * subtotal * (-1);
+		}
+
+		return ret;
 	}
 
-	// SELECCION LOGIN:
+	public double calcularTotal(double subtotal, double descuento) {
+		double ret = 0;
 
-	public void volverAResumenCompra(JFrame frame) {
-		ResumenCompra resumenCompra = new ResumenCompra();
-		resumenCompra.rcFrame.setVisible(true);
+		ret = subtotal + descuento;
 
-		frame.dispose();
-	}
-
-	public void irASeleccionRegistro(JFrame frame) {
-		SeleccionRegistro seleccionRegistro = new SeleccionRegistro();
-
-		seleccionRegistro.srFrame.setVisible(true);
-
-		frame.dispose();
-	}
-
-	// SELECCION REGISTRO:
-
-	public void volverASeleccionLogin(JFrame frame) {
-		SeleccionLogin seleccionLogin = new SeleccionLogin();
-		seleccionLogin.slFrame.setVisible(true);
-
-		frame.dispose();
+		return ret;
 	}
 
 }

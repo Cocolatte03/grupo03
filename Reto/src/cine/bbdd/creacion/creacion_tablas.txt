@@ -1,0 +1,65 @@
+CREATE DATABASE IF NOT EXISTS retoprueba;
+
+USE retoprueba;
+
+CREATE TABLE IF NOT EXISTS cine (
+id int PRIMARY KEY AUTO_INCREMENT,
+nombre varchar(50) UNIQUE,
+direccion varchar(60)
+);
+
+CREATE TABLE IF NOT EXISTS sala (
+id int PRIMARY KEY AUTO_INCREMENT,
+nombre VARCHAR(30),
+idCine int
+);
+
+CREATE TABLE IF NOT EXISTS proyeccion (
+id int PRIMARY KEY AUTO_INCREMENT,
+precio float(2),
+fecha date
+	CHECK (fecha > '2023-01-01'),
+hora time
+	CHECK (hora between '10:00:00' AND '22:00:00'),
+idPelicula int,
+idSala int
+);
+
+CREATE TABLE IF NOT EXISTS pelicula (
+id int PRIMARY KEY AUTO_INCREMENT,
+titulo varchar(50) UNIQUE,
+duracion smallint UNSIGNED,
+genero enum('Drama', 'Comedia', 'Ciencia Ficción', 'Terror'),
+coste int UNSIGNED,
+caratula varchar(30)
+);
+
+CREATE TABLE IF NOT EXISTS entrada (
+id int PRIMARY KEY AUTO_INCREMENT,
+fechaCompra datetime
+    check (fechaCompra > '2023-1-1 00:00:00'),
+idProyeccion int,
+idCliente int
+);
+
+CREATE TABLE IF NOT EXISTS cliente (
+id int PRIMARY KEY AUTO_INCREMENT,
+dni char(9) NOT NULL UNIQUE,
+nombre varchar(30),
+apellidos varchar(50),
+usuario varchar(20) UNIQUE,
+contrasena varchar(20),
+sexo enum('Hombre', 'Mujer', 'Otro'),
+direccion varchar(60)
+);
+
+ALTER TABLE sala
+ADD CONSTRAINT fk_idCine_Sala FOREIGN KEY (idCine) REFERENCES cine(id) ON DELETE CASCADE;
+
+ALTER TABLE proyeccion
+ADD CONSTRAINT fk_idPelicula_Proyeccion FOREIGN KEY (idPelicula) REFERENCES pelicula(id) ON DELETE RESTRICT,
+ADD CONSTRAINT fk_idSala_Proyeccion FOREIGN KEY (idSala) REFERENCES sala(id) ON DELETE SET NULL;
+
+ALTER TABLE entrada
+ADD CONSTRAINT fk_idProyeccion_Entrada FOREIGN KEY (idProyeccion) REFERENCES proyeccion(id) ON DELETE RESTRICT,
+ADD CONSTRAINT fk_idCliente_Entrada FOREIGN KEY (idCliente) REFERENCES cliente(id) ON DELETE RESTRICT;
