@@ -74,7 +74,6 @@ public class GestorProyeccion {
 				java.sql.Time sqlTime = resultSet.getTime("hora");
 				LocalTime hora = sqlTime.toLocalTime();
 
-				// Metemos los datos a Ejemplo
 				proyeccion.setId(id);
 				proyeccion.setPrecio(precio);
 				proyeccion.setFecha(fecha);

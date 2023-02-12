@@ -133,7 +133,16 @@ public class Menu {
 		bLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		bLblCabecera.setBounds(281, 250, 439, 36);
 		bPanel.add(bLblCabecera);
-
+		
+		JPanel bPanelLogo = new JPanel();
+		bPanelLogo.setBounds(960, 640, 35, 30);
+		bPanel.add(bPanelLogo);
+		bPanelLogo.setLayout(new BorderLayout(0, 0));
+		bPanelLogo.setOpaque(false);
+		
+		JLabel bLblLogo = new JLabel("");
+		bPanelLogo.add(bLblLogo, BorderLayout.CENTER);
+		
 		JPanel bPanelImg = new JPanel();
 		bPanelImg.setBounds(0, 0, 1000, 672);
 		bPanel.add(bPanelImg);
@@ -143,6 +152,7 @@ public class Menu {
 		bPanelImg.add(bLblImg, BorderLayout.CENTER);
 
 		controlador.anadirImagen(bPanelImg, bLblImg, "img/bbg.jpg");
+		controlador.anadirImagen(bPanelLogo, bLblLogo, "img/icon.png");
 	}
 
 	private void crearPanelSeleccionCine() {

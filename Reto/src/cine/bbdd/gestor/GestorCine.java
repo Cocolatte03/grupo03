@@ -49,7 +49,6 @@ public class GestorCine {
 				String nombre = resultSet.getString("nombre");
 				String direccion = resultSet.getString("direccion");
 
-				// Metemos los datos a Ejemplo
 				cine.setId(id);
 				cine.setNombre(nombre);
 				cine.setDireccion(direccion);

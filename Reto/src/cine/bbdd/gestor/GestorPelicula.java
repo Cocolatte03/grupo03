@@ -61,7 +61,6 @@ public class GestorPelicula {
 				int coste = resultSet.getInt("coste");
 				String caratula = resultSet.getString("caratula");
 
-				// Metemos los datos a Ejemplo
 				pelicula.setId(id);
 				pelicula.setTitulo(titulo);
 				pelicula.setDuracion(duracion);

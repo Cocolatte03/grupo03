@@ -48,7 +48,6 @@ public class GestorSala {
 				int id = resultSet.getInt("S.id");
 				String nombre = resultSet.getString("S.nombre");
 
-				// Metemos los datos a Ejemplo
 				ret.setId(id);
 				ret.setNombre(nombre);
 				
