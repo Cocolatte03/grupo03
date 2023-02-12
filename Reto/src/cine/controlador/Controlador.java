@@ -22,7 +22,7 @@ import cine.bbdd.pojos.Proyeccion;
 
 /**
  * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
- * y el gestor. Gestiona la lógica.
+ * y el gestor, gestionando el apartado lógico.
  * 
  * @author leire
  *
@@ -38,8 +38,6 @@ public class Controlador {
 		gestorPelicula = new GestorPelicula();
 		gestorProyeccion = new GestorProyeccion();
 	}
-
-	// BIENVENIDA:
 
 	public void finalizarSesion(ArrayList<Proyeccion> proyecciones, JPanel panelCine, JPanel panelResumen, JFrame frame,
 			DefaultTableModel tableModel, JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal,
@@ -87,24 +85,11 @@ public class Controlador {
 		labelTotal.setText(total + " €");
 	}
 
-	// SELECCION CINE:
-
-	/**
-	 * Realiza una consulta a la BBDD para un ArrayList con todos los cines.
-	 * 
-	 * @return ArrayList de cines
-	 */
 	public ArrayList<Cine> guardarArrayListCines() {
 		ArrayList<Cine> ret = gestorCine.getAllCines();
 		return ret;
 	}
 
-	/**
-	 * Añade el nombre de los cines a un JComboBox.
-	 * 
-	 * @param combo JComboBox al que se añaden los cines
-	 * @param cines ArrayList que contiene los cines
-	 */
 	public void anadirCinesAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
 
 		combo.removeAllItems();
@@ -114,13 +99,6 @@ public class Controlador {
 		}
 	}
 
-	/**
-	 * Añade una imagen a un JLabel que se encuentra dentro de un JPanel.
-	 * 
-	 * @param panel JPanel en el que se encuentra la JLabel
-	 * @param label JLabel en el que se añade la imagen
-	 * @param path  ruta de la imagen
-	 */
 	public void anadirImagen(JPanel panel, JLabel label, String path) {
 		ImageIcon icon = new ImageIcon(path);
 		Image img = icon.getImage();
@@ -129,14 +107,6 @@ public class Controlador {
 		label.setIcon(icon);
 	}
 
-	/**
-	 * Cambia la imagen de la localización del cine, dependiendo de la opcion
-	 * seleccionada en el JComboBox.
-	 * 
-	 * @param combo JComboBox que contiene el nombre de los cines
-	 * @param panel JPanel en el que se encuentra el JLabel
-	 * @param label JLabel en el que se añade la imagen
-	 */
 	public void cambiarImagen(JComboBox<String> combo, JPanel panel, JLabel label) {
 		if (combo.getSelectedItem().toString().equalsIgnoreCase("Cine Elorrieta Bilbao")) {
 			anadirImagen(panel, label, "img/cBilbao.png");
@@ -159,8 +129,6 @@ public class Controlador {
 		return ret;
 
 	}
-
-	// SELECCION PELICULA:
 
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
@@ -200,13 +168,12 @@ public class Controlador {
 		return ret;
 	}
 
-	// SELECCION PROYECCION:
-
-	public ArrayList<Proyeccion> guardarArrayListProyeccionesAgrupadas(Cine cineSeleccionado, Pelicula peliSeleccionada) {
+	public ArrayList<Proyeccion> guardarArrayListProyeccionesAgrupadas(Cine cineSeleccionado,
+			Pelicula peliSeleccionada) {
 		ArrayList<Proyeccion> ret = null;
-		
+
 		ret = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
-		
+
 		return ret;
 	}
 
@@ -288,7 +255,6 @@ public class Controlador {
 
 	}
 
-	// RESUMEN COMPRA:
 	public double calcularSubtotal(JTable table, ArrayList<Proyeccion> proyecciones) {
 		double ret = 0;
 

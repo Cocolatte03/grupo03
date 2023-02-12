@@ -32,6 +32,13 @@ import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.controlador.Controlador;
 
+
+/**
+ * Esta clase contiene los elementos visuales de la interfaz.
+ * 
+ * @author leire
+ *
+ */
 public class Menu {
 
 	public JFrame frame;
@@ -48,7 +55,7 @@ public class Menu {
 	private DefaultTableModel spTableModel;
 	private DefaultTableModel rcTableModel;
 	private JTable rcTable;
-	
+
 	private JPanel sprPanelImg;
 	private JLabel sprLblImg;
 
@@ -68,9 +75,6 @@ public class Menu {
 	private Pelicula peliSeleccionada = null;
 	private Proyeccion proyeccionSeleccionada = null;
 
-	/**
-	 * Create the application.
-	 */
 	public Menu() {
 		controlador = new Controlador();
 
@@ -87,9 +91,6 @@ public class Menu {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 700);
@@ -198,7 +199,7 @@ public class Menu {
 				scPanel.setVisible(false);
 				cineSeleccionado = controlador.determinarCineSeleccionado(scComboCines, cines);
 				peliculas = controlador.guardarArrayListPeliculas(cineSeleccionado);
-				//controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
+				// controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
 				controlador.cargarTablaConPeliculas(spTableModel, peliculas);
 				spPanel.setVisible(true);
 			}
@@ -220,7 +221,7 @@ public class Menu {
 		spLblCabecera.setForeground(new Color(194, 220, 241));
 		spLblCabecera.setBounds(66, 43, 446, 56);
 		spPanel.add(spLblCabecera);
-		
+
 		JLabel lblNewLabel = new JLabel("Haga clic sobre una película para seleccionarla.");
 		lblNewLabel.setForeground(new Color(254, 255, 255));
 		lblNewLabel.setBounds(70, 100, 400, 31);
@@ -247,10 +248,11 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				peliSeleccionada = controlador.guardarPeliSeleccionada(spTable, peliculas);
-				
-				controlador.anadirFechasAlCombo(sprComboFecha, controlador.guardarArrayListProyeccionesAgrupadas(cineSeleccionado, peliSeleccionada));
+
+				controlador.anadirFechasAlCombo(sprComboFecha,
+						controlador.guardarArrayListProyeccionesAgrupadas(cineSeleccionado, peliSeleccionada));
 				controlador.anadirImagen(sprPanelImg, sprLblImg, peliSeleccionada.getCaratula());
-				
+
 				spPanel.setVisible(false);
 				sprPanel.setVisible(true);
 			}
@@ -311,7 +313,7 @@ public class Menu {
 		spPanelFondo.setBackground(new Color(66, 66, 66));
 		spPanelFondo.setBounds(0, 0, 500, 675);
 		spPanel.add(spPanelFondo);
-		
+
 		controlador.anadirImagen(spPanelImg, spLblImg, "img/spr_bg.jpg");
 		ajustarColumnasPeliculas(spTable);
 	}
@@ -413,7 +415,7 @@ public class Menu {
 				}
 			}
 		});
-		sprPanel.add(sprComboFecha);		
+		sprPanel.add(sprComboFecha);
 
 		sprPanelImg = new JPanel();
 		sprPanelImg.setBackground(new Color(254, 251, 0));
@@ -475,7 +477,6 @@ public class Menu {
 		rcTable.setSelectionBackground(new Color(72, 138, 246));
 		rcTable.setSelectionForeground(Color.WHITE);
 		rcScrollPane.setViewportView(rcTable);
-
 
 		Object[] rcColumnas = { "Película", "Fecha", "Sesión", "Sala", "Cine", "Precio (€)" };
 
@@ -548,13 +549,13 @@ public class Menu {
 		JButton rcBtnConfirmar = new JButton("Confirmar");
 		rcBtnConfirmar.setBounds(218, 558, 117, 29);
 		rcPanel.add(rcBtnConfirmar);
-		
+
 		JLabel rcLblError = new JLabel("Botones deshabilitados actualmente");
 		rcLblError.setForeground(new Color(255, 38, 0));
 		rcLblError.setHorizontalAlignment(SwingConstants.CENTER);
 		rcLblError.setBounds(70, 517, 254, 29);
 		rcPanel.add(rcLblError);
-		
+
 		JLabel rcLblDescr = new JLabel("Haga clic sobre una sesión para eliminarla.");
 		rcLblDescr.setBounds(70, 98, 566, 29);
 		rcPanel.add(rcLblDescr);
@@ -568,7 +569,7 @@ public class Menu {
 		table.getColumnModel().getColumn(3).setMinWidth(100);
 		table.getColumnModel().getColumn(4).setMinWidth(200);
 	}
-	
+
 	public void ajustarColumnasPeliculas(JTable table) {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.getColumnModel().getColumn(0).setMinWidth(200);

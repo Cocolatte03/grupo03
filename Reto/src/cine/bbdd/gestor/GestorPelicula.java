@@ -11,7 +11,13 @@ import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.utils.DBUtils;
 
-
+/**
+ * Esta clase gestiona las consultas a la base de datos relacionadas con la
+ * tabla pelicula.
+ * 
+ * @author leire
+ *
+ */
 public class GestorPelicula {
 	
 	private final String FILM_BY_CINEMA = "SELECT * "

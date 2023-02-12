@@ -10,6 +10,13 @@ import cine.bbdd.pojos.Proyeccion;
 import cine.bbdd.pojos.Sala;
 import cine.bbdd.utils.DBUtils;
 
+/**
+ * Esta clase gestiona las consultas a la base de datos relacionadas con la
+ * tabla sala.
+ * 
+ * @author leire
+ *
+ */
 public class GestorSala {
 	private final String SALA_BY_ID = "SELECT * "
 			+ "FROM sala S JOIN proyeccion PR ON S.id = PR.idSala "

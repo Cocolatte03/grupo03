@@ -14,6 +14,13 @@ import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.bbdd.utils.DBUtils;
 
+/**
+ * Esta clase gestiona las consultas a la base de datos relacionadas con la
+ * tabla proyeccion.
+ * 
+ * @author leire
+ *
+ */
 public class GestorProyeccion {
 	
 	private final String ALL_SESIONS_BY_CINE_GROUP = "SELECT * "

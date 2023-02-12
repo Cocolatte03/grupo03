@@ -10,11 +10,17 @@ import java.util.ArrayList;
 import cine.bbdd.pojos.Cine;
 import cine.bbdd.utils.DBUtils;
 
+/**
+ * Esta clase gestiona las consultas a la base de datos relacionadas con la
+ * tabla cine.
+ * 
+ * @author leire
+ *
+ */
 public class GestorCine {
 
-	private final String ALL_CINEMAS = "SELECT * "
-			+ "FROM cine";
-	
+	private final String ALL_CINEMAS = "SELECT * " + "FROM cine";
+
 	public ArrayList<Cine> getAllCines() {
 		ArrayList<Cine> ret = null;
 		String sql = ALL_CINEMAS;
@@ -47,7 +53,7 @@ public class GestorCine {
 				cine.setId(id);
 				cine.setNombre(nombre);
 				cine.setDireccion(direccion);
-				
+
 				ret.add(cine);
 			}
 		} catch (SQLException sqle) {
@@ -76,5 +82,5 @@ public class GestorCine {
 		}
 		return ret;
 	}
-	
+
 }

@@ -171,20 +171,20 @@ public class MenuTest {
 		ArrayList<Pelicula> peliculas = null;
 		peliculas = controlador.guardarArrayListPeliculas(cine);
 
-		Pelicula pelicula1 = peliculas.get(0);
+		Pelicula primeraPeli = peliculas.get(0);
 
 		int indiceUltimaPeli = peliculas.size() - 1;
-		Pelicula pelicula2 = peliculas.get(indiceUltimaPeli);
+		Pelicula ultimaPeli = peliculas.get(indiceUltimaPeli);
 
 		ArrayList<Proyeccion> proyecciones1 = null;
-		proyecciones1 = controlador.guardarArrayListProyeccionesAgrupadas(cine, pelicula1);
-		pelicula1.setProyecciones(proyecciones1);
+		proyecciones1 = controlador.guardarArrayListProyeccionesAgrupadas(cine, primeraPeli);
+		primeraPeli.setProyecciones(proyecciones1);
 		Proyeccion proyeccion1 = proyecciones1.get(0);
 		LocalDate fecha1 = proyeccion1.getFecha();
 
 		ArrayList<Proyeccion> proyecciones2 = null;
-		proyecciones2 = controlador.guardarArrayListProyeccionesAgrupadas(cine, pelicula2);
-		pelicula2.setProyecciones(proyecciones2);
+		proyecciones2 = controlador.guardarArrayListProyeccionesAgrupadas(cine, ultimaPeli);
+		ultimaPeli.setProyecciones(proyecciones2);
 		Proyeccion proyeccion2 = proyecciones2.get(0);
 		LocalDate fecha2 = proyeccion2.getFecha();
 

@@ -4,6 +4,12 @@ import java.awt.EventQueue;
 
 import cine.vista.Menu;
 
+/**
+ * Esta clase ejecuta la aplicación del Cine Elorrieta.
+ * 
+ * @author leire
+ *
+ */
 public class Cine {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
