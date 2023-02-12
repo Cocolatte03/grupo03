@@ -42,7 +42,7 @@ public class Menu {
 	private JPanel sprPanel;
 	private JPanel rcPanel;
 
-	private JComboBox<String> scComboCines;
+	public JComboBox<String> scComboCines;
 	private JComboBox<String> sprComboFecha;
 
 	private DefaultTableModel spTableModel;

@@ -151,14 +151,10 @@ public class Controlador {
 
 	public Cine determinarCineSeleccionado(JComboBox<String> combo, ArrayList<Cine> cines) {
 		Cine ret = null;
-		String nombreCine = combo.getSelectedItem().toString();
-		for (int i = 0; i < cines.size(); i++) {
-			Cine cine = cines.get(i);
-			String nombre = cine.getNombre();
-			if (nombreCine.equalsIgnoreCase(nombre)) {
-				ret = cine;
-			}
-		}
+
+		int index = combo.getSelectedIndex();
+
+		ret = cines.get(index);
 
 		return ret;
 
