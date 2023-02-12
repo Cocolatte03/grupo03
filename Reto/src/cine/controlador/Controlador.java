@@ -172,24 +172,24 @@ public class Controlador {
 
 		return ret;
 	}
-	
+
 	public void cargarTablaConPeliculas(DefaultTableModel tableModel, ArrayList<Pelicula> peliculas) {
 		tableModel.setRowCount(0);
-		
+
 		if (null != peliculas) {
 			for (int i = 0; i < peliculas.size(); i++) {
 				Pelicula pelicula = peliculas.get(i);
-				
+
 				String titulo = pelicula.getTitulo();
 				String genero = pelicula.getGenero();
 				String duracion = "" + pelicula.getDuracion();
-				
+
 				tableModel.addRow(new String[] { titulo, genero, duracion });
 			}
 		}
 
 	}
-	
+
 	public Pelicula guardarPeliSeleccionada(JTable table, ArrayList<Pelicula> peliculas) {
 		Pelicula ret = null;
 
@@ -202,10 +202,15 @@ public class Controlador {
 
 	// SELECCION PROYECCION:
 
-	public void anadirFechasAlCombo(JComboBox<String> combo, Cine cineSeleccionado, Pelicula peliSeleccionada) {
+	public ArrayList<Proyeccion> guardarArrayListProyeccionesAgrupadas(Cine cineSeleccionado, Pelicula peliSeleccionada) {
+		ArrayList<Proyeccion> ret = null;
+		
+		ret = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
+		
+		return ret;
+	}
 
-		ArrayList<Proyeccion> proyecciones = gestorProyeccion
-				.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
+	public void anadirFechasAlCombo(JComboBox<String> combo, ArrayList<Proyeccion> proyecciones) {
 
 		combo.removeAllItems();
 
@@ -341,18 +346,18 @@ public class Controlador {
 		return ret;
 	}
 
-	public void eliminarProyeccionSel(ArrayList<Proyeccion> proyeccionesSel, JTable table,
-			DefaultTableModel tableModel, JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal) {
+	public void eliminarProyeccionSel(ArrayList<Proyeccion> proyeccionesSel, JTable table, DefaultTableModel tableModel,
+			JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal) {
 		int respuesta = preguntarEliminarProyeccionSel();
 		int index = table.getSelectedRow();
 		if (respuesta == 1) {
 			proyeccionesSel.remove(index);
 			cargarTablaConProyeccionesSeleccionadas(tableModel, proyeccionesSel);
-			
+
 			double subtotal = calcularSubtotal(table, proyeccionesSel);
 			double descuento = calcularDescuento(proyeccionesSel, subtotal);
 			double total = calcularTotal(subtotal, descuento);
-			
+
 			aplicarTotalesALabels(labelSubtotal, labelDescuento, labelTotal, subtotal, descuento, total);
 		}
 	}

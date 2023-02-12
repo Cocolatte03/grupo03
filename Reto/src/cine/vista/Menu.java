@@ -248,8 +248,9 @@ public class Menu {
 			public void mouseClicked(MouseEvent e) {
 				peliSeleccionada = controlador.guardarPeliSeleccionada(spTable, peliculas);
 				
-				controlador.anadirFechasAlCombo(sprComboFecha, cineSeleccionado, peliSeleccionada);
+				controlador.anadirFechasAlCombo(sprComboFecha, controlador.guardarArrayListProyeccionesAgrupadas(cineSeleccionado, peliSeleccionada));
 				controlador.anadirImagen(sprPanelImg, sprLblImg, peliSeleccionada.getCaratula());
+				
 				spPanel.setVisible(false);
 				sprPanel.setVisible(true);
 			}
