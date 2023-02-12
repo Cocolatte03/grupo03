@@ -280,28 +280,12 @@ public class Controlador {
 			tableModel.addRow(new String[] { hora, sala, precio });
 		}
 	}
-	
-	public boolean seHaSeleccionadoProyeccion(JTable table) {
-		boolean ret = false;
-		
-		int index = table.getSelectedRow();
-		
-		if (index == -1) {
-			JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna sesión",
-				      "Selección de la sesión", JOptionPane.ERROR_MESSAGE);
-			
-		} else {
-			ret = true;
-		}
-		
-		return ret;
-	}
 
 	public Proyeccion guardarProyeccionSeleccionada(JTable table, ArrayList<Proyeccion> proyecciones) {
 		Proyeccion ret = null;
 
 		int index = table.getSelectedRow();
-		
+
 		ret = proyecciones.get(index);
 
 		return ret;
@@ -379,6 +363,38 @@ public class Controlador {
 		ret = subtotal + descuento;
 
 		return ret;
+	}
+
+	public int preguntarEliminarProyeccionSel() {
+		JFrame frame = new JFrame();
+		String[] options = new String[2];
+		options[0] = "Cancelar";
+		options[1] = "Confirmar";
+
+		String titulo = "Eliminar Selección";
+
+		String msg = "¿Desea eliminar la sesión?";
+
+		int ret = JOptionPane.showOptionDialog(frame.getContentPane(), msg, titulo, 0, JOptionPane.INFORMATION_MESSAGE,
+				null, options, null);
+
+		return ret;
+	}
+
+	public void eliminarProyeccionSel(ArrayList<Proyeccion> proyeccionesSel, JTable table,
+			DefaultTableModel tableModel, JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal) {
+		int respuesta = preguntarEliminarProyeccionSel();
+		int index = table.getSelectedRow();
+		if (respuesta == 1) {
+			proyeccionesSel.remove(index);
+			cargarTablaConProyeccionesSeleccionadas(tableModel, proyeccionesSel);
+			
+			double subtotal = calcularSubtotal(table, proyeccionesSel);
+			double descuento = calcularDescuento(proyeccionesSel, subtotal);
+			double total = calcularTotal(subtotal, descuento);
+			
+			aplicarTotalesALabels(labelSubtotal, labelDescuento, labelTotal, subtotal, descuento, total);
+		}
 	}
 
 }

@@ -101,7 +101,6 @@ public class Menu {
 		crearPanelSeleccionProyeccion();
 		crearPanelResumenCompra();
 
-		
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
 		sprPanel.setVisible(false);
@@ -299,7 +298,7 @@ public class Menu {
 		});
 		spBtnAtras.setBounds(6, 6, 68, 29);
 		spPanel.add(spBtnAtras);
-		
+
 		JPanel spPanelFondo = new JPanel();
 		spPanelFondo.setBackground(new Color(66, 66, 66));
 		spPanelFondo.setBounds(0, 0, 500, 675);
@@ -338,8 +337,18 @@ public class Menu {
 		sprScrollPane.setBorder(new LineBorder(Color.WHITE, 0));
 		sprScrollPane.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sprScrollPane.getViewport().setBackground(Color.WHITE);
+		sprScrollPane.setBounds(70, 250, 330, 150);
+		sprPanel.add(sprScrollPane);
 
 		JTable sprTable = new JTable();
+		sprTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(sprTable, proyecciones);
+				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, bPanel, sprPanel,
+						proyeccionesSeleccionadas);
+			}
+		});
 		sprTable.setRowHeight(25);
 		sprTable.setBackground(new Color(254, 255, 255));
 		sprTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
@@ -353,10 +362,8 @@ public class Menu {
 		sprTableHeader.setBackground(Color.BLACK);
 		sprTableHeader.setForeground(Color.WHITE);
 		sprTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
-		
-		sprTable.getTableHeader().setPreferredSize(
-			     new Dimension(sprScrollPane.getWidth(),30)
-			);
+
+		sprTable.getTableHeader().setPreferredSize(new Dimension(sprScrollPane.getWidth(), 30));
 
 		DefaultTableModel sprTableModel = new DefaultTableModel() {
 
@@ -369,18 +376,18 @@ public class Menu {
 		};
 		sprTableModel.setColumnIdentifiers(sprColumnas);
 		sprTable.setModel(sprTableModel);
-		
+
 		sprTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-		    private static final long serialVersionUID = 1852554938143426518L;
+			private static final long serialVersionUID = 1852554938143426518L;
 
 			@Override
-		    public Component getTableCellRendererComponent(JTable table, Object value,
-		            boolean isSelected, boolean hasFocus, int row, int column) {
-		        if (isSelected) {
-		            hasFocus = false;
-		        }
-		        return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-		    }
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				if (isSelected) {
+					hasFocus = false;
+				}
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
 		});
 
 		sprComboFecha = new JComboBox<String>();
@@ -394,23 +401,8 @@ public class Menu {
 				}
 			}
 		});
-		sprPanel.add(sprComboFecha);
-		
-		JButton sprBtnContinuar = new JButton("Continuar");
-		sprBtnContinuar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (controlador.seHaSeleccionadoProyeccion(sprTable)) {
-					proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(sprTable, proyecciones);
-					controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, bPanel, sprPanel,
-							proyeccionesSeleccionadas);
-				}
-			}
-		});
-		sprBtnContinuar.setBounds(282, 420, 117, 29);
-		sprPanel.add(sprBtnContinuar);
-		sprScrollPane.setBounds(70, 250, 330, 150);
-		sprPanel.add(sprScrollPane);
-		
+		sprPanel.add(sprComboFecha);		
+
 		JPanel sprPanelImg = new JPanel();
 		sprPanelImg.setBackground(new Color(254, 251, 0));
 		sprPanelImg.setBounds(500, 0, 500, 675);
@@ -419,14 +411,14 @@ public class Menu {
 
 		JLabel sprLblImg = new JLabel("");
 		sprPanelImg.add(sprLblImg, BorderLayout.CENTER);
-		
+
 		controlador.anadirImagen(sprPanelImg, sprLblImg, "img/spr_bg.jpg");
-		
+
 		JPanel sprPanelFondo = new JPanel();
 		sprPanelFondo.setBackground(new Color(66, 66, 66));
 		sprPanelFondo.setBounds(0, 0, 500, 675);
 		sprPanel.add(sprPanelFondo);
-		
+
 	}
 
 	private void crearPanelResumenCompra() {
@@ -452,24 +444,36 @@ public class Menu {
 		rcPanel.add(rcLblCabecera);
 
 		JScrollPane rcScrollPane = new JScrollPane();
-		rcScrollPane.setBorder(new LineBorder(new Color(72, 138, 246), 2));
+		rcScrollPane.setBorder(new LineBorder(Color.WHITE, 0));
 		rcScrollPane.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		rcScrollPane.getViewport().setBackground(Color.WHITE);
 		rcScrollPane.setBounds(70, 150, 850, 250);
 		rcPanel.add(rcScrollPane);
 
 		rcTable = new JTable();
+		rcTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlador.eliminarProyeccionSel(proyeccionesSeleccionadas, rcTable, rcTableModel, rcLblSubtotal1,
+						rcLblDescuento1, rcLblTotal1);
+			}
+		});
 		rcTable.setRowHeight(25);
 		rcTable.setBackground(Color.WHITE);
 		rcTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
 		rcScrollPane.setViewportView(rcTable);
+		rcTable.setSelectionBackground(new Color(72, 138, 246));
+		rcTable.setSelectionForeground(Color.WHITE);
 
 		Object[] rcColumnas = { "Película", "Fecha", "Sesión", "Sala", "Cine", "Precio (€)" };
 
 		JTableHeader rcTableHeader = rcTable.getTableHeader();
-		rcTableHeader.setBackground(Color.WHITE);
-		rcTableHeader.setForeground(Color.BLACK);
+		rcTableHeader.setBackground(Color.BLACK);
+		rcTableHeader.setForeground(Color.WHITE);
 		rcTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+
+		rcTable.getTableHeader().setPreferredSize(new Dimension(rcScrollPane.getWidth(), 30));
 
 		rcTableModel = new DefaultTableModel() {
 
@@ -483,11 +487,24 @@ public class Menu {
 		rcTableModel.setColumnIdentifiers(rcColumnas);
 		rcTable.setModel(rcTableModel);
 
+		rcTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1852554938143426518L;
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				if (isSelected) {
+					hasFocus = false;
+				}
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
+		});
+
 		ajustarColumnas(rcTable);
 
 		JLabel rcLblSubtotal = new JLabel("Subtotal:");
 		rcLblSubtotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblSubtotal.setBounds(688, 422, 110, 29);
+		rcLblSubtotal.setBounds(700, 422, 110, 29);
 		rcPanel.add(rcLblSubtotal);
 
 		rcLblSubtotal1 = new JLabel("");
@@ -496,16 +513,16 @@ public class Menu {
 
 		JLabel rcLblDescuento = new JLabel("Descuento:");
 		rcLblDescuento.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblDescuento.setBounds(688, 463, 110, 29);
+		rcLblDescuento.setBounds(700, 463, 110, 29);
 		rcPanel.add(rcLblDescuento);
 
 		rcLblDescuento1 = new JLabel("");
 		rcLblDescuento1.setBounds(825, 463, 95, 29);
 		rcPanel.add(rcLblDescuento1);
 
-		JLabel rcLblTotal = new JLabel("Total:");
+		JLabel rcLblTotal = new JLabel("TOTAL:");
 		rcLblTotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblTotal.setBounds(688, 504, 110, 29);
+		rcLblTotal.setBounds(700, 504, 110, 29);
 		rcPanel.add(rcLblTotal);
 
 		rcLblTotal1 = new JLabel("");
@@ -520,6 +537,12 @@ public class Menu {
 		JButton rcBtnConfirmar = new JButton("Confirmar");
 		rcBtnConfirmar.setBounds(218, 558, 117, 29);
 		rcPanel.add(rcBtnConfirmar);
+		
+		JLabel rcLblError = new JLabel("Botones deshabilitados actualmente");
+		rcLblError.setForeground(new Color(255, 38, 0));
+		rcLblError.setHorizontalAlignment(SwingConstants.CENTER);
+		rcLblError.setBounds(70, 517, 254, 29);
+		rcPanel.add(rcLblError);
 	}
 
 	public void ajustarColumnas(JTable table) {
