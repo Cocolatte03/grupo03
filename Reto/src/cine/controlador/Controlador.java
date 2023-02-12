@@ -176,68 +176,32 @@ public class Controlador {
 
 		return ret;
 	}
-
-	public void anadirPeliculasAlCombo(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
-		combo.removeAllItems();
-
+	
+	public void cargarTablaConPeliculas(DefaultTableModel tableModel, ArrayList<Pelicula> peliculas) {
+		tableModel.setRowCount(0);
+		
 		if (null != peliculas) {
 			for (int i = 0; i < peliculas.size(); i++) {
-				combo.addItem(peliculas.get(i).getTitulo());
-			}
-		}
-	}
-
-	public void anadirInformacionPeli(JLabel label1, JLabel label2, JLabel label3, ArrayList<Pelicula> peliculas,
-			int i) {
-
-		String titulo = peliculas.get(i).getTitulo();
-		String genero = peliculas.get(i).getGenero();
-		int duracion = peliculas.get(i).getDuracion();
-
-		label1.setText(titulo);
-		label2.setText(genero);
-		label3.setText(duracion + " min");
-	}
-
-	public void cambiarInformacionPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JLabel label1,
-			JLabel label2, JLabel label3) {
-		for (int i = 0; i < peliculas.size(); i++) {
-			if (combo.getSelectedItem().toString().equalsIgnoreCase(peliculas.get(i).getTitulo())) {
-				anadirInformacionPeli(label1, label2, label3, peliculas, i);
-			}
-		}
-	}
-
-	private String obtenerDireccionCaratula(ArrayList<Pelicula> peliculas, String titulo) {
-		String ret = null;
-
-		for (int i = 0; i < peliculas.size(); i++) {
-			if (peliculas.get(i).getTitulo().equalsIgnoreCase(titulo)) {
-				ret = peliculas.get(i).getCaratula();
+				Pelicula pelicula = peliculas.get(i);
+				
+				String titulo = pelicula.getTitulo();
+				String genero = pelicula.getGenero();
+				String duracion = "" + pelicula.getDuracion();
+				
+				tableModel.addRow(new String[] { titulo, genero, duracion });
 			}
 		}
 
-		return ret;
 	}
-
-	public void cambiarCaratulaPorSeleccion(ArrayList<Pelicula> peliculas, JComboBox<String> combo, JPanel panel,
-			JLabel label) {
-		anadirImagen(panel, label, obtenerDireccionCaratula(peliculas, combo.getSelectedItem().toString()));
-	}
-
-	public Pelicula determinarPeliSeleccionada(JComboBox<String> combo, ArrayList<Pelicula> peliculas) {
+	
+	public Pelicula guardarPeliSeleccionada(JTable table, ArrayList<Pelicula> peliculas) {
 		Pelicula ret = null;
-		String nombrePeli = combo.getSelectedItem().toString();
-		for (int i = 0; i < peliculas.size(); i++) {
-			Pelicula pelicula = peliculas.get(i);
-			String titulo = pelicula.getTitulo();
-			if (nombrePeli.equalsIgnoreCase(titulo)) {
-				ret = pelicula;
-			}
-		}
+
+		int index = table.getSelectedRow();
+
+		ret = peliculas.get(index);
 
 		return ret;
-
 	}
 
 	// SELECCION PROYECCION:

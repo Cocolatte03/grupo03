@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -42,11 +43,14 @@ public class Menu {
 	private JPanel rcPanel;
 
 	private JComboBox<String> scComboCines;
-	private JComboBox<String> spComboTitulos;
 	private JComboBox<String> sprComboFecha;
 
+	private DefaultTableModel spTableModel;
 	private DefaultTableModel rcTableModel;
 	private JTable rcTable;
+	
+	private JPanel sprPanelImg;
+	private JLabel sprLblImg;
 
 	private JLabel rcLblSubtotal1;
 	private JLabel rcLblDescuento1;
@@ -194,7 +198,8 @@ public class Menu {
 				scPanel.setVisible(false);
 				cineSeleccionado = controlador.determinarCineSeleccionado(scComboCines, cines);
 				peliculas = controlador.guardarArrayListPeliculas(cineSeleccionado);
-				controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
+				//controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
+				controlador.cargarTablaConPeliculas(spTableModel, peliculas);
 				spPanel.setVisible(true);
 			}
 		});
@@ -215,6 +220,11 @@ public class Menu {
 		spLblCabecera.setForeground(new Color(194, 220, 241));
 		spLblCabecera.setBounds(66, 43, 446, 56);
 		spPanel.add(spLblCabecera);
+		
+		JLabel lblNewLabel = new JLabel("Haga clic sobre una película para seleccionarla.");
+		lblNewLabel.setForeground(new Color(254, 255, 255));
+		lblNewLabel.setBounds(70, 100, 400, 31);
+		spPanel.add(lblNewLabel);
 
 		JPanel spPanelImg = new JPanel();
 		spPanelImg.setBackground(new Color(254, 251, 0));
@@ -225,69 +235,66 @@ public class Menu {
 		JLabel spLblImg = new JLabel("");
 		spPanelImg.add(spLblImg, BorderLayout.CENTER);
 
-		JPanel spPanelInfo = new JPanel();
-		spPanelInfo.setBounds(74, 267, 411, 348);
-		spPanel.add(spPanelInfo);
-		spPanelInfo.setLayout(null);
-		spPanelInfo.setOpaque(false);
+		JScrollPane spScrollPane = new JScrollPane();
+		spScrollPane.setBorder(new LineBorder(Color.WHITE, 0));
+		spScrollPane.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+		spScrollPane.getViewport().setBackground(Color.WHITE);
+		spScrollPane.setBounds(70, 150, 400, 400);
+		spPanel.add(spScrollPane);
 
-		JLabel spLblTitulo = new JLabel("Titulo: ");
-		spLblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		spLblTitulo.setForeground(Color.WHITE);
-		spLblTitulo.setBounds(6, 25, 85, 31);
-		spPanelInfo.add(spLblTitulo);
-
-		JLabel spLblGenero = new JLabel("Género:");
-		spLblGenero.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		spLblGenero.setForeground(Color.WHITE);
-		spLblGenero.setBounds(6, 68, 85, 35);
-		spPanelInfo.add(spLblGenero);
-
-		JLabel spLblDuracion = new JLabel("Duración:");
-		spLblDuracion.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		spLblDuracion.setForeground(Color.WHITE);
-		spLblDuracion.setBounds(6, 115, 85, 31);
-		spPanelInfo.add(spLblDuracion);
-
-		JLabel spLblTitulo1 = new JLabel("");
-		spLblTitulo1.setBounds(103, 25, 284, 31);
-		spLblTitulo1.setForeground(Color.WHITE);
-		spPanelInfo.add(spLblTitulo1);
-
-		JLabel spLblGenero1 = new JLabel("");
-		spLblGenero1.setBounds(103, 68, 284, 35);
-		spLblGenero1.setForeground(Color.WHITE);
-		spPanelInfo.add(spLblGenero1);
-
-		JLabel spLblDuracion1 = new JLabel("");
-		spLblDuracion1.setBounds(103, 115, 284, 31);
-		spLblDuracion1.setForeground(Color.WHITE);
-		spPanelInfo.add(spLblDuracion1);
-
-		spComboTitulos = new JComboBox<String>();
-		spComboTitulos.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (null != spComboTitulos.getSelectedItem()) {
-					controlador.cambiarCaratulaPorSeleccion(peliculas, spComboTitulos, spPanelImg, spLblImg);
-					controlador.cambiarInformacionPorSeleccion(peliculas, spComboTitulos, spLblTitulo1, spLblGenero1,
-							spLblDuracion1);
-				}
-			}
-		});
-		spComboTitulos.setBounds(66, 162, 237, 27);
-		spPanel.add(spComboTitulos);
-
-		JButton spBtnContinuar = new JButton("Continuar");
-		spBtnContinuar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				peliSeleccionada = controlador.determinarPeliSeleccionada(spComboTitulos, peliculas);
+		JTable spTable = new JTable();
+		spTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				peliSeleccionada = controlador.guardarPeliSeleccionada(spTable, peliculas);
+				
 				controlador.anadirFechasAlCombo(sprComboFecha, cineSeleccionado, peliSeleccionada);
+				controlador.anadirImagen(sprPanelImg, sprLblImg, peliSeleccionada.getCaratula());
 				spPanel.setVisible(false);
 				sprPanel.setVisible(true);
 			}
 		});
-		spBtnContinuar.setBounds(359, 161, 117, 29);
-		spPanel.add(spBtnContinuar);
+		spTable.setRowHeight(25);
+		spTable.setBackground(new Color(254, 255, 255));
+		spTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+		spScrollPane.setViewportView(spTable);
+		spTable.setSelectionBackground(new Color(72, 138, 246));
+		spTable.setSelectionForeground(Color.WHITE);
+		spTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		Object[] spColumnas = { "Título", "Género", "Dur (min)" };
+
+		JTableHeader spTableHeader = spTable.getTableHeader();
+		spTableHeader.setBackground(Color.BLACK);
+		spTableHeader.setForeground(Color.WHITE);
+		spTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+
+		spTable.getTableHeader().setPreferredSize(new Dimension(spScrollPane.getWidth(), 30));
+
+		spTableModel = new DefaultTableModel() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		spTableModel.setColumnIdentifiers(spColumnas);
+		spTable.setModel(spTableModel);
+
+		spTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			private static final long serialVersionUID = 1852554938143426518L;
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				if (isSelected) {
+					hasFocus = false;
+				}
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
+		});
 
 		JButton spBtnAtras = new JButton("Atrás");
 		spBtnAtras.addActionListener(new ActionListener() {
@@ -303,6 +310,9 @@ public class Menu {
 		spPanelFondo.setBackground(new Color(66, 66, 66));
 		spPanelFondo.setBounds(0, 0, 500, 675);
 		spPanel.add(spPanelFondo);
+		
+		controlador.anadirImagen(spPanelImg, spLblImg, "img/spr_bg.jpg");
+		ajustarColumnasPeliculas(spTable);
 	}
 
 	private void crearPanelSeleccionProyeccion() {
@@ -355,6 +365,7 @@ public class Menu {
 		sprScrollPane.setViewportView(sprTable);
 		sprTable.setSelectionBackground(new Color(72, 138, 246));
 		sprTable.setSelectionForeground(Color.WHITE);
+		sprTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		Object[] sprColumnas = { "Hora", "Sala", "Precio (€)" };
 
@@ -403,16 +414,14 @@ public class Menu {
 		});
 		sprPanel.add(sprComboFecha);		
 
-		JPanel sprPanelImg = new JPanel();
+		sprPanelImg = new JPanel();
 		sprPanelImg.setBackground(new Color(254, 251, 0));
 		sprPanelImg.setBounds(500, 0, 500, 675);
 		sprPanel.add(sprPanelImg);
 		sprPanelImg.setLayout(new BorderLayout(0, 0));
 
-		JLabel sprLblImg = new JLabel("");
+		sprLblImg = new JLabel("");
 		sprPanelImg.add(sprLblImg, BorderLayout.CENTER);
-
-		controlador.anadirImagen(sprPanelImg, sprLblImg, "img/spr_bg.jpg");
 
 		JPanel sprPanelFondo = new JPanel();
 		sprPanelFondo.setBackground(new Color(66, 66, 66));
@@ -461,10 +470,11 @@ public class Menu {
 		rcTable.setRowHeight(25);
 		rcTable.setBackground(Color.WHITE);
 		rcTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
-
-		rcScrollPane.setViewportView(rcTable);
+		rcTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		rcTable.setSelectionBackground(new Color(72, 138, 246));
 		rcTable.setSelectionForeground(Color.WHITE);
+		rcScrollPane.setViewportView(rcTable);
+
 
 		Object[] rcColumnas = { "Película", "Fecha", "Sesión", "Sala", "Cine", "Precio (€)" };
 
@@ -500,34 +510,34 @@ public class Menu {
 			}
 		});
 
-		ajustarColumnas(rcTable);
+		ajustarColumnasResumenCompra(rcTable);
 
 		JLabel rcLblSubtotal = new JLabel("Subtotal:");
 		rcLblSubtotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblSubtotal.setBounds(700, 422, 110, 29);
+		rcLblSubtotal.setBounds(750, 422, 110, 29);
 		rcPanel.add(rcLblSubtotal);
 
 		rcLblSubtotal1 = new JLabel("");
-		rcLblSubtotal1.setBounds(825, 422, 95, 29);
+		rcLblSubtotal1.setBounds(850, 422, 95, 29);
 		rcPanel.add(rcLblSubtotal1);
 
 		JLabel rcLblDescuento = new JLabel("Descuento:");
 		rcLblDescuento.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblDescuento.setBounds(700, 463, 110, 29);
+		rcLblDescuento.setBounds(750, 463, 110, 29);
 		rcPanel.add(rcLblDescuento);
 
 		rcLblDescuento1 = new JLabel("");
-		rcLblDescuento1.setBounds(825, 463, 95, 29);
+		rcLblDescuento1.setBounds(850, 463, 95, 29);
 		rcPanel.add(rcLblDescuento1);
 
 		JLabel rcLblTotal = new JLabel("TOTAL:");
 		rcLblTotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblTotal.setBounds(700, 504, 110, 29);
+		rcLblTotal.setBounds(750, 504, 110, 29);
 		rcPanel.add(rcLblTotal);
 
 		rcLblTotal1 = new JLabel("");
 		rcLblTotal1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		rcLblTotal1.setBounds(825, 504, 95, 29);
+		rcLblTotal1.setBounds(850, 504, 95, 29);
 		rcPanel.add(rcLblTotal1);
 
 		JButton rcBtnCancelar = new JButton("Cancelar");
@@ -543,14 +553,24 @@ public class Menu {
 		rcLblError.setHorizontalAlignment(SwingConstants.CENTER);
 		rcLblError.setBounds(70, 517, 254, 29);
 		rcPanel.add(rcLblError);
+		
+		JLabel rcLblDescr = new JLabel("Haga clic sobre una sesión para eliminarla.");
+		rcLblDescr.setBounds(70, 98, 566, 29);
+		rcPanel.add(rcLblDescr);
 	}
 
-	public void ajustarColumnas(JTable table) {
+	public void ajustarColumnasResumenCompra(JTable table) {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.getColumnModel().getColumn(0).setMinWidth(200);
 		table.getColumnModel().getColumn(1).setMinWidth(100);
 		table.getColumnModel().getColumn(2).setMinWidth(100);
 		table.getColumnModel().getColumn(3).setMinWidth(100);
 		table.getColumnModel().getColumn(4).setMinWidth(200);
+	}
+	
+	public void ajustarColumnasPeliculas(JTable table) {
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		table.getColumnModel().getColumn(0).setMinWidth(200);
+		table.getColumnModel().getColumn(1).setMinWidth(100);
 	}
 }

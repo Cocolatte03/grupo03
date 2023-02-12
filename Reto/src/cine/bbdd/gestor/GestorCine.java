@@ -141,18 +141,5 @@ public class GestorCine {
 		}
 		return ret;
 	}
-	
-	public ArrayList<Cine> getCinesWithSalas(){
-		ArrayList<Cine> ret = getAllCines();
-		GestorSala gestorSala = new GestorSala();
-		
-		for (int i = 0; i < ret.size(); i++) {
-			Cine cine = ret.get(i);
-			cine.setSalas(gestorSala.getSalasPorCine(cine));
-		}
-		
-		return ret;
-
-	}
 
 }
