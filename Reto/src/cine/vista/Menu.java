@@ -360,7 +360,7 @@ public class Menu {
 		sprScrollPane.setBorder(new LineBorder(Color.WHITE, 0));
 		sprScrollPane.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sprScrollPane.getViewport().setBackground(Color.WHITE);
-		sprScrollPane.setBounds(70, 250, 330, 150);
+		sprScrollPane.setBounds(70, 250, 378, 150);
 		sprPanel.add(sprScrollPane);
 
 		JTable sprTable = new JTable();
@@ -380,7 +380,7 @@ public class Menu {
 		sprTable.setSelectionForeground(Color.WHITE);
 		sprTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		Object[] sprColumnas = { "Hora", "Sala", "Precio (€)" };
+		Object[] sprColumnas = { "Película", "Hora", "Sala", "Precio (€)" };
 
 		JTableHeader sprTableHeader = sprTable.getTableHeader();
 		sprTableHeader.setBackground(Color.BLACK);
@@ -421,7 +421,7 @@ public class Menu {
 				if (null != sprComboFecha.getSelectedItem()) {
 					proyecciones = controlador.guardarArrayListProyecciones(sprComboFecha, cineSeleccionado,
 							peliSeleccionada);
-					controlador.cargarTablaConSesiones(sprTableModel, proyecciones);
+					controlador.cargarTablaConSesiones(sprTableModel, proyecciones, peliSeleccionada);
 				}
 			}
 		});

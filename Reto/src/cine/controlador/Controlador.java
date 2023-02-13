@@ -199,9 +199,11 @@ public class Controlador {
 
 	}
 
-	public void cargarTablaConSesiones(DefaultTableModel tableModel, ArrayList<Proyeccion> proyecciones) {
+	public void cargarTablaConSesiones(DefaultTableModel tableModel, ArrayList<Proyeccion> proyecciones, Pelicula pelicula) {
 		tableModel.setRowCount(0);
 
+		String titulo = pelicula.getTitulo();
+		
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
 
@@ -209,7 +211,7 @@ public class Controlador {
 			String sala = proyeccion.getSala().getNombre();
 			String precio = "" + proyeccion.getPrecio();
 
-			tableModel.addRow(new String[] { hora, sala, precio });
+			tableModel.addRow(new String[] { titulo, hora, sala, precio });
 		}
 	}
 
