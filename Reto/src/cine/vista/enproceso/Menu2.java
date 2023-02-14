@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -648,7 +649,7 @@ public class Menu2 {
 		lLblContraseña.setBounds(678, 226, 150, 56);
 		lPanel.add(lLblContraseña);
 		
-		JTextField lPasswordField = new JTextField();
+		JPasswordField lPasswordField = new JPasswordField();
 		lPasswordField.setColumns(10);
 		lPasswordField.setBounds(678, 292, 150, 36);
 		lPanel.add(lPasswordField);
@@ -657,7 +658,7 @@ public class Menu2 {
 		lBtnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String usuario = lTextFieldUsuario.getText();
-				String contrasena = lPasswordField.getText();
+				String contrasena = String.valueOf(lPasswordField.getPassword());
 				clienteLogueado = controlador.guardarCliente(clientes, usuario);
 				controlador.iniciarSesion(clienteLogueado, contrasena, lPanel, rcPanel, lTextFieldUsuario, lPasswordField);
 			}

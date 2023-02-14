@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -398,7 +399,7 @@ public class Controlador {
 	}
 
 	public void iniciarSesion(Cliente cliente, String contrasena, JPanel lPanel, JPanel rcPanel, JTextField txtUsuario,
-			JTextField txtContrasena) {
+			JPasswordField txtContrasena) {
 		if (cliente != null) {
 			if (coincidenUsuarioYContrasena(cliente, contrasena)) {
 				String nombre = cliente.getNombre();
@@ -437,7 +438,7 @@ public class Controlador {
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
 		String fechaFormateada2 = fechaComp.format(formatter2);
 
-		File fichero = new File("src/cine/tickets/tickets_" + fechaFormateada2 + ".txt");
+		File fichero = new File("src/cine/tickets/entradas_" + fechaFormateada2 + ".txt");
 		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
 
 		String texto = "";
