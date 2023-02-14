@@ -11,12 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import cine.bbdd.gestor.GestorCine;
+import cine.bbdd.gestor.GestorCliente;
+import cine.bbdd.gestor.GestorEntrada;
 import cine.bbdd.gestor.GestorPelicula;
 import cine.bbdd.gestor.GestorProyeccion;
 import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Cliente;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 
@@ -32,11 +36,15 @@ public class Controlador {
 	private GestorCine gestorCine = null;
 	private GestorPelicula gestorPelicula = null;
 	private GestorProyeccion gestorProyeccion = null;
+	private GestorCliente gestorCliente = null;
+	private GestorEntrada gestorEntrada = null;
 
 	public Controlador() {
 		gestorCine = new GestorCine();
 		gestorPelicula = new GestorPelicula();
 		gestorProyeccion = new GestorProyeccion();
+		gestorCliente = new GestorCliente();
+		gestorEntrada = new GestorEntrada();
 	}
 
 	public void finalizarSesion(ArrayList<Proyeccion> proyecciones, JPanel panelCine, JPanel panelResumen, JFrame frame,
@@ -327,6 +335,93 @@ public class Controlador {
 			double total = calcularTotal(subtotal, descuento);
 
 			aplicarTotalesALabels(labelSubtotal, labelDescuento, labelTotal, subtotal, descuento, total);
+		}
+	}
+	
+	public int preguntarCancelarCompra() {
+		JFrame frame = new JFrame();
+		String[] options = new String[2];
+		options[0] = "Cancelar";
+		options[1] = "Confirmar";
+
+		String titulo = "Cancelar compra";
+
+		String msg = "¿Desea  cancelar la compra de las entradas?";
+
+		int ret = JOptionPane.showOptionDialog(frame.getContentPane(), msg, titulo, 0, JOptionPane.INFORMATION_MESSAGE,
+				null, options, null);
+
+		return ret;
+	}
+	
+	public void cancelarCompra(ArrayList <Proyeccion> proyecciones, JPanel bPanel, JPanel rcPanel) {
+		int respuesta = preguntarCancelarCompra();
+		if (respuesta == 1) {
+			proyecciones.removeAll(proyecciones);
+			rcPanel.setVisible(false);
+			bPanel.setVisible(true);
+		}
+	}
+	
+	public ArrayList<Cliente> guardarArrayListClientes() {
+		ArrayList<Cliente> ret = null;
+		ret = gestorCliente.getAllClientes();
+		return ret;
+	}
+	
+	public Cliente guardarCliente(ArrayList<Cliente> clientes, String usuario) {
+		Cliente ret = null;
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			Cliente cliente = clientes.get(i);
+			String nomUsuario = cliente.getUsuario();
+			if (usuario.equals(nomUsuario)) {
+				ret = cliente;
+			}
+		}
+		
+		return ret;
+	}
+	
+	public boolean coincidenUsuarioYContrasena(Cliente cliente, String contrasena) {
+		boolean ret = false;
+		
+		String contrasenaBbdd = cliente.getContrasena();
+		
+		if (contrasena.equals(contrasenaBbdd)) {
+			ret = true;
+		}
+		
+		return ret;
+	}
+	
+	public void iniciarSesion(Cliente cliente, String contrasena, JPanel lPanel, JPanel rcPanel, JTextField txtUsuario, JTextField txtContrasena) {
+		if (cliente != null) {
+			if (coincidenUsuarioYContrasena(cliente, contrasena)) {
+				String nombre = cliente.getNombre();
+				JOptionPane.showMessageDialog(null, ("¡Bienvenid@ " + nombre + "!"));
+				txtUsuario.setText("");
+				txtContrasena.setText("");
+				lPanel.setVisible(false);
+				rcPanel.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "Contraseña incorrecta.",
+					      "Error en el inicio de sesión", JOptionPane.ERROR_MESSAGE);
+				txtUsuario.setText("");
+				txtContrasena.setText("");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "No existe el usuario.",
+				      "Error en el inicio de sesión", JOptionPane.ERROR_MESSAGE);
+			txtUsuario.setText("");
+			txtContrasena.setText("");
+		}
+	}
+	
+	public void crearEntradas(ArrayList<Proyeccion> proyecciones, Cliente cliente) {
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			gestorEntrada.insertEntrada(proyeccion, cliente);
 		}
 	}
 

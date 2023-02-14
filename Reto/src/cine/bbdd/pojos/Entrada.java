@@ -1,7 +1,7 @@
 package cine.bbdd.pojos;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -18,7 +18,7 @@ public class Entrada implements Serializable {
 	private int id = 0;
 
 	// Atributos
-	private LocalDate fechaCompra = null;
+	private LocalDateTime fechaCompra = null;
 
 	// Relaciones
 	// Existe una relacion N:1 con la tabla proyeccion.
@@ -34,11 +34,11 @@ public class Entrada implements Serializable {
 		this.id = id;
 	}
 	
-	public LocalDate getFechaCompra() {
+	public LocalDateTime getFechaCompra() {
 		return fechaCompra;
 	}
 	
-	public void setFechaCompra(LocalDate fechaCompra) {
+	public void setFechaCompra(LocalDateTime fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 	
@@ -61,12 +61,12 @@ public class Entrada implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(cliente, fechaCompra, id, proyeccion);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -79,11 +79,13 @@ public class Entrada implements Serializable {
 		return Objects.equals(cliente, other.cliente) && Objects.equals(fechaCompra, other.fechaCompra)
 				&& id == other.id && Objects.equals(proyeccion, other.proyeccion);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", proyeccion=" + proyeccion + ", cliente="
 				+ cliente + "]";
 	}
+	
+
 
 }

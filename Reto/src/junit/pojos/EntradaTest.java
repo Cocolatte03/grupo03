@@ -3,6 +3,8 @@ package junit.pojos;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.junit.Test;
 
@@ -38,12 +40,15 @@ public class EntradaTest {
 	public void testFechaCompra() {
 		Entrada entrada = new Entrada();
 
-		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
+		LocalDate hoy = LocalDate.now();
+		LocalTime ahora = LocalTime.now();
+
+		LocalDateTime fechaCompra = LocalDateTime.of(hoy, ahora);
 		entrada.setFechaCompra(fechaCompra);
 
 		assertEquals(entrada.getFechaCompra(), fechaCompra);
 	}
-	
+
 	/*
 	 * Probar los metodos setProyeccion() y getProyeccion()
 	 */
@@ -69,14 +74,14 @@ public class EntradaTest {
 
 		assertNull(entrada.getCliente());
 	}
-	
+
 	/*
 	 * Probar el metodo toString()
 	 */
 	@Test
 	public void testToString() {
 		int id = 1;
-		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
+		LocalDateTime fechaCompra = LocalDateTime.now();
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
@@ -87,13 +92,13 @@ public class EntradaTest {
 		entrada.setProyeccion(proyeccion);
 		entrada.setCliente(cliente);
 
-		String esperado = "Entrada [id=" + id + ", fechaCompra=" + fechaCompra 
-				+ " proyeccion=" + proyeccion + ", cliente=" + cliente + "]";
+		String esperado = "Entrada [id=" + id + ", fechaCompra=" + fechaCompra + ", proyeccion=" + proyeccion
+				+ ", cliente=" + cliente + "]";
 
 		assertEquals(entrada.toString(), esperado);
 
 	}
-	
+
 	/*
 	 * Probar el metodo equals() con resultado verdadero
 	 */
@@ -101,7 +106,7 @@ public class EntradaTest {
 	@Test
 	public void testEqualsTrue() {
 		int id = 1;
-		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
+		LocalDateTime fechaCompra = LocalDateTime.now();
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
@@ -122,7 +127,7 @@ public class EntradaTest {
 		assertTrue(entrada1.equals(entrada2));
 		assertTrue(entrada2.equals(entrada1));
 	}
-	
+
 	/*
 	 * Probar el metodo equals() con resultado falso
 	 */
@@ -130,7 +135,7 @@ public class EntradaTest {
 	public void testEqualsFalse() {
 		int id = 1;
 		int id2 = 2;
-		LocalDate fechaCompra = LocalDate.of(2023, 2, 4);
+		LocalDateTime fechaCompra = LocalDateTime.now();
 		Proyeccion proyeccion = null;
 		Cliente cliente = null;
 
