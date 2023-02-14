@@ -196,26 +196,38 @@ public class Registrarse {
 		JButton srBtnRegistrarme = new JButton("Registrarme");
 		srBtnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (isPasswordCorrect(srPasswordFieldContraseña.getPassword(),srPasswordFieldRepContraseña.getPassword())) {
-				} else {
+				if ((srTextFieldNombre.getText().isEmpty()) || 
+						(srTextFieldApellidos.getText().isEmpty()) || 
+						(srTextFieldDNI.getText().isEmpty()) || 
+						(srTextFieldDireccion.getText().isEmpty()) || 
+						(srTextFieldCorreo.getText().isEmpty()) || 
+						(srTextFieldUsuario.getText().isEmpty()) || 
+						(srPasswordFieldContraseña.getPassword().length == 0) || 
+						(srPasswordFieldRepContraseña.getPassword().length == 0)) {
 					JFrame jFrame = new JFrame();
-					JOptionPane.showMessageDialog(jFrame, "Las contraseñas no son iguales");
-				}
-				for (int i = 0; i < usuarios.size(); i++) {
-					if (srTextFieldUsuario.getText().equals(usuarios.get(i).getUsuario())) {
+					JOptionPane.showMessageDialog(jFrame, "Hay campos vacios");
+				} else {
+					if (isPasswordCorrect(srPasswordFieldContraseña.getPassword(),srPasswordFieldRepContraseña.getPassword())) {
+					} else {
 						JFrame jFrame = new JFrame();
-						JOptionPane.showMessageDialog(jFrame, "Ya posees una cuenta \r\n"
-								+ usuarios.get(i).getUsuario());
+						JOptionPane.showMessageDialog(jFrame, "Las contraseñas no son iguales");
 					}
-				}
-				Object pattern = Pattern.compile("^(\\d{8}[A-Z])$");
-				Object matcher = ((Pattern) pattern).matcher(srTextFieldDNI.getText());
-				if ((((Matcher) matcher).matches() && (srTextFieldDNI.getText().trim().length() == 9))) {
 					for (int i = 0; i < usuarios.size(); i++) {
-						if (srTextFieldDNI.getText().equals(usuarios.get(i).getDni())) {
+						if (srTextFieldUsuario.getText().equals(usuarios.get(i).getUsuario())) {
 							JFrame jFrame = new JFrame();
 							JOptionPane.showMessageDialog(jFrame, "Ya posees una cuenta \r\n"
 									+ usuarios.get(i).getUsuario());
+						}
+					}
+					Object pattern = Pattern.compile("^(\\d{8}[A-Z])$");
+					Object matcher = ((Pattern) pattern).matcher(srTextFieldDNI.getText());
+					if ((((Matcher) matcher).matches() && (srTextFieldDNI.getText().trim().length() == 9))) {
+						for (int i = 0; i < usuarios.size(); i++) {
+							if (srTextFieldDNI.getText().equals(usuarios.get(i).getDni())) {
+								JFrame jFrame = new JFrame();
+								JOptionPane.showMessageDialog(jFrame, "Ya posees una cuenta \r\n"
+										+ usuarios.get(i).getUsuario());
+							}
 						}
 					}
 				}
