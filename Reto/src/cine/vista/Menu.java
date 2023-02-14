@@ -5,21 +5,28 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -28,10 +35,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Cliente;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.controlador.Controlador;
-
+import java.awt.SystemColor;
 
 /**
  * Esta clase contiene los elementos visuales de la interfaz.
@@ -48,6 +56,8 @@ public class Menu {
 	private JPanel spPanel;
 	private JPanel sprPanel;
 	private JPanel rcPanel;
+	private JPanel lPanel;
+	private JPanel itPanel;
 
 	public JComboBox<String> scComboCines;
 	private JComboBox<String> sprComboFecha;
@@ -68,12 +78,16 @@ public class Menu {
 	private ArrayList<Cine> cines = null;
 	private ArrayList<Pelicula> peliculas = null;
 	private ArrayList<Proyeccion> proyecciones = null;
+	private ArrayList<Cliente> clientes = null;
 
 	private ArrayList<Proyeccion> proyeccionesSeleccionadas = null;
 
 	private Cine cineSeleccionado = null;
 	private Pelicula peliSeleccionada = null;
 	private Proyeccion proyeccionSeleccionada = null;
+	private Cliente clienteLogueado = null;
+
+	private LocalDateTime fechaCompra = null;
 
 	public Menu() {
 		controlador = new Controlador();
@@ -81,6 +95,7 @@ public class Menu {
 		cines = controlador.guardarArrayListCines();
 		peliculas = new ArrayList<Pelicula>();
 		proyecciones = new ArrayList<Proyeccion>();
+		clientes = new ArrayList<Cliente>();
 
 		proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
 
@@ -105,11 +120,15 @@ public class Menu {
 		crearPanelSeleccionPelicula();
 		crearPanelSeleccionProyeccion();
 		crearPanelResumenCompra();
+		crearPanelLogin();
+		crearPanelImpresionTicket();
 
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
 		sprPanel.setVisible(false);
 		rcPanel.setVisible(false);
+		lPanel.setVisible(false);
+		itPanel.setVisible(false);
 
 	}
 
@@ -130,19 +149,19 @@ public class Menu {
 		JLabel bLblCabecera = new JLabel("Bienvenid@ al Cine Elorrieta");
 		bLblCabecera.setHorizontalAlignment(SwingConstants.CENTER);
 		bLblCabecera.setForeground(new Color(72, 138, 246));
-		bLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-		bLblCabecera.setBounds(281, 250, 439, 36);
+		bLblCabecera.setFont(new Font("Corbel", Font.BOLD, 30));
+		bLblCabecera.setBounds(223, 250, 563, 48);
 		bPanel.add(bLblCabecera);
-		
+
 		JPanel bPanelLogo = new JPanel();
 		bPanelLogo.setBounds(960, 640, 35, 30);
 		bPanel.add(bPanelLogo);
 		bPanelLogo.setLayout(new BorderLayout(0, 0));
 		bPanelLogo.setOpaque(false);
-		
+
 		JLabel bLblLogo = new JLabel("");
 		bPanelLogo.add(bLblLogo, BorderLayout.CENTER);
-		
+
 		JPanel bPanelImg = new JPanel();
 		bPanelImg.setBounds(0, 0, 1000, 672);
 		bPanel.add(bPanelImg);
@@ -161,11 +180,12 @@ public class Menu {
 		scPanel.setBounds(0, 0, 1000, 672);
 		frame.getContentPane().add(scPanel);
 		scPanel.setLayout(null);
+		scPanel.setBackground(Color.WHITE);
 
 		JLabel scLblCabecera = new JLabel("Seleccione un cine:");
-		scLblCabecera.setForeground(new Color(72, 138, 246));
+		scLblCabecera.setForeground(Color.WHITE);
 		scLblCabecera.setHorizontalAlignment(SwingConstants.CENTER);
-		scLblCabecera.setFont(new Font("Dialog", Font.BOLD, 20));
+		scLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		scLblCabecera.setBounds(30, 43, 230, 56);
 		scPanel.add(scLblCabecera);
 
@@ -173,11 +193,15 @@ public class Menu {
 		scPanelImg.setBounds(160, 170, 700, 490);
 		scPanel.add(scPanelImg);
 		scPanelImg.setLayout(new BorderLayout(0, 0));
+		scPanelImg.setOpaque(false);
 
 		JLabel scLblImg = new JLabel("");
 		scPanelImg.add(scLblImg, BorderLayout.CENTER);
 
 		scComboCines = new JComboBox<String>();
+		scComboCines.setBackground(Color.WHITE);
+		scComboCines.setForeground(SystemColor.textHighlight);
+		scComboCines.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		scComboCines.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (null != scComboCines.getSelectedItem()) {
@@ -185,10 +209,13 @@ public class Menu {
 				}
 			}
 		});
-		scComboCines.setBounds(53, 116, 230, 27);
+		scComboCines.setBounds(53, 110, 230, 33);
 		scPanel.add(scComboCines);
 
 		JButton scBtnFin = new JButton("Finalizar Sesión");
+		scBtnFin.setBackground(Color.WHITE);
+		scBtnFin.setForeground(SystemColor.textHighlight);
+		scBtnFin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		scBtnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -200,10 +227,13 @@ public class Menu {
 						rcLblSubtotal1, rcLblDescuento1, rcLblTotal1, subtotal, descuento, total);
 			}
 		});
-		scBtnFin.setBounds(869, 6, 125, 27);
+		scBtnFin.setBounds(792, 20, 169, 33);
 		scPanel.add(scBtnFin);
 
 		JButton scBtnConfirmar = new JButton("Confirmar");
+		scBtnConfirmar.setBackground(SystemColor.textHighlight);
+		scBtnConfirmar.setForeground(new Color(255, 255, 255));
+		scBtnConfirmar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		scBtnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				scPanel.setVisible(false);
@@ -214,9 +244,14 @@ public class Menu {
 				spPanel.setVisible(true);
 			}
 		});
-		scBtnConfirmar.setBounds(305, 116, 100, 27);
+		scBtnConfirmar.setBounds(305, 110, 111, 33);
 		scPanel.add(scBtnConfirmar);
 
+		JPanel scPanelCabecera = new JPanel();
+		scPanelCabecera.setBounds(0, 0, 1000, 180);
+		scPanel.add(scPanelCabecera);
+		scPanelCabecera.setLayout(null);
+		scPanelCabecera.setBackground(Color.DARK_GRAY);
 	}
 
 	public void crearPanelSeleccionPelicula() {
@@ -274,6 +309,7 @@ public class Menu {
 		spTable.setSelectionBackground(new Color(72, 138, 246));
 		spTable.setSelectionForeground(Color.WHITE);
 		spTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		spTable.setShowGrid(false);
 
 		Object[] spColumnas = { "Título", "Género", "Dur (min)" };
 
@@ -310,13 +346,16 @@ public class Menu {
 		});
 
 		JButton spBtnAtras = new JButton("Atrás");
+		spBtnAtras.setBackground(SystemColor.textHighlight);
+		spBtnAtras.setForeground(Color.WHITE);
+		spBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		spBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				spPanel.setVisible(false);
 				scPanel.setVisible(true);
 			}
 		});
-		spBtnAtras.setBounds(6, 6, 68, 29);
+		spBtnAtras.setBounds(6, 6, 80, 29);
 		spPanel.add(spBtnAtras);
 
 		JPanel spPanelFondo = new JPanel();
@@ -334,7 +373,10 @@ public class Menu {
 		frame.getContentPane().add(sprPanel);
 
 		JButton sprBtnAtras = new JButton("Atrás");
-		sprBtnAtras.setBounds(6, 6, 70, 29);
+		sprBtnAtras.setBackground(SystemColor.textHighlight);
+		sprBtnAtras.setForeground(Color.WHITE);
+		sprBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		sprBtnAtras.setBounds(6, 6, 80, 29);
 		sprBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				spPanel.setVisible(true);
@@ -379,6 +421,7 @@ public class Menu {
 		sprTable.setSelectionBackground(new Color(72, 138, 246));
 		sprTable.setSelectionForeground(Color.WHITE);
 		sprTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		sprTable.setShowGrid(false);
 
 		Object[] sprColumnas = { "Película", "Hora", "Sala", "Precio (€)" };
 
@@ -415,7 +458,10 @@ public class Menu {
 		});
 
 		sprComboFecha = new JComboBox<String>();
-		sprComboFecha.setBounds(66, 117, 225, 27);
+		sprComboFecha.setBackground(Color.WHITE);
+		sprComboFecha.setForeground(SystemColor.textHighlight);
+		sprComboFecha.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		sprComboFecha.setBounds(66, 117, 230, 33);
 		sprComboFecha.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (null != sprComboFecha.getSelectedItem()) {
@@ -486,6 +532,7 @@ public class Menu {
 		rcTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		rcTable.setSelectionBackground(new Color(72, 138, 246));
 		rcTable.setSelectionForeground(Color.WHITE);
+		rcTable.setShowGrid(false);
 		rcScrollPane.setViewportView(rcTable);
 
 		Object[] rcColumnas = { "Película", "Fecha", "Sesión", "Sala", "Cine", "Precio (€)" };
@@ -553,18 +600,34 @@ public class Menu {
 		rcPanel.add(rcLblTotal1);
 
 		JButton rcBtnCancelar = new JButton("Cancelar");
+		rcBtnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.cancelarCompra(proyeccionesSeleccionadas, bPanel, rcPanel);
+			}
+		});
 		rcBtnCancelar.setBounds(66, 558, 117, 29);
 		rcPanel.add(rcBtnCancelar);
 
 		JButton rcBtnConfirmar = new JButton("Confirmar");
+		rcBtnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (proyeccionesSeleccionadas.size() == 0) {
+					JOptionPane.showMessageDialog(null, "No hay entradas seleccionadas para proceder.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else if (null == clienteLogueado) {
+					rcPanel.setVisible(false);
+					lPanel.setVisible(true);
+					clientes = controlador.guardarArrayListClientes();
+				} else if (null != clienteLogueado) {
+					fechaCompra = LocalDateTime.now();
+					controlador.crearEntradas(proyeccionesSeleccionadas, clienteLogueado);
+					rcPanel.setVisible(false);
+					itPanel.setVisible(true);
+				}
+			}
+		});
 		rcBtnConfirmar.setBounds(218, 558, 117, 29);
 		rcPanel.add(rcBtnConfirmar);
-
-		JLabel rcLblError = new JLabel("Botones deshabilitados actualmente");
-		rcLblError.setForeground(new Color(255, 38, 0));
-		rcLblError.setHorizontalAlignment(SwingConstants.CENTER);
-		rcLblError.setBounds(70, 517, 254, 29);
-		rcPanel.add(rcLblError);
 
 		JLabel rcLblDescr = new JLabel("Haga clic sobre una sesión para eliminarla.");
 		rcLblDescr.setBounds(70, 98, 566, 29);
@@ -584,5 +647,143 @@ public class Menu {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		table.getColumnModel().getColumn(0).setMinWidth(200);
 		table.getColumnModel().getColumn(1).setMinWidth(100);
+	}
+
+	private void crearPanelLogin() {
+		lPanel = new JPanel();
+		lPanel.setBounds(0, 0, 1000, 672);
+		frame.getContentPane().add(lPanel);
+		lPanel.setLayout(null);
+
+		JButton lBtnAtras = new JButton("Atrás");
+		lBtnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lPanel.setVisible(false);
+				rcPanel.setVisible(true);
+			}
+		});
+		lBtnAtras.setBounds(24, 33, 85, 29);
+		lPanel.add(lBtnAtras);
+
+		JLabel lLblUsuario = new JLabel("Usuario:");
+		lLblUsuario.setForeground(Color.WHITE);
+		lLblUsuario.setFont(new Font("Dialog", Font.PLAIN, 15));
+		lLblUsuario.setBounds(678, 114, 150, 56);
+		lPanel.add(lLblUsuario);
+
+		JTextField lTextFieldUsuario = new JTextField();
+		lTextFieldUsuario.setBounds(678, 180, 150, 36);
+		lPanel.add(lTextFieldUsuario);
+		lTextFieldUsuario.setColumns(10);
+
+		JLabel lLblContraseña = new JLabel("Contraseña:");
+		lLblContraseña.setForeground(Color.WHITE);
+		lLblContraseña.setFont(new Font("Dialog", Font.PLAIN, 15));
+		lLblContraseña.setBounds(678, 226, 150, 56);
+		lPanel.add(lLblContraseña);
+
+		JPasswordField lPasswordField = new JPasswordField();
+		lPasswordField.setColumns(10);
+		lPasswordField.setBounds(678, 292, 150, 36);
+		lPanel.add(lPasswordField);
+
+		JButton lBtnIniciarSesion = new JButton("Iniciar Sesión");
+		lBtnIniciarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String usuario = lTextFieldUsuario.getText();
+				String contrasena = String.valueOf(lPasswordField.getPassword());
+				clienteLogueado = controlador.guardarCliente(clientes, usuario);
+				controlador.iniciarSesion(clienteLogueado, contrasena, lPanel, rcPanel, lTextFieldUsuario,
+						lPasswordField);
+			}
+		});
+		lBtnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lBtnIniciarSesion.setForeground(Color.WHITE);
+		lBtnIniciarSesion.setBackground(Color.RED);
+		lBtnIniciarSesion.setBounds(678, 338, 150, 36);
+		lPanel.add(lBtnIniciarSesion);
+
+		JLabel lLblNoTengoCuenta = new JLabel("No tengo cuenta");
+		lLblNoTengoCuenta.setForeground(Color.WHITE);
+		lLblNoTengoCuenta.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lLblNoTengoCuenta.setBounds(678, 481, 200, 56);
+		lPanel.add(lLblNoTengoCuenta);
+
+		JButton lBtnRegistrarse = new JButton("Registrarme");
+		lBtnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		lBtnRegistrarse.setForeground(Color.RED);
+		lBtnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lBtnRegistrarse.setBackground(Color.LIGHT_GRAY);
+		lBtnRegistrarse.setBounds(678, 547, 150, 36);
+		lPanel.add(lBtnRegistrarse);
+
+		JPanel lPanelImg = new JPanel();
+		lPanelImg.setBackground(new Color(254, 251, 0));
+		lPanelImg.setBounds(0, 0, 500, 675);
+		lPanel.add(lPanelImg);
+		lPanelImg.setLayout(new BorderLayout(0, 0));
+
+		JLabel lLblImg = new JLabel("");
+		lPanelImg.add(lLblImg, BorderLayout.CENTER);
+
+		JPanel lPanelFondo = new JPanel();
+		lPanelFondo.setBackground(new Color(66, 66, 66));
+		lPanelFondo.setBounds(500, 0, 500, 675);
+		lPanel.add(lPanelFondo);
+
+		controlador.anadirImagen(lPanelImg, lLblImg, "img/l_bg.jpg");
+	}
+
+	private void crearPanelImpresionTicket() {
+		itPanel = new JPanel();
+		itPanel.setBounds(0, 0, 1000, 672);
+		frame.getContentPane().add(itPanel);
+		itPanel.setLayout(null);
+
+		JLabel itLblAgradecimiento = new JLabel("¡GRACIAS POR SU COMPRA!");
+		itLblAgradecimiento.setForeground(Color.RED);
+		itLblAgradecimiento.setFont(new Font("Dialog", Font.BOLD, 20));
+		itLblAgradecimiento.setBounds(323, 41, 400, 56);
+		itPanel.add(itLblAgradecimiento);
+
+		JLabel itLblPregunta = new JLabel("¿Desea imprimir las entradas?");
+		itLblPregunta.setFont(new Font("Dialog", Font.PLAIN, 20));
+		itLblPregunta.setBounds(323, 369, 400, 56);
+		itPanel.add(itLblPregunta);
+
+		JButton itBtnSi = new JButton("SÍ");
+		itBtnSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.imprimirTicket(proyeccionesSeleccionadas, clienteLogueado, fechaCompra);
+				itPanel.setVisible(false);
+				bPanel.setVisible(true);
+				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
+				clienteLogueado = null;
+			}
+		});
+		itBtnSi.setForeground(Color.WHITE);
+		itBtnSi.setFont(new Font("Tahoma", Font.BOLD, 15));
+		itBtnSi.setBackground(Color.RED);
+		itBtnSi.setBounds(312, 435, 150, 36);
+		itPanel.add(itBtnSi);
+
+		JButton itBtnNo = new JButton("NO");
+		itBtnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				itPanel.setVisible(false);
+				bPanel.setVisible(true);
+				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
+				clienteLogueado = null;
+			}
+		});
+		itBtnNo.setForeground(Color.WHITE);
+		itBtnNo.setFont(new Font("Tahoma", Font.BOLD, 15));
+		itBtnNo.setBackground(Color.RED);
+		itBtnNo.setBounds(472, 435, 150, 36);
+		itPanel.add(itBtnNo);
 	}
 }

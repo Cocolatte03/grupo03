@@ -5,8 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 
-import static org.junit.Assert.assertTrue;
-
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -170,7 +168,7 @@ public class SeleccionRegistro {
 		JButton srBtnAtras = new JButton("Atrás");
 		srBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.volverASeleccionLogin(srFrame);
+				
 			}
 		});
 		srBtnAtras.setBounds(835, 600, 85, 29);
