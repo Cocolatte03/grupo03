@@ -38,20 +38,6 @@ import cine.bbdd.pojos.Proyeccion;
  */
 public class Controlador {
 
-	private GestorCine gestorCine = null;
-	private GestorPelicula gestorPelicula = null;
-	private GestorProyeccion gestorProyeccion = null;
-	private GestorCliente gestorCliente = null;
-	private GestorEntrada gestorEntrada = null;
-
-	public Controlador() {
-		gestorCine = new GestorCine();
-		gestorPelicula = new GestorPelicula();
-		gestorProyeccion = new GestorProyeccion();
-		gestorCliente = new GestorCliente();
-		gestorEntrada = new GestorEntrada();
-	}
-
 	public void finalizarSesion(ArrayList<Proyeccion> proyecciones, JPanel panelCine, JPanel panelResumen, JFrame frame,
 			DefaultTableModel tableModel, JLabel labelSubtotal, JLabel labelDescuento, JLabel labelTotal,
 			double subtotal, double descuento, double total) {
@@ -99,6 +85,7 @@ public class Controlador {
 	}
 
 	public ArrayList<Cine> guardarArrayListCines() {
+		GestorCine gestorCine = new GestorCine();
 		ArrayList<Cine> ret = gestorCine.getAllCines();
 		return ret;
 	}
@@ -144,6 +131,9 @@ public class Controlador {
 	}
 
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
+		GestorPelicula gestorPelicula = new GestorPelicula();
+		GestorProyeccion gestorProyeccion = new GestorProyeccion();
+		
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
 		for (int i = 0; i < ret.size(); i++) {
 			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
@@ -184,6 +174,8 @@ public class Controlador {
 	public ArrayList<Proyeccion> guardarArrayListProyeccionesAgrupadas(Cine cineSeleccionado,
 			Pelicula peliSeleccionada) {
 		ArrayList<Proyeccion> ret = null;
+		
+		GestorProyeccion gestorProyeccion = new GestorProyeccion();
 
 		ret = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
 
@@ -205,6 +197,8 @@ public class Controlador {
 			Pelicula peliSeleccionada) {
 		ArrayList<Proyeccion> ret = null;
 		String fecha = comboFecha.getSelectedItem().toString();
+		
+		GestorProyeccion gestorProyeccion = new GestorProyeccion();
 
 		ret = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cineSeleccionado, peliSeleccionada, fecha);
 
@@ -212,11 +206,12 @@ public class Controlador {
 
 	}
 
-	public void cargarTablaConSesiones(DefaultTableModel tableModel, ArrayList<Proyeccion> proyecciones, Pelicula pelicula) {
+	public void cargarTablaConSesiones(DefaultTableModel tableModel, ArrayList<Proyeccion> proyecciones,
+			Pelicula pelicula) {
 		tableModel.setRowCount(0);
 
 		String titulo = pelicula.getTitulo();
-		
+
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
 
@@ -342,7 +337,7 @@ public class Controlador {
 			aplicarTotalesALabels(labelSubtotal, labelDescuento, labelTotal, subtotal, descuento, total);
 		}
 	}
-	
+
 	public int preguntarCancelarCompra() {
 		JFrame frame = new JFrame();
 		String[] options = new String[2];
@@ -358,8 +353,8 @@ public class Controlador {
 
 		return ret;
 	}
-	
-	public void cancelarCompra(ArrayList <Proyeccion> proyecciones, JPanel bPanel, JPanel rcPanel) {
+
+	public void cancelarCompra(ArrayList<Proyeccion> proyecciones, JPanel bPanel, JPanel rcPanel) {
 		int respuesta = preguntarCancelarCompra();
 		if (respuesta == 1) {
 			proyecciones.removeAll(proyecciones);
@@ -367,16 +362,18 @@ public class Controlador {
 			bPanel.setVisible(true);
 		}
 	}
-	
+
 	public ArrayList<Cliente> guardarArrayListClientes() {
 		ArrayList<Cliente> ret = null;
+		GestorCliente gestorCliente = new GestorCliente();
+		
 		ret = gestorCliente.getAllClientes();
 		return ret;
 	}
-	
+
 	public Cliente guardarCliente(ArrayList<Cliente> clientes, String usuario) {
 		Cliente ret = null;
-		
+
 		for (int i = 0; i < clientes.size(); i++) {
 			Cliente cliente = clientes.get(i);
 			String nomUsuario = cliente.getUsuario();
@@ -384,23 +381,24 @@ public class Controlador {
 				ret = cliente;
 			}
 		}
-		
+
 		return ret;
 	}
-	
+
 	public boolean coincidenUsuarioYContrasena(Cliente cliente, String contrasena) {
 		boolean ret = false;
-		
+
 		String contrasenaBbdd = cliente.getContrasena();
-		
+
 		if (contrasena.equals(contrasenaBbdd)) {
 			ret = true;
 		}
-		
+
 		return ret;
 	}
-	
-	public void iniciarSesion(Cliente cliente, String contrasena, JPanel lPanel, JPanel rcPanel, JTextField txtUsuario, JTextField txtContrasena) {
+
+	public void iniciarSesion(Cliente cliente, String contrasena, JPanel lPanel, JPanel rcPanel, JTextField txtUsuario,
+			JTextField txtContrasena) {
 		if (cliente != null) {
 			if (coincidenUsuarioYContrasena(cliente, contrasena)) {
 				String nombre = cliente.getNombre();
@@ -410,33 +408,35 @@ public class Controlador {
 				lPanel.setVisible(false);
 				rcPanel.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(null, "Contraseña incorrecta.",
-					      "Error en el inicio de sesión", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Contraseña incorrecta.", "Error en el inicio de sesión",
+						JOptionPane.ERROR_MESSAGE);
 				txtUsuario.setText("");
 				txtContrasena.setText("");
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "No existe el usuario.",
-				      "Error en el inicio de sesión", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No existe el usuario.", "Error en el inicio de sesión",
+					JOptionPane.ERROR_MESSAGE);
 			txtUsuario.setText("");
 			txtContrasena.setText("");
 		}
 	}
-	
+
 	public void crearEntradas(ArrayList<Proyeccion> proyecciones, Cliente cliente) {
+		GestorEntrada gestorEntrada = new GestorEntrada();
+		
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
 			gestorEntrada.insertEntrada(proyeccion, cliente);
 		}
 	}
-	
+
 	public void imprimirTicket(ArrayList<Proyeccion> proyecciones, Cliente cliente, LocalDateTime fechaComp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String fechaFormateada = fechaComp.format(formatter);
-        
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
-        String fechaFormateada2 = fechaComp.format(formatter2);
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String fechaFormateada = fechaComp.format(formatter);
+
+		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+		String fechaFormateada2 = fechaComp.format(formatter2);
+
 		File fichero = new File("src/cine/tickets/tickets_" + fechaFormateada2 + ".txt");
 		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
 
@@ -444,7 +444,7 @@ public class Controlador {
 
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
-			
+
 			String titulo = proyeccion.getPelicula().getTitulo();
 			String hora = "" + proyeccion.getHora();
 			String fecha = "" + proyeccion.getFecha();
@@ -452,10 +452,12 @@ public class Controlador {
 			String cine = proyeccion.getSala().getCine().getNombre();
 			String precio = "" + proyeccion.getPrecio();
 			String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
-			
-			texto += "--- ENTRADA " + (i+1) + " ---\n";
-			
-			texto += "Película: " + titulo + "\n" + "Sesión: " +  hora + "\n" + "Fecha: " + fecha + "\n" + "Sala: " +  sala + "\n" + "Cine: " +  cine + "\n" + "Precio: " +  precio + " €\n" + "Fecha compra: " +  fechaFormateada + "\n" + "Cliente: " +  comprador + "\n\n";
+
+			texto += "--- ENTRADA " + (i + 1) + " ---\n";
+
+			texto += "Película: " + titulo + "\n" + "Sesión: " + hora + "\n" + "Fecha: " + fecha + "\n" + "Sala: "
+					+ sala + "\n" + "Cine: " + cine + "\n" + "Precio: " + precio + " €\n" + "Fecha compra: "
+					+ fechaFormateada + "\n" + "Cliente: " + comprador + "\n\n";
 		}
 
 		try {
