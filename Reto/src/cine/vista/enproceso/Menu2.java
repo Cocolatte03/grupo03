@@ -723,7 +723,11 @@ public class Menu2 {
 		JButton itBtnSi = new JButton("SÍ");
 		itBtnSi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controlador.imprimirTicket(proyeccionesSeleccionadas, clienteLogueado, fechaCompra);
+				itPanel.setVisible(false);
+				bPanel.setVisible(true);
+				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
+				clienteLogueado = null;
 			}
 		});
 		itBtnSi.setForeground(Color.WHITE);
@@ -735,6 +739,7 @@ public class Menu2 {
 		JButton itBtnNo = new JButton("NO");
 		itBtnNo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		itBtnNo.setForeground(Color.WHITE);

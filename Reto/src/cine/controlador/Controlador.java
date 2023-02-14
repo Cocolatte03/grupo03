@@ -2,6 +2,10 @@ package cine.controlador;
 
 import java.awt.Image;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -14,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import cine.controlador.fichero.GestorDeFicheros;
 import cine.bbdd.gestor.GestorCine;
 import cine.bbdd.gestor.GestorCliente;
 import cine.bbdd.gestor.GestorEntrada;
@@ -422,6 +427,39 @@ public class Controlador {
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
 			gestorEntrada.insertEntrada(proyeccion, cliente);
+		}
+	}
+	
+	public void imprimirTicket(ArrayList<Proyeccion> proyecciones, Cliente cliente, LocalDateTime fechaComp) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+        String fechaFormateada = fechaComp.format(formatter);
+		
+		File fichero = new File("src/cine/tickets/tickets_" + fechaFormateada + ".txt");
+		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
+
+		String texto = "";
+
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			
+			String titulo = proyeccion.getPelicula().getTitulo();
+			String hora = "" + proyeccion.getHora();
+			String fecha = "" + proyeccion.getFecha();
+			String sala = proyeccion.getSala().getNombre();
+			String cine = proyeccion.getSala().getCine().getNombre();
+			String precio = "" + proyeccion.getPrecio();
+			String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
+			
+			texto += "--- TICKET " + (i+1) + " ---\n";
+			
+			texto += "PELÍCULA:" + titulo + "\n" + "SESIÓN:" +  hora + "\n" + "FECHA:" + fecha + "\n" + "SALA:" +  sala + "\n" + "CINE:" +  cine + "\n" + "PRECIO:" +  precio + "\n" + "FECHA DE COMPRA:" +  fechaComp + "\n" + "CLIENTE:" +  comprador + "\n\n";
+		}
+
+		try {
+			gestor.escribir(texto);
+			JOptionPane.showMessageDialog(null, ("Sus tickets se han imprimido correctamente."));
+		} catch (IOException e1) {
+
 		}
 	}
 
