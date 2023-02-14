@@ -739,7 +739,10 @@ public class Menu2 {
 		JButton itBtnNo = new JButton("NO");
 		itBtnNo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				itPanel.setVisible(false);
+				bPanel.setVisible(true);
+				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
+				clienteLogueado = null;
 			}
 		});
 		itBtnNo.setForeground(Color.WHITE);

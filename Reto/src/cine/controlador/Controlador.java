@@ -431,10 +431,13 @@ public class Controlador {
 	}
 	
 	public void imprimirTicket(ArrayList<Proyeccion> proyecciones, Cliente cliente, LocalDateTime fechaComp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String fechaFormateada = fechaComp.format(formatter);
+        
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+        String fechaFormateada2 = fechaComp.format(formatter2);
 		
-		File fichero = new File("src/cine/tickets/tickets_" + fechaFormateada + ".txt");
+		File fichero = new File("src/cine/tickets/tickets_" + fechaFormateada2 + ".txt");
 		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
 
 		String texto = "";
@@ -450,14 +453,14 @@ public class Controlador {
 			String precio = "" + proyeccion.getPrecio();
 			String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
 			
-			texto += "--- TICKET " + (i+1) + " ---\n";
+			texto += "--- ENTRADA " + (i+1) + " ---\n";
 			
-			texto += "PELÍCULA:" + titulo + "\n" + "SESIÓN:" +  hora + "\n" + "FECHA:" + fecha + "\n" + "SALA:" +  sala + "\n" + "CINE:" +  cine + "\n" + "PRECIO:" +  precio + "\n" + "FECHA DE COMPRA:" +  fechaComp + "\n" + "CLIENTE:" +  comprador + "\n\n";
+			texto += "Película: " + titulo + "\n" + "Sesión: " +  hora + "\n" + "Fecha: " + fecha + "\n" + "Sala: " +  sala + "\n" + "Cine: " +  cine + "\n" + "Precio: " +  precio + " €\n" + "Fecha compra: " +  fechaFormateada + "\n" + "Cliente: " +  comprador + "\n\n";
 		}
 
 		try {
 			gestor.escribir(texto);
-			JOptionPane.showMessageDialog(null, ("Sus tickets se han imprimido correctamente."));
+			JOptionPane.showMessageDialog(null, ("Sus entradas se han impreso correctamente."));
 		} catch (IOException e1) {
 
 		}
