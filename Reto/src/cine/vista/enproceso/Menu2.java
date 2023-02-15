@@ -385,7 +385,7 @@ public class Menu2 {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(sprTable, proyecciones);
-				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, bPanel, sprPanel,
+				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, scPanel, sprPanel,
 						proyeccionesSeleccionadas);
 			}
 		});

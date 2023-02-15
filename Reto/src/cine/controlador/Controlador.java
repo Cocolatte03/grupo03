@@ -255,13 +255,13 @@ public class Controlador {
 		return ret;
 	}
 
-	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelBienvenida,
+	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelCine,
 			JPanel panelSeleccionProyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
 		int respuesta = preguntarConfirmacionProyeccion(proyeccion);
 		if (respuesta == 1) {
 			proyeccionesSeleccionadas.add(proyeccion);
 			panelSeleccionProyeccion.setVisible(false);
-			panelBienvenida.setVisible(true);
+			panelCine.setVisible(true);
 		}
 
 	}
@@ -438,7 +438,7 @@ public class Controlador {
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
 		String fechaFormateada2 = fechaComp.format(formatter2);
 
-		File fichero = new File("src/cine/tickets/entradas_" + fechaFormateada2 + ".txt");
+		File fichero = new File("src/cine/tickets/entradas_" + fechaFormateada2 + "_" + cliente.getId() + ".txt");
 		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
 
 		String texto = "";

@@ -42,7 +42,6 @@ public class MenuTest {
 		cines = gestorCine.getAllCines();
 
 		assertNotNull(cines);
-		System.out.println("testCines --> El ArrayList cines no es nulo\n");
 
 	}
 
@@ -66,7 +65,6 @@ public class MenuTest {
 		}
 
 		assertTrue(estaElCineEnElListado);
-		System.out.println("testCineDisponible --> El " + cineDisponible + " está en el listado de cines\n");
 
 	}
 
@@ -90,7 +88,6 @@ public class MenuTest {
 		}
 
 		assertFalse(estaElCineEnElListado);
-		System.out.println("testCineNoDisponible --> El " + cineNoDisponible + " no está en el listado de cines\n");
 
 	}
 
@@ -107,7 +104,6 @@ public class MenuTest {
 		peliculas = gestorPelicula.getPeliculasPorCine(cine);
 
 		assertNotNull(peliculas);
-		System.out.println("testPeliculasCine --> El ArrayList peliculas no es nulo\n");
 
 	}
 
@@ -135,8 +131,6 @@ public class MenuTest {
 		}
 
 		assertFalse(estaLaPeliculaEnElListado);
-		System.out.println("testPeliculaNoDisponibleCine --> La película " + tituloNoDisponible + " no se emite en el "
-				+ cine.getNombre() + "\n");
 
 	}
 
@@ -164,8 +158,6 @@ public class MenuTest {
 		}
 
 		assertTrue(estaLaPeliculaEnElListado);
-		System.out.println("testPeliculaDisponibleCine --> La película " + tituloDisponible + " se emite en el "
-				+ cine.getNombre() + "\n");
 
 	}
 
@@ -181,26 +173,27 @@ public class MenuTest {
 		ArrayList<Pelicula> peliculas = null;
 		peliculas = gestorPelicula.getPeliculasPorCine(cine);
 
-		Pelicula primeraPeli = peliculas.get(0);
+		boolean estaOrdenado = true;
 
-		int indiceUltimaPeli = peliculas.size() - 1;
-		Pelicula ultimaPeli = peliculas.get(indiceUltimaPeli);
+		for (int i = 1; i < peliculas.size(); i++) {
+			Pelicula pelicula = peliculas.get(i);
+			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+					pelicula);
+			pelicula.setProyecciones(proyecciones);
+			LocalDate fecha = pelicula.getProyecciones().get(0).getFecha();
 
-		ArrayList<Proyeccion> proyecciones1 = null;
-		proyecciones1 = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine, primeraPeli);
-		primeraPeli.setProyecciones(proyecciones1);
-		Proyeccion proyeccion1 = proyecciones1.get(0);
-		LocalDate fecha1 = proyeccion1.getFecha();
+			Pelicula pelicula2 = peliculas.get(i - 1);
+			ArrayList<Proyeccion> proyecciones2 = gestorProyeccion
+					.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine, pelicula2);
+			pelicula2.setProyecciones(proyecciones2);
+			LocalDate fecha2 = pelicula2.getProyecciones().get(0).getFecha();
 
-		ArrayList<Proyeccion> proyecciones2 = null;
-		proyecciones2 = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine, ultimaPeli);
-		ultimaPeli.setProyecciones(proyecciones2);
-		Proyeccion proyeccion2 = proyecciones2.get(0);
-		LocalDate fecha2 = proyeccion2.getFecha();
+			if (fecha2.isAfter(fecha)) {
+				estaOrdenado = false;
+			}
+		}
 
-		assertTrue(fecha1.isBefore(fecha2));
-		System.out.println("testPeliculasOrden --> La película cuya emisión es el " + fecha1
-				+ " sale antes que la que se emite el " + fecha2 + "\n");
+		assertTrue(estaOrdenado);
 
 	}
 
@@ -223,28 +216,16 @@ public class MenuTest {
 
 		boolean sonFechasDiferentes = true;
 
-		for (int i = 0; i < proyecciones.size(); i++) {
+		for (int i = 1; i < proyecciones.size(); i++) {
 			LocalDate fecha1 = proyecciones.get(i).getFecha();
-			if (i != 0) {
-				LocalDate fecha2 = proyecciones.get(i - 1).getFecha();
-				if (fecha1.equals(fecha2)) {
-					sonFechasDiferentes = false;
-				}
+			LocalDate fecha2 = proyecciones.get(i - 1).getFecha();
+			if (fecha1.equals(fecha2)) {
+				sonFechasDiferentes = false;
 			}
-
 		}
 
 		assertNotNull(proyecciones);
 		assertTrue(sonFechasDiferentes);
-
-		System.out
-				.println("testProyecciones --> Solamente se muestran las fechas de emisión diferentes de una película");
-		for (int j = 0; j < proyecciones.size(); j++) {
-			LocalDate fecha = proyecciones.get(j).getFecha();
-			System.out.println("	Fecha: " + fecha);
-		}
-
-		System.out.println();
 
 	}
 
@@ -268,16 +249,19 @@ public class MenuTest {
 		ArrayList<Proyeccion> proyecciones2 = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cine,
 				pelicula, fecha.toString());
 
-		LocalTime primeraHora = proyecciones2.get(0).getHora();
-		int indiceUltimaHora = proyecciones2.size() - 1;
-		LocalTime ultimaHora = proyecciones2.get(indiceUltimaHora).getHora();
+		boolean estaOrdenado = true;
 
-		assertNotNull(primeraHora);
-		assertNotNull(ultimaHora);
-		assertTrue(primeraHora.isBefore(ultimaHora));
+		for (int i = 1; i < proyecciones2.size(); i++) {
+			LocalTime hora1 = proyecciones2.get(i).getHora();
+			LocalTime hora2 = proyecciones2.get(i - 1).getHora();
 
-		System.out.println("testProyeccionesPorFecha --> La emisión de las " + primeraHora
-				+ " sale antes que la de las " + ultimaHora + "\n");
+			if (hora2.isAfter(hora1)) {
+				estaOrdenado = false;
+			}
+		}
+
+		assertNotNull(proyecciones2);
+		assertTrue(estaOrdenado);
 
 	}
 
@@ -321,12 +305,8 @@ public class MenuTest {
 		assertNotNull(precio1);
 		assertNotNull(precio2);
 		assertNotEquals(precio1, precio2);
+		assertNotEquals(hora1, hora2);
 		assertEquals(titulo1, titulo2);
-
-		System.out.println("testProyeccionesConPrecioDiferentePorFecha --> La emisión de la película " + titulo1
-				+ " del día " + fecha1 + " a las " + hora1 + " tiene un precio de " + precio1
-				+ "€. \nMientras que la del día " + fecha2 + " a las " + hora2 + " tiene un precio de " + precio2
-				+ "€\n");
 
 	}
 
@@ -351,9 +331,8 @@ public class MenuTest {
 				pelicula, fecha.toString());
 
 		Sala sala = proyecciones1.get(0).getSala();
-		
+
 		assertNotNull(sala);
-		System.out.println("testSalas --> La sala se asigna correctamente, no tiene un valor nulo.\n");
 
 	}
 
