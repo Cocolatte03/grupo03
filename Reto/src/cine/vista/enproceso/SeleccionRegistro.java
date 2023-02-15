@@ -8,28 +8,34 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import cine.controlador.Controlador;
+import cine.bbdd.gestor.GestorCliente;
+import cine.bbdd.pojos.Cliente;
 
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class SeleccionRegistro {
 
+	GestorCliente gestorCliente = new GestorCliente();
+	ArrayList<Cliente> usuarios = gestorCliente.getAllClientes();
+	
 	public JFrame srFrame;
-	private Controlador controlador = null;
 	private JTextField srTextFieldNombre;
 	private JTextField srTextFieldApellidos;
 	private JTextField srTextFieldDNI;
 	private JTextField srTextFieldDireccion;
 	private JTextField srTextFieldCorreo;
 	private JTextField srTextFieldUsuario;
-	private JTextField srTextFieldContraseña;
-	private JTextField srTextFieldRepContra;
+	private JPasswordField srPasswordFieldContraseña;
+	private JPasswordField srPasswordFieldRepContraseña;
 
 	/**
 	 * Launch the application.
@@ -51,7 +57,6 @@ public class SeleccionRegistro {
 	 * Create the application.
 	 */
 	public SeleccionRegistro() {
-		controlador = new Controlador();
 		initialize();
 	}
 
@@ -97,11 +102,6 @@ public class SeleccionRegistro {
 		srFrame.getContentPane().add(srLblDNI);
 		
 		srTextFieldDNI = new JTextField();
-		srTextFieldDNI.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 		srTextFieldDNI.setColumns(10);
 		srTextFieldDNI.setBounds(94, 390, 300, 36);
 		srFrame.getContentPane().add(srTextFieldDNI);
@@ -121,7 +121,9 @@ public class SeleccionRegistro {
 		srLblSexo.setBounds(94, 548, 150, 56);
 		srFrame.getContentPane().add(srLblSexo);
 		
-		JComboBox<String> srComboSexo = new JComboBox<String>();
+		String sexo[] = {"Hombre", "Mujer"};
+		
+		JComboBox<String> srComboSexo = new JComboBox<String>(sexo);
 		srComboSexo.setBounds(94, 601, 191, 27);
 		srFrame.getContentPane().add(srComboSexo);
 		
@@ -150,74 +152,59 @@ public class SeleccionRegistro {
 		srLblContraseña.setBounds(538, 324, 300, 56);
 		srFrame.getContentPane().add(srLblContraseña);
 		
-		srTextFieldContraseña = new JTextField();
-		srTextFieldContraseña.setColumns(10);
-		srTextFieldContraseña.setBounds(538, 390, 300, 36);
-		srFrame.getContentPane().add(srTextFieldContraseña);
+		srPasswordFieldContraseña = new JPasswordField();
+		srPasswordFieldContraseña.setBounds(538, 390, 300, 36);
+		srFrame.getContentPane().add(srPasswordFieldContraseña);
 		
 		JLabel srLblRepContra = new JLabel("Repetir Contraseña");
 		srLblRepContra.setFont(new Font("Dialog", Font.PLAIN, 20));
 		srLblRepContra.setBounds(538, 436, 300, 56);
 		srFrame.getContentPane().add(srLblRepContra);
 		
-		srTextFieldRepContra = new JTextField();
-		srTextFieldRepContra.setColumns(10);
-		srTextFieldRepContra.setBounds(538, 502, 300, 36);
-		srFrame.getContentPane().add(srTextFieldRepContra);
-		
-		JButton srBtnAtras = new JButton("Atrás");
-		srBtnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		srBtnAtras.setBounds(835, 600, 85, 29);
-		srFrame.getContentPane().add(srBtnAtras);
+		srPasswordFieldRepContraseña = new JPasswordField();
+		srPasswordFieldRepContraseña.setBounds(538, 502, 300, 36);
+		srFrame.getContentPane().add(srPasswordFieldRepContraseña);
 		
 		JButton srBtnRegistrarme = new JButton("Registrarme");
 		srBtnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (srTextFieldNombre.getText().isEmpty()) {
-					srTextFieldNombre.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldNombre.setBackground(new Color(255, 255, 255));
+				boolean esCorrectoRegistro = true;
+				Object pattern = Pattern.compile("^(\\d{8}[A-Z])$");
+				Object matcher = ((Pattern) pattern).matcher(srTextFieldDNI.getText());
+				Pattern letterPattern = Pattern.compile("^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$");
+				Pattern gmailPattern = Pattern.compile("^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+				
+				if ((srTextFieldNombre.getText().isEmpty()) || 
+						(srTextFieldApellidos.getText().isEmpty()) || 
+						(srTextFieldDNI.getText().isEmpty()) || 
+						(srTextFieldDireccion.getText().isEmpty()) || 
+						(srTextFieldCorreo.getText().isEmpty()) || 
+						(srTextFieldUsuario.getText().isEmpty()) || 
+						(srPasswordFieldContraseña.getPassword().length == 0) || 
+						(srPasswordFieldRepContraseña.getPassword().length == 0)) {
+					esCorrectoRegistro = false;
+				} else if (!(isPasswordCorrect(srPasswordFieldContraseña.getPassword(),srPasswordFieldRepContraseña.getPassword()))) {
+					esCorrectoRegistro = false;
+				} else if ((((Matcher) matcher).matches() && (srTextFieldDNI.getText().trim().length() == 9))) {
+					for (int i = 0; i < usuarios.size(); i++) {
+						if ((srTextFieldDNI.getText().equals(usuarios.get(i).getDni())) || (srTextFieldUsuario.getText().equals(usuarios.get(i).getUsuario()))) {
+							esCorrectoRegistro = false;
+						}
+					}
+				} else if ( (!(letterPattern.matcher(srTextFieldNombre.getText()).matches())) || (!(letterPattern.matcher(srTextFieldApellidos.getText()).matches())) ) {
+					esCorrectoRegistro = false;
+				} else if (!(gmailPattern.matcher(srTextFieldCorreo.getText()).matches())) {
+					esCorrectoRegistro = false;
 				}
-				if (srTextFieldApellidos.getText().isEmpty()) {
-					srTextFieldApellidos.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldApellidos.setBackground(new Color(255, 255, 255));
+				
+				if (esCorrectoRegistro == false) {
+					JFrame jFrame = new JFrame();
+					JOptionPane.showMessageDialog(jFrame, "Valores introducidos invalidos");
 				}
-				if (srTextFieldDNI.getText().isEmpty()) {
-					srTextFieldDNI.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldDNI.setBackground(new Color(255, 255, 255));
+				
+				if (esCorrectoRegistro == true) {
+					
 				}
-				if (srTextFieldDireccion.getText().isEmpty()) {
-					srTextFieldDireccion.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldDireccion.setBackground(new Color(255, 255, 255));
-				}
-				if (srTextFieldCorreo.getText().isEmpty()) {
-					srTextFieldCorreo.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldCorreo.setBackground(new Color(255, 255, 255));
-				}
-				if (srTextFieldUsuario.getText().isEmpty()) {
-					srTextFieldUsuario.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldUsuario.setBackground(new Color(255, 255, 255));
-				}
-				if (srTextFieldContraseña.getText().isEmpty()) {
-					srTextFieldContraseña.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldContraseña.setBackground(new Color(255, 255, 255));
-				}
-				if (srTextFieldRepContra.getText().isEmpty()) {
-					srTextFieldRepContra.setBackground(new Color(255, 128, 128));
-				} else {
-					srTextFieldRepContra.setBackground(new Color(255, 255, 255));
-				}
-				//controlador.volverASeleccionLogin(srFrame);
 			}
 		});
 		srBtnRegistrarme.setForeground(Color.WHITE);
@@ -226,4 +213,21 @@ public class SeleccionRegistro {
 		srBtnRegistrarme.setBounds(618, 596, 150, 36);
 		srFrame.getContentPane().add(srBtnRegistrarme);
 	}
+	
+	private boolean isPasswordCorrect(char[] j1,char[] j2) {
+		boolean valor = true;
+		int puntero = 0;
+		if (j1.length != j2.length) {
+			valor = false;
+		} else {
+			while ((valor) && (puntero < j1.length)) {
+				if (j1[puntero] != j2[puntero]) {
+					valor = false;
+				}
+				puntero++;
+			}
+		}
+		return valor;
+	}
+
 }
