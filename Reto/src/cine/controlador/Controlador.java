@@ -4,10 +4,6 @@ import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,7 +29,6 @@ import cine.bbdd.pojos.Cine;
 import cine.bbdd.pojos.Cliente;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
-import cine.bbdd.utils.DBUtils;
 
 /**
  * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
@@ -474,46 +469,9 @@ public class Controlador {
 		}
 	}
 	
-	public void insertCliente(Cliente cliente) {
-		Connection connection = null;
-		
-		Statement statement = null;
-		
-		try {
-			Class.forName(DBUtils.DRIVER);
-			
-			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
-			
-			statement = connection.createStatement();
-			
-			String sql = "insert into cliente (dni, nombre, apellidos, usuario, contrasena, sexo, direccion) VALUES ('" + 
-					cliente.getDni() + "', '" + 
-					cliente.getNombre() + "', '" + 
-					cliente.getApellidos() + "', '" + 
-					cliente.getUsuario() + "', '" + 
-					cliente.getContrasena() + "', '" + 
-					cliente.getSexo() + "', '" + 
-					cliente.getDireccion() + "')";
-			
-			statement.executeUpdate(sql);
-		} catch (SQLException sqle) {
-			System.out.println("Error con la BBDD - " + sqle.getMessage());
-		} catch (Exception e) {
-			System.out.println("Error generico - " + e.getMessage());
-		} finally {
-			try {
-				if (statement != null) {
-					statement.close();
-				}
-			} catch (Exception e) {
-			};
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (Exception e) {
-			};
-		}
+	public void registrarCliente(Cliente cliente) {
+		GestorCliente gestorCliente = new GestorCliente();
+		gestorCliente.insertCliente(cliente);
 	}
 
 }

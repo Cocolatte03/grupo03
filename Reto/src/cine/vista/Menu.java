@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -58,7 +57,7 @@ public class Menu {
 	private JPanel rcPanel;
 	private JPanel lPanel;
 	private JPanel itPanel;
-	private JPanel srPanel;
+	private JPanel rPanel;
 
 	public JComboBox<String> scComboCines;
 	private JComboBox<String> sprComboFecha;
@@ -124,15 +123,15 @@ public class Menu {
 		crearPanelResumenCompra();
 		crearPanelLogin();
 		crearPanelImpresionTicket();
-		crearSeleccionRegistro();
-
+		crearPanelRegistro();
+;
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
 		sprPanel.setVisible(false);
 		rcPanel.setVisible(false);
 		lPanel.setVisible(false);
 		itPanel.setVisible(false);
-		srPanel.setVisible(false);
+		rPanel.setVisible(false);
 	}
 
 	private void crearPanelBienvenida() {
@@ -186,7 +185,7 @@ public class Menu {
 		scPanel.setBackground(Color.WHITE);
 
 		JLabel scLblCabecera = new JLabel("Seleccione un cine:");
-		scLblCabecera.setForeground(Color.WHITE);
+		scLblCabecera.setForeground(new Color(194, 220, 241));
 		scLblCabecera.setHorizontalAlignment(SwingConstants.CENTER);
 		scLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		scLblCabecera.setBounds(30, 43, 230, 56);
@@ -265,12 +264,13 @@ public class Menu {
 		spPanel.setLayout(null);
 
 		JLabel spLblCabecera = new JLabel("Seleccione una película:");
-		spLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		spLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		spLblCabecera.setForeground(new Color(194, 220, 241));
 		spLblCabecera.setBounds(66, 43, 446, 56);
 		spPanel.add(spLblCabecera);
 
 		JLabel lblNewLabel = new JLabel("Haga clic sobre una película para seleccionarla.");
+		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblNewLabel.setForeground(new Color(254, 255, 255));
 		lblNewLabel.setBounds(70, 100, 400, 31);
 		spPanel.add(lblNewLabel);
@@ -314,10 +314,10 @@ public class Menu {
 		spTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		spTable.setShowGrid(false);
 
-		Object[] spColumnas = { "Título", "Género", "Dur (min)" };
+		Object[] spColumnas = { "TÍTULO", "GÉNERO", "DUR (min)" };
 
 		JTableHeader spTableHeader = spTable.getTableHeader();
-		spTableHeader.setBackground(Color.BLACK);
+		spTableHeader.setBackground(SystemColor.textHighlight);
 		spTableHeader.setForeground(Color.WHITE);
 		spTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 
@@ -391,13 +391,13 @@ public class Menu {
 
 		JLabel sprLblCabecera = new JLabel("Seleccione una fecha:");
 		sprLblCabecera.setBounds(66, 43, 329, 56);
-		sprLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		sprLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		sprLblCabecera.setForeground(new Color(194, 220, 241));
 		sprPanel.add(sprLblCabecera);
 
 		JLabel sprLblCabeceraSesion = new JLabel("Seleccione una sesión:");
 		sprLblCabeceraSesion.setBounds(66, 180, 370, 56);
-		sprLblCabeceraSesion.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		sprLblCabeceraSesion.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		sprLblCabeceraSesion.setForeground(new Color(194, 220, 241));
 		sprPanel.add(sprLblCabeceraSesion);
 
@@ -413,7 +413,7 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(sprTable, proyecciones);
-				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, bPanel, sprPanel,
+				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, scPanel, sprPanel,
 						proyeccionesSeleccionadas);
 			}
 		});
@@ -426,10 +426,10 @@ public class Menu {
 		sprTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sprTable.setShowGrid(false);
 
-		Object[] sprColumnas = { "Película", "Hora", "Sala", "Precio (€)" };
+		Object[] sprColumnas = { "PELÍCULA", "HORA", "SALA", "PRECIO (€)" };
 
 		JTableHeader sprTableHeader = sprTable.getTableHeader();
-		sprTableHeader.setBackground(Color.BLACK);
+		sprTableHeader.setBackground(SystemColor.textHighlight);
 		sprTableHeader.setForeground(Color.WHITE);
 		sprTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 
@@ -496,29 +496,33 @@ public class Menu {
 		rcPanel = new JPanel();
 		rcPanel.setBounds(0, 0, 1000, 672);
 		frame.getContentPane().add(rcPanel);
+		rcPanel.setBackground(Color.WHITE);
 		rcPanel.setLayout(null);
 
 		JButton rcBtnAtras = new JButton("Atrás");
+		rcBtnAtras.setBackground(SystemColor.textHighlight);
+		rcBtnAtras.setForeground(Color.WHITE);
+		rcBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		rcBtnAtras.setBounds(6, 6, 80, 29);
 		rcBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				scPanel.setVisible(true);
 				rcPanel.setVisible(false);
 			}
 		});
-		rcBtnAtras.setBounds(6, 6, 70, 29);
 		rcPanel.add(rcBtnAtras);
 
 		JLabel rcLblCabecera = new JLabel("Resumen de la compra:");
-		rcLblCabecera.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		rcLblCabecera.setForeground(new Color(72, 138, 246));
+		rcLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		rcLblCabecera.setForeground(new Color(194, 220, 241));
 		rcLblCabecera.setBounds(66, 43, 329, 56);
 		rcPanel.add(rcLblCabecera);
 
 		JScrollPane rcScrollPane = new JScrollPane();
 		rcScrollPane.setBorder(new LineBorder(Color.WHITE, 0));
 		rcScrollPane.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-		rcScrollPane.getViewport().setBackground(Color.WHITE);
-		rcScrollPane.setBounds(70, 150, 850, 250);
+		rcScrollPane.getViewport().setBackground(new Color(220, 230, 241));
+		rcScrollPane.setBounds(70, 250, 850, 150);
 		rcPanel.add(rcScrollPane);
 
 		rcTable = new JTable();
@@ -530,7 +534,7 @@ public class Menu {
 			}
 		});
 		rcTable.setRowHeight(25);
-		rcTable.setBackground(Color.WHITE);
+		rcTable.setBackground(new Color(220, 230, 241));
 		rcTable.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
 		rcTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		rcTable.setSelectionBackground(new Color(72, 138, 246));
@@ -538,10 +542,10 @@ public class Menu {
 		rcTable.setShowGrid(false);
 		rcScrollPane.setViewportView(rcTable);
 
-		Object[] rcColumnas = { "Película", "Fecha", "Sesión", "Sala", "Cine", "Precio (€)" };
+		Object[] rcColumnas = { "PELÍCULA", "FECHA", "SESIÓN", "SALA", "CINE", "PRECIO (€)" };
 
 		JTableHeader rcTableHeader = rcTable.getTableHeader();
-		rcTableHeader.setBackground(Color.BLACK);
+		rcTableHeader.setBackground(SystemColor.textHighlight);
 		rcTableHeader.setForeground(Color.WHITE);
 		rcTableHeader.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 
@@ -575,43 +579,51 @@ public class Menu {
 		ajustarColumnasResumenCompra(rcTable);
 
 		JLabel rcLblSubtotal = new JLabel("Subtotal:");
-		rcLblSubtotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		rcLblSubtotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		rcLblSubtotal.setBounds(750, 422, 110, 29);
 		rcPanel.add(rcLblSubtotal);
 
 		rcLblSubtotal1 = new JLabel("");
+		rcLblSubtotal1.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		rcLblSubtotal1.setBounds(850, 422, 95, 29);
 		rcPanel.add(rcLblSubtotal1);
 
 		JLabel rcLblDescuento = new JLabel("Descuento:");
-		rcLblDescuento.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		rcLblDescuento.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		rcLblDescuento.setBounds(750, 463, 110, 29);
 		rcPanel.add(rcLblDescuento);
 
 		rcLblDescuento1 = new JLabel("");
+		rcLblDescuento1.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		rcLblDescuento1.setBounds(850, 463, 95, 29);
 		rcPanel.add(rcLblDescuento1);
 
 		JLabel rcLblTotal = new JLabel("TOTAL:");
-		rcLblTotal.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		rcLblTotal.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		rcLblTotal.setBounds(750, 504, 110, 29);
 		rcPanel.add(rcLblTotal);
 
 		rcLblTotal1 = new JLabel("");
-		rcLblTotal1.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		rcLblTotal1.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		rcLblTotal1.setBounds(850, 504, 95, 29);
 		rcPanel.add(rcLblTotal1);
 
 		JButton rcBtnCancelar = new JButton("Cancelar");
+		rcBtnCancelar.setBackground(Color.BLACK);
+		rcBtnCancelar.setForeground(Color.WHITE);
+		rcBtnCancelar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		rcBtnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.cancelarCompra(proyeccionesSeleccionadas, bPanel, rcPanel);
 			}
 		});
-		rcBtnCancelar.setBounds(66, 558, 117, 29);
+		rcBtnCancelar.setBounds(70, 558, 117, 29);
 		rcPanel.add(rcBtnCancelar);
 
 		JButton rcBtnConfirmar = new JButton("Confirmar");
+		rcBtnConfirmar.setBackground(SystemColor.textHighlight);
+		rcBtnConfirmar.setForeground(Color.WHITE);
+		rcBtnConfirmar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		rcBtnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (proyeccionesSeleccionadas.size() == 0) {
@@ -633,8 +645,16 @@ public class Menu {
 		rcPanel.add(rcBtnConfirmar);
 
 		JLabel rcLblDescr = new JLabel("Haga clic sobre una sesión para eliminarla.");
+		rcLblDescr.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		rcLblDescr.setForeground(Color.WHITE);
 		rcLblDescr.setBounds(70, 98, 566, 29);
 		rcPanel.add(rcLblDescr);
+		
+		JPanel rcPanelCabecera = new JPanel();
+		rcPanelCabecera.setBounds(0, 0, 1000, 180);
+		rcPanel.add(rcPanelCabecera);
+		rcPanelCabecera.setLayout(null);
+		rcPanelCabecera.setBackground(Color.DARK_GRAY);
 	}
 
 	public void ajustarColumnasResumenCompra(JTable table) {
@@ -659,19 +679,22 @@ public class Menu {
 		lPanel.setLayout(null);
 
 		JButton lBtnAtras = new JButton("Atrás");
+		lBtnAtras.setBackground(SystemColor.textHighlight);
+		lBtnAtras.setForeground(Color.WHITE);
+		lBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lBtnAtras.setBounds(6, 6, 80, 29);
 		lBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lPanel.setVisible(false);
 				rcPanel.setVisible(true);
 			}
 		});
-		lBtnAtras.setBounds(24, 33, 85, 29);
 		lPanel.add(lBtnAtras);
 
 		JLabel lLblUsuario = new JLabel("Usuario:");
 		lLblUsuario.setForeground(Color.WHITE);
-		lLblUsuario.setFont(new Font("Dialog", Font.PLAIN, 15));
-		lLblUsuario.setBounds(678, 114, 150, 56);
+		lLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lLblUsuario.setBounds(678, 134, 150, 36);
 		lPanel.add(lLblUsuario);
 
 		JTextField lTextFieldUsuario = new JTextField();
@@ -679,11 +702,11 @@ public class Menu {
 		lPanel.add(lTextFieldUsuario);
 		lTextFieldUsuario.setColumns(10);
 
-		JLabel lLblContraseña = new JLabel("Contraseña:");
-		lLblContraseña.setForeground(Color.WHITE);
-		lLblContraseña.setFont(new Font("Dialog", Font.PLAIN, 15));
-		lLblContraseña.setBounds(678, 226, 150, 56);
-		lPanel.add(lLblContraseña);
+		JLabel lLblContrasena = new JLabel("Contraseña:");
+		lLblContrasena.setForeground(Color.WHITE);
+		lLblContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		lLblContrasena.setBounds(678, 246, 150, 36);
+		lPanel.add(lLblContrasena);
 
 		JPasswordField lPasswordField = new JPasswordField();
 		lPasswordField.setColumns(10);
@@ -700,28 +723,29 @@ public class Menu {
 						lPasswordField);
 			}
 		});
-		lBtnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lBtnIniciarSesion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lBtnIniciarSesion.setForeground(Color.WHITE);
-		lBtnIniciarSesion.setBackground(Color.RED);
-		lBtnIniciarSesion.setBounds(678, 338, 150, 36);
+		lBtnIniciarSesion.setBackground(SystemColor.textHighlight);
+		lBtnIniciarSesion.setBounds(678, 350, 150, 36);
 		lPanel.add(lBtnIniciarSesion);
 
 		JLabel lLblNoTengoCuenta = new JLabel("No tengo cuenta");
+		lLblNoTengoCuenta.setHorizontalAlignment(SwingConstants.CENTER);
 		lLblNoTengoCuenta.setForeground(Color.WHITE);
-		lLblNoTengoCuenta.setFont(new Font("Dialog", Font.PLAIN, 20));
-		lLblNoTengoCuenta.setBounds(678, 481, 200, 56);
+		lLblNoTengoCuenta.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		lLblNoTengoCuenta.setBounds(665, 481, 177, 56);
 		lPanel.add(lLblNoTengoCuenta);
 
-		JButton lBtnRegistrarse = new JButton("Registrarme");
+		JButton lBtnRegistrarse = new JButton("REGISTRARME");
 		lBtnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lPanel.setVisible(false);
-				srPanel.setVisible(true);
+				rPanel.setVisible(true);
 			}
 		});
-		lBtnRegistrarse.setForeground(Color.RED);
-		lBtnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lBtnRegistrarse.setBackground(Color.LIGHT_GRAY);
+		lBtnRegistrarse.setForeground(SystemColor.textHighlight);
+		lBtnRegistrarse.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lBtnRegistrarse.setBackground(Color.WHITE);
 		lBtnRegistrarse.setBounds(678, 547, 150, 36);
 		lPanel.add(lBtnRegistrarse);
 
@@ -744,19 +768,22 @@ public class Menu {
 
 	private void crearPanelImpresionTicket() {
 		itPanel = new JPanel();
+		itPanel.setBackground(Color.WHITE);
 		itPanel.setBounds(0, 0, 1000, 672);
 		frame.getContentPane().add(itPanel);
 		itPanel.setLayout(null);
 
 		JLabel itLblAgradecimiento = new JLabel("¡GRACIAS POR SU COMPRA!");
-		itLblAgradecimiento.setForeground(Color.RED);
-		itLblAgradecimiento.setFont(new Font("Dialog", Font.BOLD, 20));
-		itLblAgradecimiento.setBounds(323, 41, 400, 56);
+		itLblAgradecimiento.setHorizontalAlignment(SwingConstants.CENTER);
+		itLblAgradecimiento.setForeground(SystemColor.textHighlight);
+		itLblAgradecimiento.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+		itLblAgradecimiento.setBounds(302, 41, 400, 56);
 		itPanel.add(itLblAgradecimiento);
 
 		JLabel itLblPregunta = new JLabel("¿Desea imprimir las entradas?");
-		itLblPregunta.setFont(new Font("Dialog", Font.PLAIN, 20));
-		itLblPregunta.setBounds(323, 369, 400, 56);
+		itLblPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		itLblPregunta.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
+		itLblPregunta.setBounds(302, 447, 400, 56);
 		itPanel.add(itLblPregunta);
 
 		JButton itBtnSi = new JButton("SÍ");
@@ -770,9 +797,9 @@ public class Menu {
 			}
 		});
 		itBtnSi.setForeground(Color.WHITE);
-		itBtnSi.setFont(new Font("Tahoma", Font.BOLD, 15));
-		itBtnSi.setBackground(Color.RED);
-		itBtnSi.setBounds(312, 435, 150, 36);
+		itBtnSi.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		itBtnSi.setBackground(SystemColor.textHighlight);
+		itBtnSi.setBounds(413, 525, 66, 36);
 		itPanel.add(itBtnSi);
 
 		JButton itBtnNo = new JButton("NO");
@@ -785,100 +812,132 @@ public class Menu {
 			}
 		});
 		itBtnNo.setForeground(Color.WHITE);
-		itBtnNo.setFont(new Font("Tahoma", Font.BOLD, 15));
-		itBtnNo.setBackground(Color.RED);
-		itBtnNo.setBounds(472, 435, 150, 36);
+		itBtnNo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		itBtnNo.setBackground(Color.DARK_GRAY);
+		itBtnNo.setBounds(539, 525, 66, 36);
 		itPanel.add(itBtnNo);
+		
+		JPanel itPanelImg = new JPanel();
+		itPanelImg.setBounds(312, 108, 390, 328);
+		itPanel.add(itPanelImg);
+		itPanelImg.setLayout(new BorderLayout(0, 0));
+		
+		JLabel itLblImg = new JLabel("");
+		itPanelImg.add(itLblImg, BorderLayout.CENTER);
+		
+		controlador.anadirImagen(itPanelImg, itLblImg, "img/ticket.jpg");
 	}
 	
-	private void crearSeleccionRegistro() {
-		srPanel = new JPanel();
-		srPanel.setBounds(0, 0, 1000, 672);
-		frame.getContentPane().add(srPanel);
-		srPanel.setLayout(null);
+	private void crearPanelRegistro() {
+		rPanel = new JPanel();
+		rPanel.setBounds(0, 0, 1000, 672);
+		frame.getContentPane().add(rPanel);
+		rPanel.setLayout(null);
+		rPanel.setBackground(new Color(66, 66, 66));
 		
-		JLabel srLblRegistro = new JLabel("REGISTRO");
-		srLblRegistro.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblRegistro.setBounds(411, 34, 118, 56);
-		srPanel.add(srLblRegistro);
+		JLabel srLblRegistro = new JLabel("Regístrate:");
+		srLblRegistro.setBounds(66, 43, 329, 56);
+		srLblRegistro.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		srLblRegistro.setForeground(new Color(194, 220, 241));
+		rPanel.add(srLblRegistro);
 		
-		JLabel srLblNombre = new JLabel("Nombre");
-		srLblNombre.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblNombre.setBounds(94, 100, 300, 56);
-		srPanel.add(srLblNombre);
+		JLabel srLblNombre = new JLabel("Nombre:");
+		srLblNombre.setForeground(Color.WHITE);
+		srLblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblNombre.setBounds(130, 132, 300, 36);
+		rPanel.add(srLblNombre);
 		
 		JTextField srTextFieldNombre = new JTextField();
+		srTextFieldNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		srTextFieldNombre.setColumns(10);
-		srTextFieldNombre.setBounds(94, 166, 300, 36);
-		srPanel.add(srTextFieldNombre);
+		srTextFieldNombre.setBounds(130, 166, 196, 36);
+		rPanel.add(srTextFieldNombre);
 		
-		JLabel srLblApellidos = new JLabel("Apellidos");
-		srLblApellidos.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblApellidos.setBounds(94, 212, 300, 56);
-		srPanel.add(srLblApellidos);
+		JLabel srLblApellidos = new JLabel("Apellidos:");
+		srLblApellidos.setForeground(Color.WHITE);
+		srLblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblApellidos.setBounds(130, 242, 300, 36);
+		rPanel.add(srLblApellidos);
 		
 		JTextField srTextFieldApellidos = new JTextField();
+		srTextFieldApellidos.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		srTextFieldApellidos.setColumns(10);
-		srTextFieldApellidos.setBounds(94, 278, 300, 36);
-		srPanel.add(srTextFieldApellidos);
+		srTextFieldApellidos.setBounds(130, 278, 196, 36);
+		rPanel.add(srTextFieldApellidos);
 		
-		JLabel srLblDNI = new JLabel("DNI");
-		srLblDNI.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblDNI.setBounds(94, 324, 300, 56);
-		srPanel.add(srLblDNI);
+		JLabel srLblDNI = new JLabel("DNI:");
+		srLblDNI.setForeground(Color.WHITE);
+		srLblDNI.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblDNI.setBounds(130, 355, 300, 36);
+		rPanel.add(srLblDNI);
 		
 		JTextField srTextFieldDNI = new JTextField();
+		srTextFieldDNI.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		srTextFieldDNI.setColumns(10);
-		srTextFieldDNI.setBounds(94, 390, 300, 36);
-		srPanel.add(srTextFieldDNI);
+		srTextFieldDNI.setBounds(130, 390, 196, 36);
+		rPanel.add(srTextFieldDNI);
 		
-		JLabel srLblDireccion = new JLabel("Dirección");
-		srLblDireccion.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblDireccion.setBounds(94, 436, 150, 56);
-		srPanel.add(srLblDireccion);
+		JLabel srLblDireccion = new JLabel("Dirección:");
+		srLblDireccion.setForeground(Color.WHITE);
+		srLblDireccion.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblDireccion.setBounds(130, 467, 150, 36);
+		rPanel.add(srLblDireccion);
 		
 		JTextField srTextFieldDireccion = new JTextField();
+		srTextFieldDireccion.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		srTextFieldDireccion.setColumns(10);
-		srTextFieldDireccion.setBounds(94, 502, 300, 36);
-		srPanel.add(srTextFieldDireccion);
+		srTextFieldDireccion.setBounds(130, 501, 196, 36);
+		rPanel.add(srTextFieldDireccion);
 		
-		JLabel srLblSexo = new JLabel("Sexo");
-		srLblSexo.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblSexo.setBounds(538, 122, 150, 56);
-		srPanel.add(srLblSexo);
+		JLabel srLblSexo = new JLabel("Sexo:");
+		srLblSexo.setForeground(Color.WHITE);
+		srLblSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblSexo.setBounds(538, 130, 150, 36);
+		rPanel.add(srLblSexo);
 		
 		JComboBox<String> srComboSexo = new JComboBox<String>();
-		srComboSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
-		srComboSexo.setBounds(538, 175, 191, 27);
-		srPanel.add(srComboSexo);
+		srComboSexo.setBackground(Color.WHITE);
+		srComboSexo.setForeground(SystemColor.textHighlight);
+		srComboSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		srComboSexo.addItem("Hombre");
+		srComboSexo.addItem("Mujer");
+		srComboSexo.addItem("Otro");
+		srComboSexo.setBounds(538, 166, 196, 36);
+		rPanel.add(srComboSexo);
 		
-		JLabel srLblUsuario = new JLabel("Usuario");
-		srLblUsuario.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblUsuario.setBounds(538, 212, 300, 56);
-		srPanel.add(srLblUsuario);
+		JLabel srLblUsuario = new JLabel("Usuario:");
+		srLblUsuario.setForeground(Color.WHITE);
+		srLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblUsuario.setBounds(538, 240, 300, 36);
+		rPanel.add(srLblUsuario);
 		
 		JTextField srTextFieldUsuario = new JTextField();
+		srTextFieldUsuario.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		srTextFieldUsuario.setColumns(10);
-		srTextFieldUsuario.setBounds(538, 278, 300, 36);
-		srPanel.add(srTextFieldUsuario);
+		srTextFieldUsuario.setBounds(538, 278, 196, 36);
+		rPanel.add(srTextFieldUsuario);
 		
-		JLabel srLblContraseña = new JLabel("Contraseña");
-		srLblContraseña.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblContraseña.setBounds(538, 324, 300, 56);
-		srPanel.add(srLblContraseña);
+		JLabel srLblContraseña = new JLabel("Contraseña:");
+		srLblContraseña.setForeground(Color.WHITE);
+		srLblContraseña.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblContraseña.setBounds(538, 353, 300, 36);
+		rPanel.add(srLblContraseña);
 		
 		JPasswordField srPasswordFieldContraseña = new JPasswordField();
-		srPasswordFieldContraseña.setBounds(538, 390, 300, 36);
-		srPanel.add(srPasswordFieldContraseña);
+		srPasswordFieldContraseña.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		srPasswordFieldContraseña.setBounds(538, 390, 196, 36);
+		rPanel.add(srPasswordFieldContraseña);
 		
-		JLabel srLblRepContra = new JLabel("Repetir Contraseña");
-		srLblRepContra.setFont(new Font("Dialog", Font.PLAIN, 20));
-		srLblRepContra.setBounds(538, 436, 300, 56);
-		srPanel.add(srLblRepContra);
+		JLabel srLblRepContra = new JLabel("Repetir Contraseña:");
+		srLblRepContra.setForeground(Color.WHITE);
+		srLblRepContra.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		srLblRepContra.setBounds(538, 467, 300, 36);
+		rPanel.add(srLblRepContra);
 		
 		JPasswordField srPasswordFieldRepContraseña = new JPasswordField();
-		srPasswordFieldRepContraseña.setBounds(538, 502, 300, 36);
-		srPanel.add(srPasswordFieldRepContraseña);
+		srPasswordFieldRepContraseña.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		srPasswordFieldRepContraseña.setBounds(538, 502, 196, 36);
+		rPanel.add(srPasswordFieldRepContraseña);
 		
 		JButton srBtnRegistrarme = new JButton("Registrarme");
 		srBtnRegistrarme.addActionListener(new ActionListener() {
@@ -925,28 +984,30 @@ public class Menu {
 					cliente.setSexo(sexo);
 					cliente.setDireccion(srTextFieldDireccion.getText());
 					
-					controlador.insertCliente(cliente);
+					controlador.registrarCliente(cliente);
 					
-					srPanel.setVisible(false);
+					rPanel.setVisible(false);
 					lPanel.setVisible(true);
 				}
 			}
 		});
 		srBtnRegistrarme.setForeground(Color.WHITE);
-		srBtnRegistrarme.setFont(new Font("Tahoma", Font.BOLD, 10));
-		srBtnRegistrarme.setBackground(Color.RED);
-		srBtnRegistrarme.setBounds(387, 587, 150, 36);
-		srPanel.add(srBtnRegistrarme);
+		srBtnRegistrarme.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		srBtnRegistrarme.setBackground(SystemColor.textHighlight);
+		srBtnRegistrarme.setBounds(538, 576, 196, 36);
+		rPanel.add(srBtnRegistrarme);
 		
 		JButton srBtnAtras = new JButton("Atrás");
+		srBtnAtras.setBackground(SystemColor.textHighlight);
+		srBtnAtras.setForeground(Color.WHITE);
+		srBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		srBtnAtras.setBounds(6, 6, 80, 29);
 		srBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srPanel.setVisible(false);
+				rPanel.setVisible(false);
 				lPanel.setVisible(true);
 			}
 		});
-		srBtnAtras.setFont(new Font("Tahoma", Font.BOLD, 10));
-		srBtnAtras.setBounds(10, 578, 150, 36);
-		srPanel.add(srBtnAtras);
+		rPanel.add(srBtnAtras);
 	}
 }
