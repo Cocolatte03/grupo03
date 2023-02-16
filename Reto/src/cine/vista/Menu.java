@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -14,13 +13,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -58,9 +58,11 @@ public class Menu {
 	private JPanel rcPanel;
 	private JPanel lPanel;
 	private JPanel itPanel;
+	private JPanel srPanel;
 
 	public JComboBox<String> scComboCines;
 	private JComboBox<String> sprComboFecha;
+	public JComboBox<String> srComboSexo;
 
 	private DefaultTableModel spTableModel;
 	private DefaultTableModel rcTableModel;
@@ -122,6 +124,7 @@ public class Menu {
 		crearPanelResumenCompra();
 		crearPanelLogin();
 		crearPanelImpresionTicket();
+		crearSeleccionRegistro();
 
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
@@ -129,7 +132,7 @@ public class Menu {
 		rcPanel.setVisible(false);
 		lPanel.setVisible(false);
 		itPanel.setVisible(false);
-
+		srPanel.setVisible(false);
 	}
 
 	private void crearPanelBienvenida() {
@@ -712,7 +715,8 @@ public class Menu {
 		JButton lBtnRegistrarse = new JButton("Registrarme");
 		lBtnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				lPanel.setVisible(false);
+				srPanel.setVisible(true);
 			}
 		});
 		lBtnRegistrarse.setForeground(Color.RED);
@@ -785,5 +789,164 @@ public class Menu {
 		itBtnNo.setBackground(Color.RED);
 		itBtnNo.setBounds(472, 435, 150, 36);
 		itPanel.add(itBtnNo);
+	}
+	
+	private void crearSeleccionRegistro() {
+		srPanel = new JPanel();
+		srPanel.setBounds(0, 0, 1000, 672);
+		frame.getContentPane().add(srPanel);
+		srPanel.setLayout(null);
+		
+		JLabel srLblRegistro = new JLabel("REGISTRO");
+		srLblRegistro.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblRegistro.setBounds(411, 34, 118, 56);
+		srPanel.add(srLblRegistro);
+		
+		JLabel srLblNombre = new JLabel("Nombre");
+		srLblNombre.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblNombre.setBounds(94, 100, 300, 56);
+		srPanel.add(srLblNombre);
+		
+		JTextField srTextFieldNombre = new JTextField();
+		srTextFieldNombre.setColumns(10);
+		srTextFieldNombre.setBounds(94, 166, 300, 36);
+		srPanel.add(srTextFieldNombre);
+		
+		JLabel srLblApellidos = new JLabel("Apellidos");
+		srLblApellidos.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblApellidos.setBounds(94, 212, 300, 56);
+		srPanel.add(srLblApellidos);
+		
+		JTextField srTextFieldApellidos = new JTextField();
+		srTextFieldApellidos.setColumns(10);
+		srTextFieldApellidos.setBounds(94, 278, 300, 36);
+		srPanel.add(srTextFieldApellidos);
+		
+		JLabel srLblDNI = new JLabel("DNI");
+		srLblDNI.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblDNI.setBounds(94, 324, 300, 56);
+		srPanel.add(srLblDNI);
+		
+		JTextField srTextFieldDNI = new JTextField();
+		srTextFieldDNI.setColumns(10);
+		srTextFieldDNI.setBounds(94, 390, 300, 36);
+		srPanel.add(srTextFieldDNI);
+		
+		JLabel srLblDireccion = new JLabel("Dirección");
+		srLblDireccion.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblDireccion.setBounds(94, 436, 150, 56);
+		srPanel.add(srLblDireccion);
+		
+		JTextField srTextFieldDireccion = new JTextField();
+		srTextFieldDireccion.setColumns(10);
+		srTextFieldDireccion.setBounds(94, 502, 300, 36);
+		srPanel.add(srTextFieldDireccion);
+		
+		JLabel srLblSexo = new JLabel("Sexo");
+		srLblSexo.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblSexo.setBounds(538, 122, 150, 56);
+		srPanel.add(srLblSexo);
+		
+		JComboBox<String> srComboSexo = new JComboBox<String>();
+		srComboSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
+		srComboSexo.setBounds(538, 175, 191, 27);
+		srPanel.add(srComboSexo);
+		
+		JLabel srLblUsuario = new JLabel("Usuario");
+		srLblUsuario.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblUsuario.setBounds(538, 212, 300, 56);
+		srPanel.add(srLblUsuario);
+		
+		JTextField srTextFieldUsuario = new JTextField();
+		srTextFieldUsuario.setColumns(10);
+		srTextFieldUsuario.setBounds(538, 278, 300, 36);
+		srPanel.add(srTextFieldUsuario);
+		
+		JLabel srLblContraseña = new JLabel("Contraseña");
+		srLblContraseña.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblContraseña.setBounds(538, 324, 300, 56);
+		srPanel.add(srLblContraseña);
+		
+		JPasswordField srPasswordFieldContraseña = new JPasswordField();
+		srPasswordFieldContraseña.setBounds(538, 390, 300, 36);
+		srPanel.add(srPasswordFieldContraseña);
+		
+		JLabel srLblRepContra = new JLabel("Repetir Contraseña");
+		srLblRepContra.setFont(new Font("Dialog", Font.PLAIN, 20));
+		srLblRepContra.setBounds(538, 436, 300, 56);
+		srPanel.add(srLblRepContra);
+		
+		JPasswordField srPasswordFieldRepContraseña = new JPasswordField();
+		srPasswordFieldRepContraseña.setBounds(538, 502, 300, 36);
+		srPanel.add(srPasswordFieldRepContraseña);
+		
+		JButton srBtnRegistrarme = new JButton("Registrarme");
+		srBtnRegistrarme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean esCorrectoRegistro = true;
+				Object pattern = Pattern.compile("^(\\d{8}[A-Z])$");
+				Object matcher = ((Pattern) pattern).matcher(srTextFieldDNI.getText());
+				Pattern letterPattern = Pattern.compile("^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$");
+				
+				if ((srTextFieldNombre.getText().isEmpty()) || 
+						(srTextFieldApellidos.getText().isEmpty()) || 
+						(srTextFieldDNI.getText().isEmpty()) || 
+						(srTextFieldDireccion.getText().isEmpty()) || 
+						(srTextFieldUsuario.getText().isEmpty()) || 
+						(srPasswordFieldContraseña.getPassword().length == 0) || 
+						(srPasswordFieldRepContraseña.getPassword().length == 0)) {
+					esCorrectoRegistro = false;
+				} else if (! (new String(srPasswordFieldContraseña.getPassword()).equals(new String(srPasswordFieldRepContraseña.getPassword()))) ) {
+					esCorrectoRegistro = false;
+				} else if ((((Matcher) matcher).matches() && (srTextFieldDNI.getText().trim().length() == 9))) {
+					for (int i = 0; i < clientes.size(); i++) {
+						if ((srTextFieldDNI.getText().equals(clientes.get(i).getDni())) || (srTextFieldUsuario.getText().equals(clientes.get(i).getUsuario()))) {
+							esCorrectoRegistro = false;
+						}
+					}
+				} else if ( (!(letterPattern.matcher(srTextFieldNombre.getText()).matches())) || (!(letterPattern.matcher(srTextFieldApellidos.getText()).matches())) ) {
+					esCorrectoRegistro = false;
+				}
+				
+				if (esCorrectoRegistro == false) {
+					JFrame jFrame = new JFrame();
+					JOptionPane.showMessageDialog(jFrame, "Valores introducidos invalidos");
+				} else {
+					Controlador controlador = new Controlador();
+					
+					Cliente cliente = new Cliente ();
+					cliente.setDni(srTextFieldDNI.getText());
+					cliente.setNombre(srTextFieldNombre.getText());
+					cliente.setApellidos(srTextFieldApellidos.getText());
+					cliente.setUsuario(srTextFieldUsuario.getText());
+					cliente.setContrasena(srPasswordFieldContraseña.getPassword().toString());
+					String sexo = srComboSexo.getSelectedItem().toString();
+					cliente.setSexo(sexo);
+					cliente.setDireccion(srTextFieldDireccion.getText());
+					
+					controlador.insertCliente(cliente);
+					
+					srPanel.setVisible(false);
+					lPanel.setVisible(true);
+				}
+			}
+		});
+		srBtnRegistrarme.setForeground(Color.WHITE);
+		srBtnRegistrarme.setFont(new Font("Tahoma", Font.BOLD, 10));
+		srBtnRegistrarme.setBackground(Color.RED);
+		srBtnRegistrarme.setBounds(387, 587, 150, 36);
+		srPanel.add(srBtnRegistrarme);
+		
+		JButton srBtnAtras = new JButton("Atrás");
+		srBtnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				srPanel.setVisible(false);
+				lPanel.setVisible(true);
+			}
+		});
+		srBtnAtras.setFont(new Font("Tahoma", Font.BOLD, 10));
+		srBtnAtras.setBounds(10, 578, 150, 36);
+		srPanel.add(srBtnAtras);
 	}
 }
