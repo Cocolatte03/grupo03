@@ -122,7 +122,7 @@ public class Menu {
 		crearPanelLogin();
 		crearPanelImpresionTicket();
 		crearPanelRegistro();
-		;
+
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
 		sprPanel.setVisible(false);
@@ -647,6 +647,18 @@ public class Menu {
 		rcLblDescr.setForeground(Color.WHITE);
 		rcLblDescr.setBounds(70, 98, 566, 29);
 		rcPanel.add(rcLblDescr);
+		
+		JPanel rcPanelImg = new JPanel();
+		rcPanelImg.setBounds(800, 50, 100, 100);
+		rcPanel.add(rcPanelImg);
+		rcPanelImg.setOpaque(false);
+		rcPanelImg.setLayout(new BorderLayout(0, 0));
+		
+
+		JLabel rcLblImg = new JLabel("");
+		rcPanelImg.add(rcLblImg, BorderLayout.CENTER);
+		
+		controlador.anadirImagen(rcPanelImg, rcLblImg, "img/carrito.png");
 
 		JPanel rcPanelCabecera = new JPanel();
 		rcPanelCabecera.setBounds(0, 0, 1000, 180);
@@ -841,55 +853,55 @@ public class Menu {
 		JLabel rLblNombre = new JLabel("Nombre:");
 		rLblNombre.setForeground(Color.WHITE);
 		rLblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblNombre.setBounds(130, 132, 300, 36);
+		rLblNombre.setBounds(70, 132, 300, 36);
 		rPanel.add(rLblNombre);
 
 		JTextField rTextFieldNombre = new JTextField();
 		rTextFieldNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldNombre.setColumns(10);
-		rTextFieldNombre.setBounds(130, 166, 196, 36);
+		rTextFieldNombre.setBounds(70, 166, 196, 36);
 		rPanel.add(rTextFieldNombre);
 
 		JLabel rLblApellidos = new JLabel("Apellidos:");
 		rLblApellidos.setForeground(Color.WHITE);
 		rLblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblApellidos.setBounds(130, 242, 300, 36);
+		rLblApellidos.setBounds(70, 242, 300, 36);
 		rPanel.add(rLblApellidos);
 
 		JTextField rTextFieldApellidos = new JTextField();
 		rTextFieldApellidos.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldApellidos.setColumns(10);
-		rTextFieldApellidos.setBounds(130, 278, 196, 36);
+		rTextFieldApellidos.setBounds(70, 278, 196, 36);
 		rPanel.add(rTextFieldApellidos);
 
 		JLabel rLblDni = new JLabel("DNI:");
 		rLblDni.setForeground(Color.WHITE);
 		rLblDni.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblDni.setBounds(130, 355, 300, 36);
+		rLblDni.setBounds(70, 355, 300, 36);
 		rPanel.add(rLblDni);
 
 		JTextField rTextFieldDni = new JTextField();
 		rTextFieldDni.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldDni.setColumns(10);
-		rTextFieldDni.setBounds(130, 390, 196, 36);
+		rTextFieldDni.setBounds(70, 390, 196, 36);
 		rPanel.add(rTextFieldDni);
 
 		JLabel rLblDireccion = new JLabel("Dirección:");
 		rLblDireccion.setForeground(Color.WHITE);
 		rLblDireccion.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblDireccion.setBounds(130, 467, 150, 36);
+		rLblDireccion.setBounds(70, 467, 150, 36);
 		rPanel.add(rLblDireccion);
 
 		JTextField rTextFieldDireccion = new JTextField();
 		rTextFieldDireccion.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldDireccion.setColumns(10);
-		rTextFieldDireccion.setBounds(130, 501, 196, 36);
+		rTextFieldDireccion.setBounds(70, 501, 196, 36);
 		rPanel.add(rTextFieldDireccion);
 
 		JLabel rLblSexo = new JLabel("Sexo:");
 		rLblSexo.setForeground(Color.WHITE);
 		rLblSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblSexo.setBounds(538, 130, 150, 36);
+		rLblSexo.setBounds(300, 130, 150, 36);
 		rPanel.add(rLblSexo);
 
 		JComboBox<String> rComboSexo = new JComboBox<String>();
@@ -899,41 +911,41 @@ public class Menu {
 		rComboSexo.addItem("Hombre");
 		rComboSexo.addItem("Mujer");
 		rComboSexo.addItem("Otro");
-		rComboSexo.setBounds(538, 166, 196, 36);
+		rComboSexo.setBounds(300, 166, 196, 36);
 		rPanel.add(rComboSexo);
 
 		JLabel rLblUsuario = new JLabel("Usuario:");
 		rLblUsuario.setForeground(Color.WHITE);
 		rLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblUsuario.setBounds(538, 240, 300, 36);
+		rLblUsuario.setBounds(300, 240, 300, 36);
 		rPanel.add(rLblUsuario);
 
 		JTextField rTextFieldUsuario = new JTextField();
 		rTextFieldUsuario.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldUsuario.setColumns(10);
-		rTextFieldUsuario.setBounds(538, 278, 196, 36);
+		rTextFieldUsuario.setBounds(300, 278, 196, 36);
 		rPanel.add(rTextFieldUsuario);
 
 		JLabel rLblContrasena = new JLabel("Contraseña:");
 		rLblContrasena.setForeground(Color.WHITE);
 		rLblContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblContrasena.setBounds(538, 353, 300, 36);
+		rLblContrasena.setBounds(300, 353, 300, 36);
 		rPanel.add(rLblContrasena);
 
 		JPasswordField rPasswordFieldContrasena = new JPasswordField();
 		rPasswordFieldContrasena.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		rPasswordFieldContrasena.setBounds(538, 390, 196, 36);
+		rPasswordFieldContrasena.setBounds(300, 390, 196, 36);
 		rPanel.add(rPasswordFieldContrasena);
 
 		JLabel rLblRepContrasena = new JLabel("Repetir Contraseña:");
 		rLblRepContrasena.setForeground(Color.WHITE);
 		rLblRepContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblRepContrasena.setBounds(538, 467, 300, 36);
+		rLblRepContrasena.setBounds(300, 467, 300, 36);
 		rPanel.add(rLblRepContrasena);
 
 		JPasswordField rPasswordFieldRepContrasena = new JPasswordField();
 		rPasswordFieldRepContrasena.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		rPasswordFieldRepContrasena.setBounds(538, 502, 196, 36);
+		rPasswordFieldRepContrasena.setBounds(300, 502, 196, 36);
 		rPanel.add(rPasswordFieldRepContrasena);
 
 		JButton rBtnRegistrarme = new JButton("Registrarme");
@@ -948,7 +960,7 @@ public class Menu {
 		rBtnRegistrarme.setForeground(Color.WHITE);
 		rBtnRegistrarme.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		rBtnRegistrarme.setBackground(SystemColor.textHighlight);
-		rBtnRegistrarme.setBounds(538, 576, 196, 36);
+		rBtnRegistrarme.setBounds(300, 576, 196, 36);
 		rPanel.add(rBtnRegistrarme);
 
 		JButton rBtnAtras = new JButton("Atrás");
@@ -963,5 +975,16 @@ public class Menu {
 			}
 		});
 		rPanel.add(rBtnAtras);
+		
+		JPanel rPanelImg = new JPanel();
+		rPanelImg.setBackground(new Color(66, 66, 66));
+		rPanelImg.setBounds(500, 0, 500, 675);
+		rPanelImg.setLayout(new BorderLayout(0, 0));
+		rPanel.add(rPanelImg);
+		
+		JLabel rLblImg = new JLabel("");
+		rPanelImg.add(rLblImg, BorderLayout.CENTER);
+
+		controlador.anadirImagen(rPanelImg, rLblImg, "img/l_bg.jpg");
 	}
 }
