@@ -587,7 +587,8 @@ public class MenuTest {
 		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
 		Cliente clienteLogueado = clientes.get(0);
 		
-		controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
+		controlador.reiniciarProyeccionesSeleccionadas(proyeccionesSeleccionadas);
+		clienteLogueado = controlador.desloguearCliente();
 		
 		assertTrue(proyeccionesSeleccionadas.size() == 0);
 		assertNull(clienteLogueado);

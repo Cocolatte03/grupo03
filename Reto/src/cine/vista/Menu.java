@@ -791,7 +791,8 @@ public class Menu {
 				JOptionPane.showMessageDialog(null, ("Sus entradas se han impreso correctamente."));
 				itPanel.setVisible(false);
 				bPanel.setVisible(true);
-				controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
+				controlador.reiniciarProyeccionesSeleccionadas(proyeccionesSeleccionadas);
+				clienteLogueado = controlador.desloguearCliente();
 			}
 		});
 		itBtnSi.setForeground(Color.WHITE);
@@ -805,7 +806,8 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				itPanel.setVisible(false);
 				bPanel.setVisible(true);
-				controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
+				controlador.reiniciarProyeccionesSeleccionadas(proyeccionesSeleccionadas);
+				clienteLogueado = controlador.desloguearCliente();
 			}
 		});
 		itBtnNo.setForeground(Color.WHITE);
