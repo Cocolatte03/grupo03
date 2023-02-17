@@ -71,6 +71,9 @@ public class Menu {
 	private JLabel rcLblSubtotal1;
 	private JLabel rcLblDescuento1;
 	private JLabel rcLblTotal1;
+	
+	private JButton rBtnAtrasLogin;
+	private JButton rBtnAtrasCine;
 
 	private Controlador controlador = null;
 
@@ -94,7 +97,7 @@ public class Menu {
 		cines = controlador.guardarArrayListCines();
 		peliculas = new ArrayList<Pelicula>();
 		proyecciones = new ArrayList<Proyeccion>();
-		clientes = new ArrayList<Cliente>();
+		clientes = controlador.guardarArrayListClientes();
 
 		proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
 
@@ -113,7 +116,7 @@ public class Menu {
 		frame.setTitle("Cine Elorrieta");
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-
+		
 		crearPanelBienvenida();
 		crearPanelSeleccionCine();
 		crearPanelSeleccionPelicula();
@@ -154,7 +157,7 @@ public class Menu {
 		bPanel.add(bLblCabecera);
 
 		JPanel bPanelLogo = new JPanel();
-		bPanelLogo.setBounds(960, 640, 35, 30);
+		bPanelLogo.setBounds(910, 40, 35, 30);
 		bPanel.add(bPanelLogo);
 		bPanelLogo.setLayout(new BorderLayout(0, 0));
 		bPanelLogo.setOpaque(false);
@@ -213,8 +216,8 @@ public class Menu {
 		scPanel.add(scComboCines);
 
 		JButton scBtnFin = new JButton("Finalizar Sesión");
-		scBtnFin.setBackground(Color.WHITE);
-		scBtnFin.setForeground(SystemColor.textHighlight);
+		scBtnFin.setBackground(SystemColor.textHighlight);
+		scBtnFin.setForeground(Color.WHITE);
 		scBtnFin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		scBtnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -229,6 +232,24 @@ public class Menu {
 		});
 		scBtnFin.setBounds(792, 20, 169, 33);
 		scPanel.add(scBtnFin);
+		
+		JButton scBtnInicioSesion= new JButton("REGISTRARME");
+		scBtnInicioSesion.setBackground(Color.WHITE);
+		scBtnInicioSesion.setForeground(SystemColor.textHighlight);
+		scBtnInicioSesion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		scBtnInicioSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (clienteLogueado == null) {
+					rPanel.setVisible(true);
+					scPanel.setVisible(false);
+					
+					rBtnAtrasLogin.setVisible(false);
+					rBtnAtrasCine.setVisible(true);
+				}
+			}
+		});
+		scBtnInicioSesion.setBounds(600, 20, 169, 33);
+		scPanel.add(scBtnInicioSesion);
 
 		JButton scBtnConfirmar = new JButton("Confirmar");
 		scBtnConfirmar.setBackground(SystemColor.textHighlight);
@@ -239,7 +260,6 @@ public class Menu {
 				scPanel.setVisible(false);
 				cineSeleccionado = controlador.determinarCineSeleccionado(scComboCines, cines);
 				peliculas = controlador.guardarArrayListPeliculas(cineSeleccionado);
-				// controlador.anadirPeliculasAlCombo(spComboTitulos, peliculas);
 				controlador.cargarTablaConPeliculas(spTableModel, peliculas);
 				spPanel.setVisible(true);
 			}
@@ -267,11 +287,11 @@ public class Menu {
 		spLblCabecera.setBounds(66, 43, 446, 56);
 		spPanel.add(spLblCabecera);
 
-		JLabel lblNewLabel = new JLabel("Haga clic sobre una película para seleccionarla.");
-		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		lblNewLabel.setForeground(new Color(254, 255, 255));
-		lblNewLabel.setBounds(70, 100, 400, 31);
-		spPanel.add(lblNewLabel);
+		JLabel spLblDesc = new JLabel("Haga clic sobre una película para seleccionarla.");
+		spLblDesc.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		spLblDesc.setForeground(new Color(254, 255, 255));
+		spLblDesc.setBounds(70, 100, 400, 31);
+		spPanel.add(spLblDesc);
 
 		JPanel spPanelImg = new JPanel();
 		spPanelImg.setBackground(new Color(254, 251, 0));
@@ -630,7 +650,6 @@ public class Menu {
 				} else if (null == clienteLogueado) {
 					rcPanel.setVisible(false);
 					lPanel.setVisible(true);
-					clientes = controlador.guardarArrayListClientes();
 				} else if (null != clienteLogueado) {
 					fechaCompra = LocalDateTime.now();
 					controlador.crearEntradas(proyeccionesSeleccionadas, clienteLogueado);
@@ -751,6 +770,8 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				lPanel.setVisible(false);
 				rPanel.setVisible(true);
+				rBtnAtrasLogin.setVisible(true);
+				rBtnAtrasCine.setVisible(false);
 			}
 		});
 		lBtnRegistrarse.setForeground(SystemColor.textHighlight);
@@ -851,6 +872,12 @@ public class Menu {
 		rLblRegistro.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		rLblRegistro.setForeground(new Color(194, 220, 241));
 		rPanel.add(rLblRegistro);
+
+		JLabel rLblDesc = new JLabel("Rellene los campos del siguiente formulario.");
+		rLblDesc.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		rLblDesc.setForeground(new Color(254, 255, 255));
+		rLblDesc.setBounds(70, 100, 400, 31);
+		rPanel.add(rLblDesc);
 
 		JLabel rLblNombre = new JLabel("Nombre:");
 		rLblNombre.setForeground(Color.WHITE);
@@ -955,7 +982,7 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				controlador.registrarNuevoCliente(clientes, rComboSexo, rTextFieldNombre, rTextFieldApellidos,
 						rTextFieldDni, rTextFieldDireccion, rTextFieldUsuario, rPasswordFieldContrasena,
-						rPasswordFieldRepContrasena, rPanel, lPanel);
+						rPasswordFieldRepContrasena);
 				clientes = controlador.guardarArrayListClientes();
 			}
 		});
@@ -965,18 +992,31 @@ public class Menu {
 		rBtnRegistrarme.setBounds(250, 576, 150, 36);
 		rPanel.add(rBtnRegistrarme);
 
-		JButton rBtnAtras = new JButton("Atrás");
-		rBtnAtras.setBackground(SystemColor.textHighlight);
-		rBtnAtras.setForeground(Color.WHITE);
-		rBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		rBtnAtras.setBounds(6, 6, 80, 29);
-		rBtnAtras.addActionListener(new ActionListener() {
+		rBtnAtrasLogin = new JButton("Atrás");
+		rBtnAtrasLogin.setBackground(SystemColor.textHighlight);
+		rBtnAtrasLogin.setForeground(Color.WHITE);
+		rBtnAtrasLogin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		rBtnAtrasLogin.setBounds(6, 6, 80, 29);
+		rBtnAtrasLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rPanel.setVisible(false);
 				lPanel.setVisible(true);
 			}
 		});
-		rPanel.add(rBtnAtras);
+		rPanel.add(rBtnAtrasLogin);
+		
+		rBtnAtrasCine = new JButton("Atrás");
+		rBtnAtrasCine.setBackground(SystemColor.textHighlight);
+		rBtnAtrasCine.setForeground(Color.WHITE);
+		rBtnAtrasCine.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		rBtnAtrasCine.setBounds(6, 6, 80, 29);
+		rBtnAtrasCine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rPanel.setVisible(false);
+				scPanel.setVisible(true);
+			}
+		});
+		rPanel.add(rBtnAtrasCine);
 		
 		JPanel rPanelImg = new JPanel();
 		rPanelImg.setBackground(new Color(66, 66, 66));
@@ -988,5 +1028,8 @@ public class Menu {
 		rPanelImg.add(rLblImg, BorderLayout.CENTER);
 
 		controlador.anadirImagen(rPanelImg, rLblImg, "img/r_bg.jpg");
+		
+		rBtnAtrasLogin.setVisible(false);
+		rBtnAtrasCine.setVisible(false);
 	}
 }

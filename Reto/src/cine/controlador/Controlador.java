@@ -610,7 +610,7 @@ public class Controlador {
 
 	public void registrarNuevoCliente(ArrayList<Cliente> clientes, JComboBox<String> comboSexo, JTextField nombre,
 			JTextField apellidos, JTextField dni, JTextField direccion, JTextField usuario, JPasswordField passw1,
-			JPasswordField passw2, JPanel rPanel, JPanel lPanel) {
+			JPasswordField passw2) {
 		if (!(esCorrectoRegistro(clientes, nombre, apellidos, dni, direccion, usuario, passw1, passw2))) {
 			JOptionPane.showMessageDialog(null, "Registro no válido, revise los campos.", "Error en el registro",
 					JOptionPane.ERROR_MESSAGE);
@@ -622,9 +622,6 @@ public class Controlador {
 			JOptionPane.showMessageDialog(null, ("¡Gracias por su registro, " + nombre.getText() + "!"));
 
 			reiniciarCampos(comboSexo, nombre, apellidos, dni, direccion, usuario, passw1, passw2);
-
-			rPanel.setVisible(false);
-			lPanel.setVisible(true);
 		}
 	}
 
