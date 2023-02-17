@@ -3,33 +3,44 @@ package junit.vista;
 import static org.junit.Assert.*;
 
 import java.awt.AWTException;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cine.bbdd.gestor.GestorCine;
+import cine.bbdd.gestor.GestorCliente;
 import cine.bbdd.gestor.GestorPelicula;
 import cine.bbdd.gestor.GestorProyeccion;
 import cine.bbdd.pojos.Cine;
+import cine.bbdd.pojos.Cliente;
 import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 import cine.bbdd.pojos.Sala;
+import cine.controlador.Controlador;
+import cine.controlador.fichero.GestorDeFicheros;
 
 public class MenuTest {
 
 	private static GestorCine gestorCine = null;
 	private static GestorPelicula gestorPelicula = null;
 	private static GestorProyeccion gestorProyeccion = null;
+	private static GestorCliente gestorCliente = null;
+	private static Controlador controlador = null;
 
 	@BeforeClass
 	public static void setUpCines() throws AWTException {
 		gestorCine = new GestorCine();
 		gestorPelicula = new GestorPelicula();
 		gestorProyeccion = new GestorProyeccion();
-
+		gestorCliente = new GestorCliente();
+		controlador = new Controlador();
 	}
 
 	/**
@@ -334,6 +345,253 @@ public class MenuTest {
 
 		assertNotNull(sala);
 
+	}
+
+	/**
+	 * Comprueba el cálculo del subtotal de la compra.
+	 */
+	@Test
+	public void testCalculoSubtotal() {
+
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			proyeccionesSeleccionadas.add(proyeccion);
+		}
+
+		double subtotalEsperado = 11.9;
+		/*
+		 * for (int j = 0; j < proyeccionesSeleccionadas.size(); j++) { sumaEsperada +=
+		 * proyeccionesSeleccionadas.get(j).getPrecio(); }
+		 */
+
+		double subtotal = controlador.calcularSubtotal(proyeccionesSeleccionadas);
+
+		assertTrue(subtotalEsperado == subtotal);
+
+	}
+
+	/**
+	 * Comprueba el cálculo del descuento de la compra.
+	 */
+	@Test
+	public void testCalculoDescuento() {
+
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			proyeccionesSeleccionadas.add(proyeccion);
+		}
+
+		double subtotal = controlador.calcularSubtotal(proyeccionesSeleccionadas);
+		double descuento = controlador.calcularDescuento(proyeccionesSeleccionadas, subtotal);
+
+		double descuentoEsperado = subtotal * 0.2 * (-1);
+
+		assertTrue(descuentoEsperado == descuento);
+
+	}
+
+	/**
+	 * Comprueba el cálculo del total de la compra, una vez aplicado el descuento.
+	 */
+	@Test
+	public void testCalculoTotal() {
+
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+
+		for (int i = 0; i < proyecciones.size(); i++) {
+			Proyeccion proyeccion = proyecciones.get(i);
+			proyeccionesSeleccionadas.add(proyeccion);
+		}
+
+		double subtotal = controlador.calcularSubtotal(proyeccionesSeleccionadas);
+		double descuento = controlador.calcularDescuento(proyeccionesSeleccionadas, subtotal);
+		double total = controlador.calcularTotal(subtotal, descuento);
+
+		double totalEsperado = subtotal + descuento;
+
+		assertTrue(totalEsperado == total);
+
+	}
+
+	/**
+	 * Comprueba si un usuario existe y si el login es correcto.
+	 */
+	@Test
+	public void testLogin() {
+
+		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
+		Cliente cliente = controlador.guardarCliente(clientes, "leiretxula");
+
+		boolean esCorrectoLogin = controlador.coincidenUsuarioYContrasena(cliente, "patata");
+
+		assertNotNull(clientes);
+		assertNotNull(cliente);
+		assertFalse(esCorrectoLogin);
+	}
+
+	/**
+	 * Comprueba si el archivo que contiene las entradas se ha generado.
+	 */
+	@Test
+	public void testGeneracionTicket() {
+
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		LocalDate fecha = proyecciones.get(0).getFecha();
+
+		ArrayList<Proyeccion> proyecciones1 = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cine,
+				pelicula, fecha.toString());
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+		Proyeccion proyeccionSeleccionada = proyecciones1.get(0);
+		proyeccionesSeleccionadas.add(proyeccionSeleccionada);
+
+		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
+		Cliente cliente = controlador.guardarCliente(clientes, "leiretxula");
+		int idCliente = cliente.getId();
+
+		LocalDateTime fechaCompra = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+		String fechaFormateada = fechaCompra.format(formatter);
+
+		controlador.imprimirTicket(proyeccionesSeleccionadas, cliente, fechaCompra);
+
+		File file = new File("src/cine/tickets/entradas_" + fechaFormateada + "_" + idCliente + ".txt");
+
+		assertTrue(file.getAbsoluteFile().exists());
+	}
+
+	/**
+	 * Comprueba si el contenido del archivo que contiene las entradas es correcto.
+	 * @throws IOException 
+	 */
+	@Test
+	public void testContenidoTicket() throws IOException {
+
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		LocalDate fecha = proyecciones.get(0).getFecha();
+
+		ArrayList<Proyeccion> proyecciones1 = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cine,
+				pelicula, fecha.toString());
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+		Proyeccion proyeccionSeleccionada = proyecciones1.get(0);
+		proyeccionesSeleccionadas.add(proyeccionSeleccionada);
+
+		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
+		Cliente cliente = controlador.guardarCliente(clientes, "leiretxula");
+		int idCliente = cliente.getId();
+
+		LocalDateTime fechaCompra = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+		String fechaFormateada = fechaCompra.format(formatter);
+
+		controlador.imprimirTicket(proyeccionesSeleccionadas, cliente, fechaCompra);
+
+		String esperado = "";
+
+		String titulo = proyeccionSeleccionada.getPelicula().getTitulo();
+		String hora = "" + proyeccionSeleccionada.getHora();
+		String fechaSel = "" + proyeccionSeleccionada.getFecha();
+		String sala = proyeccionSeleccionada.getSala().getNombre();
+		String cineSel = proyeccionSeleccionada.getSala().getCine().getNombre();
+		String precio = "" + proyeccionSeleccionada.getPrecio();
+		String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
+		
+		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String fechaFormateada2 = fechaCompra.format(formatter2);
+
+		esperado += "--- ENTRADA 1 ---\n";
+
+		esperado += "Película: " + titulo + "\n" + "Sesión: " + hora + "\n" + "Fecha: " + fechaSel + "\n" + "Sala: "
+				+ sala + "\n" + "Cine: " + cineSel + "\n" + "Precio: " + precio + " €\n" + "Fecha compra: "
+				+ fechaFormateada2 + "\n" + "Cliente: " + comprador + "\n\n";
+		
+		File file = new File("src/cine/tickets/entradas_" + fechaFormateada + "_" + idCliente + ".txt");
+		
+		GestorDeFicheros gestorFicheros = new GestorDeFicheros(file);
+		String contenido = gestorFicheros.leer();
+
+		assertEquals(esperado.trim(), contenido.trim());
+	}
+	
+	/**
+	 * Comprueba que los parametros se reinician con valores nulos.
+	 */
+	@Test
+	public void testReseteo() {
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		LocalDate fecha = proyecciones.get(0).getFecha();
+
+		ArrayList<Proyeccion> proyecciones1 = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cine,
+				pelicula, fecha.toString());
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+		Proyeccion proyeccionSeleccionada = proyecciones1.get(0);
+		proyeccionesSeleccionadas.add(proyeccionSeleccionada);
+
+		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
+		Cliente clienteLogueado = clientes.get(0);
+		
+		controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
+		
+		assertTrue(proyeccionesSeleccionadas.size() == 0);
+		assertNull(clienteLogueado);
+		
 	}
 
 }

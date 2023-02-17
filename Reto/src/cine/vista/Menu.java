@@ -221,7 +221,7 @@ public class Menu {
 		scBtnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				double subtotal = controlador.calcularSubtotal(rcTable, proyeccionesSeleccionadas);
+				double subtotal = controlador.calcularSubtotal(proyeccionesSeleccionadas);
 				double descuento = controlador.calcularDescuento(proyeccionesSeleccionadas, subtotal);
 				double total = controlador.calcularTotal(subtotal, descuento);
 
@@ -790,10 +790,10 @@ public class Menu {
 		itBtnSi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.imprimirTicket(proyeccionesSeleccionadas, clienteLogueado, fechaCompra);
+				JOptionPane.showMessageDialog(null, ("Sus entradas se han impreso correctamente."));
 				itPanel.setVisible(false);
 				bPanel.setVisible(true);
-				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
-				clienteLogueado = null;
+				controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
 			}
 		});
 		itBtnSi.setForeground(Color.WHITE);
@@ -807,8 +807,7 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				itPanel.setVisible(false);
 				bPanel.setVisible(true);
-				proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
-				clienteLogueado = null;
+				controlador.reiniciarParametros(proyeccionesSeleccionadas, clienteLogueado);
 			}
 		});
 		itBtnNo.setForeground(Color.WHITE);

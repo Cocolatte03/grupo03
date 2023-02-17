@@ -266,7 +266,7 @@ public class Controlador {
 
 	}
 
-	public double calcularSubtotal(JTable table, ArrayList<Proyeccion> proyecciones) {
+	public double calcularSubtotal(ArrayList<Proyeccion> proyecciones) {
 		double ret = 0;
 
 		int numeroEntradas = proyecciones.size();
@@ -307,6 +307,7 @@ public class Controlador {
 		return ret;
 	}
 
+
 	public int preguntarEliminarProyeccionSel() {
 		JFrame frame = new JFrame();
 		String[] options = new String[2];
@@ -331,7 +332,7 @@ public class Controlador {
 			proyeccionesSel.remove(index);
 			cargarTablaConProyeccionesSeleccionadas(tableModel, proyeccionesSel);
 
-			double subtotal = calcularSubtotal(table, proyeccionesSel);
+			double subtotal = calcularSubtotal(proyeccionesSel);
 			double descuento = calcularDescuento(proyeccionesSel, subtotal);
 			double total = calcularTotal(subtotal, descuento);
 
@@ -463,10 +464,14 @@ public class Controlador {
 
 		try {
 			gestor.escribir(texto);
-			JOptionPane.showMessageDialog(null, ("Sus entradas se han impreso correctamente."));
 		} catch (IOException e1) {
 
 		}
+	}
+	
+	public void reiniciarParametros(ArrayList<Proyeccion> proyeccionesSeleccionadas, Cliente clienteLogueado) {
+		clienteLogueado = null;
+		proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
 	}
 	
 	public void registrarCliente(Cliente cliente) {
