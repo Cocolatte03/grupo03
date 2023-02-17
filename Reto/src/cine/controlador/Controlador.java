@@ -479,9 +479,14 @@ public class Controlador {
 		}
 	}
 
-	public void reiniciarParametros(ArrayList<Proyeccion> proyeccionesSeleccionadas, Cliente clienteLogueado) {
-		clienteLogueado = null;
+	public void reiniciarProyeccionesSeleccionadas(ArrayList<Proyeccion> proyeccionesSeleccionadas) {
 		proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
+	}
+	
+	public Cliente desloguearCliente() {
+		Cliente ret = null;
+		
+		return ret;
 	}
 
 	public void registrarCliente(Cliente cliente) {
