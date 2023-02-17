@@ -400,27 +400,29 @@ public class Controlador {
 		return ret;
 	}
 
+	public void reiniciarCamposInicio(JTextField txtUsuario, JPasswordField txtContrasena) {
+		txtUsuario.setText("");
+		txtContrasena.setText("");
+	}
+
 	public void iniciarSesion(Cliente cliente, String contrasena, JPanel lPanel, JPanel rcPanel, JTextField txtUsuario,
 			JPasswordField txtContrasena) {
 		if (cliente != null) {
 			if (coincidenUsuarioYContrasena(cliente, contrasena)) {
 				String nombre = cliente.getNombre();
 				JOptionPane.showMessageDialog(null, ("¡Bienvenid@ " + nombre + "!"));
-				txtUsuario.setText("");
-				txtContrasena.setText("");
+				reiniciarCamposInicio(txtUsuario, txtContrasena);
 				lPanel.setVisible(false);
 				rcPanel.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Contraseña incorrecta.", "Error en el inicio de sesión",
 						JOptionPane.ERROR_MESSAGE);
-				txtUsuario.setText("");
-				txtContrasena.setText("");
+				reiniciarCamposInicio(txtUsuario, txtContrasena);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "No existe el usuario.", "Error en el inicio de sesión",
 					JOptionPane.ERROR_MESSAGE);
-			txtUsuario.setText("");
-			txtContrasena.setText("");
+			reiniciarCamposInicio(txtUsuario, txtContrasena);
 		}
 	}
 
@@ -433,34 +435,41 @@ public class Controlador {
 		}
 	}
 
-	public void imprimirTicket(ArrayList<Proyeccion> proyecciones, Cliente cliente, LocalDateTime fechaComp) {
+	public String generarContenidoTicket(Proyeccion proyeccion, Cliente cliente, LocalDateTime fechaComp) {
+		String ret = "";
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String fechaFormateada = fechaComp.format(formatter);
 
-		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyMMddHHmmss");
-		String fechaFormateada2 = fechaComp.format(formatter2);
+		String titulo = proyeccion.getPelicula().getTitulo();
+		String hora = "" + proyeccion.getHora();
+		String fecha = "" + proyeccion.getFecha();
+		String sala = proyeccion.getSala().getNombre();
+		String cine = proyeccion.getSala().getCine().getNombre();
+		String precio = "" + proyeccion.getPrecio();
+		String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
 
-		File fichero = new File("src/cine/tickets/entradas_" + fechaFormateada2 + "_" + cliente.getId() + ".txt");
+		ret += "Película: " + titulo + "\n" + "Sesión: " + hora + "\n" + "Fecha: " + fecha + "\n" + "Sala: " + sala
+				+ "\n" + "Cine: " + cine + "\n" + "Precio: " + precio + " €\n" + "Fecha compra: " + fechaFormateada
+				+ "\n" + "Cliente: " + comprador + "\n\n";
+
+		return ret;
+	}
+
+	public void imprimirTicket(ArrayList<Proyeccion> proyecciones, Cliente cliente, LocalDateTime fechaComp) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+		String fechaFormateada = fechaComp.format(formatter);
+
+		File fichero = new File("src/cine/tickets/entradas_" + fechaFormateada + "_" + cliente.getId() + ".txt");
 		GestorDeFicheros gestor = new GestorDeFicheros(fichero);
 
 		String texto = "";
 
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
-
-			String titulo = proyeccion.getPelicula().getTitulo();
-			String hora = "" + proyeccion.getHora();
-			String fecha = "" + proyeccion.getFecha();
-			String sala = proyeccion.getSala().getNombre();
-			String cine = proyeccion.getSala().getCine().getNombre();
-			String precio = "" + proyeccion.getPrecio();
-			String comprador = "" + cliente.getNombre() + " " + cliente.getApellidos() + "(" + cliente.getDni() + ")";
-
 			texto += "--- ENTRADA " + (i + 1) + " ---\n";
-
-			texto += "Película: " + titulo + "\n" + "Sesión: " + hora + "\n" + "Fecha: " + fecha + "\n" + "Sala: "
-					+ sala + "\n" + "Cine: " + cine + "\n" + "Precio: " + precio + " €\n" + "Fecha compra: "
-					+ fechaFormateada + "\n" + "Cliente: " + comprador + "\n\n";
+			texto += generarContenidoTicket(proyeccion, cliente, fechaComp);
 		}
 
 		try {
