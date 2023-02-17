@@ -855,37 +855,37 @@ public class Menu {
 		JLabel rLblNombre = new JLabel("Nombre:");
 		rLblNombre.setForeground(Color.WHITE);
 		rLblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblNombre.setBounds(70, 132, 300, 36);
+		rLblNombre.setBounds(70, 132, 150, 36);
 		rPanel.add(rLblNombre);
 
 		JTextField rTextFieldNombre = new JTextField();
 		rTextFieldNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldNombre.setColumns(10);
-		rTextFieldNombre.setBounds(70, 166, 196, 36);
+		rTextFieldNombre.setBounds(70, 166, 150, 36);
 		rPanel.add(rTextFieldNombre);
 
 		JLabel rLblApellidos = new JLabel("Apellidos:");
 		rLblApellidos.setForeground(Color.WHITE);
 		rLblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblApellidos.setBounds(70, 242, 300, 36);
+		rLblApellidos.setBounds(70, 242, 150, 36);
 		rPanel.add(rLblApellidos);
 
 		JTextField rTextFieldApellidos = new JTextField();
 		rTextFieldApellidos.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldApellidos.setColumns(10);
-		rTextFieldApellidos.setBounds(70, 278, 196, 36);
+		rTextFieldApellidos.setBounds(70, 278, 150, 36);
 		rPanel.add(rTextFieldApellidos);
 
 		JLabel rLblDni = new JLabel("DNI:");
 		rLblDni.setForeground(Color.WHITE);
 		rLblDni.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblDni.setBounds(70, 355, 300, 36);
+		rLblDni.setBounds(70, 355, 150, 36);
 		rPanel.add(rLblDni);
 
 		JTextField rTextFieldDni = new JTextField();
 		rTextFieldDni.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldDni.setColumns(10);
-		rTextFieldDni.setBounds(70, 390, 196, 36);
+		rTextFieldDni.setBounds(70, 390, 150, 36);
 		rPanel.add(rTextFieldDni);
 
 		JLabel rLblDireccion = new JLabel("Dirección:");
@@ -897,13 +897,13 @@ public class Menu {
 		JTextField rTextFieldDireccion = new JTextField();
 		rTextFieldDireccion.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldDireccion.setColumns(10);
-		rTextFieldDireccion.setBounds(70, 501, 196, 36);
+		rTextFieldDireccion.setBounds(70, 501, 150, 36);
 		rPanel.add(rTextFieldDireccion);
 
 		JLabel rLblSexo = new JLabel("Sexo:");
 		rLblSexo.setForeground(Color.WHITE);
 		rLblSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblSexo.setBounds(300, 130, 150, 36);
+		rLblSexo.setBounds(250, 130, 150, 36);
 		rPanel.add(rLblSexo);
 
 		JComboBox<String> rComboSexo = new JComboBox<String>();
@@ -913,41 +913,41 @@ public class Menu {
 		rComboSexo.addItem("Hombre");
 		rComboSexo.addItem("Mujer");
 		rComboSexo.addItem("Otro");
-		rComboSexo.setBounds(300, 166, 196, 36);
+		rComboSexo.setBounds(250, 166, 150, 36);
 		rPanel.add(rComboSexo);
 
 		JLabel rLblUsuario = new JLabel("Usuario:");
 		rLblUsuario.setForeground(Color.WHITE);
 		rLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblUsuario.setBounds(300, 240, 300, 36);
+		rLblUsuario.setBounds(250, 240, 150, 36);
 		rPanel.add(rLblUsuario);
 
 		JTextField rTextFieldUsuario = new JTextField();
 		rTextFieldUsuario.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		rTextFieldUsuario.setColumns(10);
-		rTextFieldUsuario.setBounds(300, 278, 196, 36);
+		rTextFieldUsuario.setBounds(250, 278, 150, 36);
 		rPanel.add(rTextFieldUsuario);
 
 		JLabel rLblContrasena = new JLabel("Contraseña:");
 		rLblContrasena.setForeground(Color.WHITE);
 		rLblContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblContrasena.setBounds(300, 353, 300, 36);
+		rLblContrasena.setBounds(250, 353, 150, 36);
 		rPanel.add(rLblContrasena);
 
 		JPasswordField rPasswordFieldContrasena = new JPasswordField();
 		rPasswordFieldContrasena.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		rPasswordFieldContrasena.setBounds(300, 390, 196, 36);
+		rPasswordFieldContrasena.setBounds(250, 390, 150, 36);
 		rPanel.add(rPasswordFieldContrasena);
 
 		JLabel rLblRepContrasena = new JLabel("Repetir Contraseña:");
 		rLblRepContrasena.setForeground(Color.WHITE);
 		rLblRepContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		rLblRepContrasena.setBounds(300, 467, 300, 36);
+		rLblRepContrasena.setBounds(250, 467, 150, 36);
 		rPanel.add(rLblRepContrasena);
 
 		JPasswordField rPasswordFieldRepContrasena = new JPasswordField();
-		rPasswordFieldRepContrasena.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		rPasswordFieldRepContrasena.setBounds(300, 502, 196, 36);
+		rPasswordFieldRepContrasena.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rPasswordFieldRepContrasena.setBounds(250, 502, 150, 36);
 		rPanel.add(rPasswordFieldRepContrasena);
 
 		JButton rBtnRegistrarme = new JButton("Registrarme");
@@ -962,7 +962,7 @@ public class Menu {
 		rBtnRegistrarme.setForeground(Color.WHITE);
 		rBtnRegistrarme.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		rBtnRegistrarme.setBackground(SystemColor.textHighlight);
-		rBtnRegistrarme.setBounds(300, 576, 196, 36);
+		rBtnRegistrarme.setBounds(250, 576, 150, 36);
 		rPanel.add(rBtnRegistrarme);
 
 		JButton rBtnAtras = new JButton("Atrás");
@@ -987,6 +987,6 @@ public class Menu {
 		JLabel rLblImg = new JLabel("");
 		rPanelImg.add(rLblImg, BorderLayout.CENTER);
 
-		controlador.anadirImagen(rPanelImg, rLblImg, "img/l_bg.jpg");
+		controlador.anadirImagen(rPanelImg, rLblImg, "img/r_bg.jpg");
 	}
 }
