@@ -13,8 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -124,7 +122,7 @@ public class Menu {
 		crearPanelLogin();
 		crearPanelImpresionTicket();
 		crearPanelRegistro();
-;
+		;
 		scPanel.setVisible(false);
 		spPanel.setVisible(false);
 		sprPanel.setVisible(false);
@@ -649,7 +647,7 @@ public class Menu {
 		rcLblDescr.setForeground(Color.WHITE);
 		rcLblDescr.setBounds(70, 98, 566, 29);
 		rcPanel.add(rcLblDescr);
-		
+
 		JPanel rcPanelCabecera = new JPanel();
 		rcPanelCabecera.setBounds(0, 0, 1000, 180);
 		rcPanel.add(rcPanelCabecera);
@@ -815,198 +813,155 @@ public class Menu {
 		itBtnNo.setBackground(Color.DARK_GRAY);
 		itBtnNo.setBounds(539, 525, 66, 36);
 		itPanel.add(itBtnNo);
-		
+
 		JPanel itPanelImg = new JPanel();
 		itPanelImg.setBounds(312, 108, 390, 328);
 		itPanel.add(itPanelImg);
 		itPanelImg.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel itLblImg = new JLabel("");
 		itPanelImg.add(itLblImg, BorderLayout.CENTER);
-		
+
 		controlador.anadirImagen(itPanelImg, itLblImg, "img/ticket.jpg");
 	}
-	
+
 	private void crearPanelRegistro() {
 		rPanel = new JPanel();
 		rPanel.setBounds(0, 0, 1000, 672);
 		frame.getContentPane().add(rPanel);
 		rPanel.setLayout(null);
 		rPanel.setBackground(new Color(66, 66, 66));
-		
-		JLabel srLblRegistro = new JLabel("Regístrate:");
-		srLblRegistro.setBounds(66, 43, 329, 56);
-		srLblRegistro.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
-		srLblRegistro.setForeground(new Color(194, 220, 241));
-		rPanel.add(srLblRegistro);
-		
-		JLabel srLblNombre = new JLabel("Nombre:");
-		srLblNombre.setForeground(Color.WHITE);
-		srLblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblNombre.setBounds(130, 132, 300, 36);
-		rPanel.add(srLblNombre);
-		
-		JTextField srTextFieldNombre = new JTextField();
-		srTextFieldNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srTextFieldNombre.setColumns(10);
-		srTextFieldNombre.setBounds(130, 166, 196, 36);
-		rPanel.add(srTextFieldNombre);
-		
-		JLabel srLblApellidos = new JLabel("Apellidos:");
-		srLblApellidos.setForeground(Color.WHITE);
-		srLblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblApellidos.setBounds(130, 242, 300, 36);
-		rPanel.add(srLblApellidos);
-		
-		JTextField srTextFieldApellidos = new JTextField();
-		srTextFieldApellidos.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srTextFieldApellidos.setColumns(10);
-		srTextFieldApellidos.setBounds(130, 278, 196, 36);
-		rPanel.add(srTextFieldApellidos);
-		
-		JLabel srLblDNI = new JLabel("DNI:");
-		srLblDNI.setForeground(Color.WHITE);
-		srLblDNI.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblDNI.setBounds(130, 355, 300, 36);
-		rPanel.add(srLblDNI);
-		
-		JTextField srTextFieldDNI = new JTextField();
-		srTextFieldDNI.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srTextFieldDNI.setColumns(10);
-		srTextFieldDNI.setBounds(130, 390, 196, 36);
-		rPanel.add(srTextFieldDNI);
-		
-		JLabel srLblDireccion = new JLabel("Dirección:");
-		srLblDireccion.setForeground(Color.WHITE);
-		srLblDireccion.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblDireccion.setBounds(130, 467, 150, 36);
-		rPanel.add(srLblDireccion);
-		
-		JTextField srTextFieldDireccion = new JTextField();
-		srTextFieldDireccion.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srTextFieldDireccion.setColumns(10);
-		srTextFieldDireccion.setBounds(130, 501, 196, 36);
-		rPanel.add(srTextFieldDireccion);
-		
-		JLabel srLblSexo = new JLabel("Sexo:");
-		srLblSexo.setForeground(Color.WHITE);
-		srLblSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblSexo.setBounds(538, 130, 150, 36);
-		rPanel.add(srLblSexo);
-		
-		JComboBox<String> srComboSexo = new JComboBox<String>();
-		srComboSexo.setBackground(Color.WHITE);
-		srComboSexo.setForeground(SystemColor.textHighlight);
-		srComboSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
-		srComboSexo.addItem("Hombre");
-		srComboSexo.addItem("Mujer");
-		srComboSexo.addItem("Otro");
-		srComboSexo.setBounds(538, 166, 196, 36);
-		rPanel.add(srComboSexo);
-		
-		JLabel srLblUsuario = new JLabel("Usuario:");
-		srLblUsuario.setForeground(Color.WHITE);
-		srLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblUsuario.setBounds(538, 240, 300, 36);
-		rPanel.add(srLblUsuario);
-		
-		JTextField srTextFieldUsuario = new JTextField();
-		srTextFieldUsuario.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srTextFieldUsuario.setColumns(10);
-		srTextFieldUsuario.setBounds(538, 278, 196, 36);
-		rPanel.add(srTextFieldUsuario);
-		
-		JLabel srLblContraseña = new JLabel("Contraseña:");
-		srLblContraseña.setForeground(Color.WHITE);
-		srLblContraseña.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblContraseña.setBounds(538, 353, 300, 36);
-		rPanel.add(srLblContraseña);
-		
-		JPasswordField srPasswordFieldContraseña = new JPasswordField();
-		srPasswordFieldContraseña.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		srPasswordFieldContraseña.setBounds(538, 390, 196, 36);
-		rPanel.add(srPasswordFieldContraseña);
-		
-		JLabel srLblRepContra = new JLabel("Repetir Contraseña:");
-		srLblRepContra.setForeground(Color.WHITE);
-		srLblRepContra.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		srLblRepContra.setBounds(538, 467, 300, 36);
-		rPanel.add(srLblRepContra);
-		
-		JPasswordField srPasswordFieldRepContraseña = new JPasswordField();
-		srPasswordFieldRepContraseña.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		srPasswordFieldRepContraseña.setBounds(538, 502, 196, 36);
-		rPanel.add(srPasswordFieldRepContraseña);
-		
-		JButton srBtnRegistrarme = new JButton("Registrarme");
-		srBtnRegistrarme.addActionListener(new ActionListener() {
+
+		JLabel rLblRegistro = new JLabel("Regístrate:");
+		rLblRegistro.setBounds(66, 43, 329, 56);
+		rLblRegistro.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		rLblRegistro.setForeground(new Color(194, 220, 241));
+		rPanel.add(rLblRegistro);
+
+		JLabel rLblNombre = new JLabel("Nombre:");
+		rLblNombre.setForeground(Color.WHITE);
+		rLblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblNombre.setBounds(130, 132, 300, 36);
+		rPanel.add(rLblNombre);
+
+		JTextField rTextFieldNombre = new JTextField();
+		rTextFieldNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rTextFieldNombre.setColumns(10);
+		rTextFieldNombre.setBounds(130, 166, 196, 36);
+		rPanel.add(rTextFieldNombre);
+
+		JLabel rLblApellidos = new JLabel("Apellidos:");
+		rLblApellidos.setForeground(Color.WHITE);
+		rLblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblApellidos.setBounds(130, 242, 300, 36);
+		rPanel.add(rLblApellidos);
+
+		JTextField rTextFieldApellidos = new JTextField();
+		rTextFieldApellidos.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rTextFieldApellidos.setColumns(10);
+		rTextFieldApellidos.setBounds(130, 278, 196, 36);
+		rPanel.add(rTextFieldApellidos);
+
+		JLabel rLblDni = new JLabel("DNI:");
+		rLblDni.setForeground(Color.WHITE);
+		rLblDni.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblDni.setBounds(130, 355, 300, 36);
+		rPanel.add(rLblDni);
+
+		JTextField rTextFieldDni = new JTextField();
+		rTextFieldDni.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rTextFieldDni.setColumns(10);
+		rTextFieldDni.setBounds(130, 390, 196, 36);
+		rPanel.add(rTextFieldDni);
+
+		JLabel rLblDireccion = new JLabel("Dirección:");
+		rLblDireccion.setForeground(Color.WHITE);
+		rLblDireccion.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblDireccion.setBounds(130, 467, 150, 36);
+		rPanel.add(rLblDireccion);
+
+		JTextField rTextFieldDireccion = new JTextField();
+		rTextFieldDireccion.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rTextFieldDireccion.setColumns(10);
+		rTextFieldDireccion.setBounds(130, 501, 196, 36);
+		rPanel.add(rTextFieldDireccion);
+
+		JLabel rLblSexo = new JLabel("Sexo:");
+		rLblSexo.setForeground(Color.WHITE);
+		rLblSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblSexo.setBounds(538, 130, 150, 36);
+		rPanel.add(rLblSexo);
+
+		JComboBox<String> rComboSexo = new JComboBox<String>();
+		rComboSexo.setBackground(Color.WHITE);
+		rComboSexo.setForeground(SystemColor.textHighlight);
+		rComboSexo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		rComboSexo.addItem("Hombre");
+		rComboSexo.addItem("Mujer");
+		rComboSexo.addItem("Otro");
+		rComboSexo.setBounds(538, 166, 196, 36);
+		rPanel.add(rComboSexo);
+
+		JLabel rLblUsuario = new JLabel("Usuario:");
+		rLblUsuario.setForeground(Color.WHITE);
+		rLblUsuario.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblUsuario.setBounds(538, 240, 300, 36);
+		rPanel.add(rLblUsuario);
+
+		JTextField rTextFieldUsuario = new JTextField();
+		rTextFieldUsuario.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rTextFieldUsuario.setColumns(10);
+		rTextFieldUsuario.setBounds(538, 278, 196, 36);
+		rPanel.add(rTextFieldUsuario);
+
+		JLabel rLblContrasena = new JLabel("Contraseña:");
+		rLblContrasena.setForeground(Color.WHITE);
+		rLblContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblContrasena.setBounds(538, 353, 300, 36);
+		rPanel.add(rLblContrasena);
+
+		JPasswordField rPasswordFieldContrasena = new JPasswordField();
+		rPasswordFieldContrasena.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		rPasswordFieldContrasena.setBounds(538, 390, 196, 36);
+		rPanel.add(rPasswordFieldContrasena);
+
+		JLabel rLblRepContrasena = new JLabel("Repetir Contraseña:");
+		rLblRepContrasena.setForeground(Color.WHITE);
+		rLblRepContrasena.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		rLblRepContrasena.setBounds(538, 467, 300, 36);
+		rPanel.add(rLblRepContrasena);
+
+		JPasswordField rPasswordFieldRepContrasena = new JPasswordField();
+		rPasswordFieldRepContrasena.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		rPasswordFieldRepContrasena.setBounds(538, 502, 196, 36);
+		rPanel.add(rPasswordFieldRepContrasena);
+
+		JButton rBtnRegistrarme = new JButton("Registrarme");
+		rBtnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				boolean esCorrectoRegistro = true;
-				Object pattern = Pattern.compile("^(\\d{8}[A-Z])$");
-				Object matcher = ((Pattern) pattern).matcher(srTextFieldDNI.getText());
-				Pattern letterPattern = Pattern.compile("^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$");
-				
-				if ((srTextFieldNombre.getText().isEmpty()) || 
-						(srTextFieldApellidos.getText().isEmpty()) || 
-						(srTextFieldDNI.getText().isEmpty()) || 
-						(srTextFieldDireccion.getText().isEmpty()) || 
-						(srTextFieldUsuario.getText().isEmpty()) || 
-						(srPasswordFieldContraseña.getPassword().length == 0) || 
-						(srPasswordFieldRepContraseña.getPassword().length == 0)) {
-					esCorrectoRegistro = false;
-				} else if (! (new String(srPasswordFieldContraseña.getPassword()).equals(new String(srPasswordFieldRepContraseña.getPassword()))) ) {
-					esCorrectoRegistro = false;
-				} else if ((((Matcher) matcher).matches() && (srTextFieldDNI.getText().trim().length() == 9))) {
-					for (int i = 0; i < clientes.size(); i++) {
-						if ((srTextFieldDNI.getText().equals(clientes.get(i).getDni())) || (srTextFieldUsuario.getText().equals(clientes.get(i).getUsuario()))) {
-							esCorrectoRegistro = false;
-						}
-					}
-				} else if ( (!(letterPattern.matcher(srTextFieldNombre.getText()).matches())) || (!(letterPattern.matcher(srTextFieldApellidos.getText()).matches())) ) {
-					esCorrectoRegistro = false;
-				}
-				
-				if (esCorrectoRegistro == false) {
-					JFrame jFrame = new JFrame();
-					JOptionPane.showMessageDialog(jFrame, "Valores introducidos invalidos");
-				} else {
-					Controlador controlador = new Controlador();
-					
-					Cliente cliente = new Cliente ();
-					cliente.setDni(srTextFieldDNI.getText());
-					cliente.setNombre(srTextFieldNombre.getText());
-					cliente.setApellidos(srTextFieldApellidos.getText());
-					cliente.setUsuario(srTextFieldUsuario.getText());
-					cliente.setContrasena(srPasswordFieldContraseña.getPassword().toString());
-					String sexo = srComboSexo.getSelectedItem().toString();
-					cliente.setSexo(sexo);
-					cliente.setDireccion(srTextFieldDireccion.getText());
-					
-					controlador.registrarCliente(cliente);
-					
-					rPanel.setVisible(false);
-					lPanel.setVisible(true);
-				}
+				controlador.registrarNuevoCliente(clientes, rComboSexo, rTextFieldNombre, rTextFieldApellidos,
+						rTextFieldDni, rTextFieldDireccion, rTextFieldUsuario, rPasswordFieldContrasena,
+						rPasswordFieldRepContrasena, rPanel, lPanel);
+				clientes = controlador.guardarArrayListClientes();
 			}
 		});
-		srBtnRegistrarme.setForeground(Color.WHITE);
-		srBtnRegistrarme.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		srBtnRegistrarme.setBackground(SystemColor.textHighlight);
-		srBtnRegistrarme.setBounds(538, 576, 196, 36);
-		rPanel.add(srBtnRegistrarme);
-		
-		JButton srBtnAtras = new JButton("Atrás");
-		srBtnAtras.setBackground(SystemColor.textHighlight);
-		srBtnAtras.setForeground(Color.WHITE);
-		srBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		srBtnAtras.setBounds(6, 6, 80, 29);
-		srBtnAtras.addActionListener(new ActionListener() {
+		rBtnRegistrarme.setForeground(Color.WHITE);
+		rBtnRegistrarme.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		rBtnRegistrarme.setBackground(SystemColor.textHighlight);
+		rBtnRegistrarme.setBounds(538, 576, 196, 36);
+		rPanel.add(rBtnRegistrarme);
+
+		JButton rBtnAtras = new JButton("Atrás");
+		rBtnAtras.setBackground(SystemColor.textHighlight);
+		rBtnAtras.setForeground(Color.WHITE);
+		rBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		rBtnAtras.setBounds(6, 6, 80, 29);
+		rBtnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rPanel.setVisible(false);
 				lPanel.setVisible(true);
 			}
 		});
-		rPanel.add(srBtnAtras);
+		rPanel.add(rBtnAtras);
 	}
 }

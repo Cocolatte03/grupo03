@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -134,7 +136,7 @@ public class Controlador {
 	public ArrayList<Pelicula> guardarArrayListPeliculas(Cine cine) {
 		GestorPelicula gestorPelicula = new GestorPelicula();
 		GestorProyeccion gestorProyeccion = new GestorProyeccion();
-		
+
 		ArrayList<Pelicula> ret = gestorPelicula.getPeliculasPorCine(cine);
 		for (int i = 0; i < ret.size(); i++) {
 			ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
@@ -175,7 +177,7 @@ public class Controlador {
 	public ArrayList<Proyeccion> guardarArrayListProyeccionesAgrupadas(Cine cineSeleccionado,
 			Pelicula peliSeleccionada) {
 		ArrayList<Proyeccion> ret = null;
-		
+
 		GestorProyeccion gestorProyeccion = new GestorProyeccion();
 
 		ret = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cineSeleccionado, peliSeleccionada);
@@ -198,7 +200,7 @@ public class Controlador {
 			Pelicula peliSeleccionada) {
 		ArrayList<Proyeccion> ret = null;
 		String fecha = comboFecha.getSelectedItem().toString();
-		
+
 		GestorProyeccion gestorProyeccion = new GestorProyeccion();
 
 		ret = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cineSeleccionado, peliSeleccionada, fecha);
@@ -255,8 +257,8 @@ public class Controlador {
 		return ret;
 	}
 
-	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelCine,
-			JPanel panelSeleccionProyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
+	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelCine, JPanel panelSeleccionProyeccion,
+			ArrayList<Proyeccion> proyeccionesSeleccionadas) {
 		int respuesta = preguntarConfirmacionProyeccion(proyeccion);
 		if (respuesta == 1) {
 			proyeccionesSeleccionadas.add(proyeccion);
@@ -306,7 +308,6 @@ public class Controlador {
 
 		return ret;
 	}
-
 
 	public int preguntarEliminarProyeccionSel() {
 		JFrame frame = new JFrame();
@@ -368,7 +369,7 @@ public class Controlador {
 	public ArrayList<Cliente> guardarArrayListClientes() {
 		ArrayList<Cliente> ret = null;
 		GestorCliente gestorCliente = new GestorCliente();
-		
+
 		ret = gestorCliente.getAllClientes();
 		return ret;
 	}
@@ -425,7 +426,7 @@ public class Controlador {
 
 	public void crearEntradas(ArrayList<Proyeccion> proyecciones, Cliente cliente) {
 		GestorEntrada gestorEntrada = new GestorEntrada();
-		
+
 		for (int i = 0; i < proyecciones.size(); i++) {
 			Proyeccion proyeccion = proyecciones.get(i);
 			gestorEntrada.insertEntrada(proyeccion, cliente);
@@ -468,15 +469,161 @@ public class Controlador {
 
 		}
 	}
-	
+
 	public void reiniciarParametros(ArrayList<Proyeccion> proyeccionesSeleccionadas, Cliente clienteLogueado) {
 		clienteLogueado = null;
 		proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
 	}
-	
+
 	public void registrarCliente(Cliente cliente) {
 		GestorCliente gestorCliente = new GestorCliente();
 		gestorCliente.insertCliente(cliente);
+	}
+
+	public boolean estanVaciosLosCampos(JTextField nombre, JTextField apellidos, JTextField dni, JTextField direccion,
+			JTextField usuario, JPasswordField passw1, JPasswordField passw2) {
+		boolean ret = false;
+		if ((nombre.getText().isBlank()) || (apellidos.getText().isBlank()) || (dni.getText().isBlank())
+				|| (direccion.getText().isBlank()) || (usuario.getText().isEmpty())
+				|| (passw1.getPassword().length == 0) || (passw2.getPassword().length == 0)) {
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	public boolean coincidenLasContrasenas(JPasswordField passw1, JPasswordField passw2) {
+		boolean ret = false;
+
+		String contrasena1 = String.valueOf(passw1.getPassword());
+		String contrasena2 = String.valueOf(passw2.getPassword());
+
+		if (contrasena1.equals(contrasena2)) {
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	public boolean esCorrectoElFormatoDni(JTextField dni) {
+		boolean ret = false;
+
+		int size = dni.getText().trim().length();
+
+		Pattern pattern = Pattern.compile("^(\\d{8}[A-Z])$");
+		Matcher matcher = pattern.matcher(dni.getText());
+		if (matcher.matches() && (size == 9)) {
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	public boolean tieneElClienteCuenta(ArrayList<Cliente> clientes, JTextField dni) {
+		boolean ret = false;
+
+		for (int i = 0; i < clientes.size(); i++) {
+			if (dni.getText().equals(clientes.get(i).getDni())) {
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
+
+	public boolean existeNombreUsuario(ArrayList<Cliente> clientes, JTextField usuario) {
+		boolean ret = false;
+
+		for (int i = 0; i < clientes.size(); i++) {
+			if (usuario.getText().equals(clientes.get(i).getUsuario())) {
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
+
+	public boolean esCorrectoElFormatoNombreYApellidos(JTextField nombre, JTextField apellidos) {
+		boolean ret = false;
+
+		Pattern pattern = Pattern.compile("^([A-Za-zÑñÁáÉéÍíÓóÚú\\-\\s]*)$");
+		Matcher matcher1 = pattern.matcher(nombre.getText());
+		Matcher matcher2 = pattern.matcher(apellidos.getText());
+		if (matcher1.matches() && matcher2.matches()) {
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	public boolean esCorrectoRegistro(ArrayList<Cliente> clientes, JTextField nombre, JTextField apellidos,
+			JTextField dni, JTextField direccion, JTextField usuario, JPasswordField passw1, JPasswordField passw2) {
+		boolean ret = true;
+
+		if (estanVaciosLosCampos(nombre, apellidos, dni, direccion, usuario, passw1, passw2)) {
+			ret = false;
+		} else if (!(coincidenLasContrasenas(passw1, passw2))) {
+			ret = false;
+		} else if (!(esCorrectoElFormatoDni(dni))) {
+			ret = false;
+		} else if (tieneElClienteCuenta(clientes, dni)) {
+			ret = false;
+		} else if (existeNombreUsuario(clientes, usuario)) {
+			ret = false;
+		} else if (!(esCorrectoElFormatoNombreYApellidos(nombre, apellidos))) {
+			ret = false;
+		}
+
+		return ret;
+	}
+
+	public Cliente nuevoCliente(JComboBox<String> comboSexo, JTextField nombre, JTextField apellidos, JTextField dni,
+			JTextField direccion, JTextField usuario, JPasswordField passw1) {
+
+		Cliente ret = new Cliente();
+		ret.setDni(dni.getText());
+		ret.setNombre(nombre.getText());
+		ret.setApellidos(apellidos.getText());
+		ret.setUsuario(usuario.getText());
+		ret.setContrasena(String.valueOf(passw1.getPassword()));
+		String sexo = comboSexo.getSelectedItem().toString();
+		ret.setSexo(sexo);
+		ret.setDireccion(direccion.getText());
+
+		return ret;
+
+	}
+
+	public void registrarNuevoCliente(ArrayList<Cliente> clientes, JComboBox<String> comboSexo, JTextField nombre,
+			JTextField apellidos, JTextField dni, JTextField direccion, JTextField usuario, JPasswordField passw1,
+			JPasswordField passw2, JPanel rPanel, JPanel lPanel) {
+		if (!(esCorrectoRegistro(clientes, nombre, apellidos, dni, direccion, usuario, passw1, passw2))) {
+			JOptionPane.showMessageDialog(null, "Registro no válido, revise los campos.", "Error en el registro",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
+			Cliente cliente = nuevoCliente(comboSexo, nombre, apellidos, dni, direccion, usuario, passw1);
+
+			registrarCliente(cliente);
+
+			JOptionPane.showMessageDialog(null, ("¡Gracias por su registro, " + nombre.getText() + "!"));
+
+			reiniciarCampos(comboSexo, nombre, apellidos, dni, direccion, usuario, passw1, passw2);
+
+			rPanel.setVisible(false);
+			lPanel.setVisible(true);
+		}
+	}
+
+	public void reiniciarCampos(JComboBox<String> comboSexo, JTextField nombre, JTextField apellidos, JTextField dni,
+			JTextField direccion, JTextField usuario, JPasswordField passw1, JPasswordField passw2) {
+		comboSexo.setSelectedIndex(0);
+		nombre.setText("");
+		apellidos.setText("");
+		dni.setText("");
+		direccion.setText("");
+		usuario.setText("");
+		passw1.setText("");
+		passw2.setText("");
 	}
 
 }
