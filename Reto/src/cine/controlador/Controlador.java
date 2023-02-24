@@ -33,8 +33,8 @@ import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 
 /**
- * Clase de la capa Controlador. Recibe peticiones de la Vista y ejecuta acciones contra la capa
- * Modelo.
+ * Clase de la capa Controlador. Recibe peticiones de la Vista y ejecuta
+ * acciones contra la capa Modelo.
  */
 public class Controlador {
 
@@ -230,35 +230,30 @@ public class Controlador {
 		return ret;
 	}
 
-	public int preguntarConfirmacionProyeccion(Proyeccion proyeccion) {
-		JFrame frame = new JFrame();
-		String[] options = new String[2];
-		options[0] = "Cancelar";
-		options[1] = "Confirmar";
-
-		String titulo = "Confirmar Selección";
-
-		String msg = "<html>Datos de la selección: <br><br>" + "<b>Película: </b>"
-				+ proyeccion.getPelicula().getTitulo() + "<br>" + "<b>Fecha: </b>" + proyeccion.getFecha().toString()
-				+ "<br>" + "<b>Hora: </b>" + proyeccion.getHora().toString() + "<br>" + "<b>Sala: </b>"
-				+ proyeccion.getSala().getNombre() + "<br>" + "<b>Cine: </b>"
-				+ proyeccion.getSala().getCine().getNombre() + "<br>" + "<b>Precio: </b>" + proyeccion.getPrecio()
-				+ " €" + "<br><br>" + "¿Desea confirmar la selección?</html>";
-
-		int ret = JOptionPane.showOptionDialog(frame.getContentPane(), msg, titulo, 0, JOptionPane.INFORMATION_MESSAGE,
-				null, options, null);
-
-		return ret;
+	public void guardarProyeccionConfirmada(Proyeccion proyeccion, ArrayList<Proyeccion> proyeccionesSeleccionadas) {
+		proyeccionesSeleccionadas.add(proyeccion);
 	}
 
-	public void guardarSeleccionProyeccion(Proyeccion proyeccion, JPanel panelCine, JPanel panelSeleccionProyeccion,
-			ArrayList<Proyeccion> proyeccionesSeleccionadas) {
-		int respuesta = preguntarConfirmacionProyeccion(proyeccion);
-		if (respuesta == 1) {
-			proyeccionesSeleccionadas.add(proyeccion);
-			panelSeleccionProyeccion.setVisible(false);
-			panelCine.setVisible(true);
-		}
+	public void asignarValoresALabelsSeleccion(Proyeccion proyeccion, JLabel lblCine, JLabel lblSala,
+			JLabel lblPelicula, JLabel lblFecha, JLabel lblHora, JLabel lblPrecio) {
+
+		String cine = proyeccion.getSala().getCine().getNombre();
+		lblCine.setText(cine);
+		
+		String fecha = proyeccion.getFecha().toString();
+		lblFecha.setText(fecha);
+		
+		String precio = "" + proyeccion.getPrecio();
+		lblPrecio.setText(precio);
+		
+		String sala = proyeccion.getSala().getNombre();
+		lblSala.setText(sala);
+		
+		String hora = proyeccion.getHora().toString();
+		lblHora.setText(hora);
+		
+		String pelicula = proyeccion.getPelicula().getTitulo();
+		lblPelicula.setText(pelicula);
 
 	}
 

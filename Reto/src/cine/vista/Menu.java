@@ -56,6 +56,7 @@ public class Menu {
 	private JPanel loginPanel;
 	private JPanel ticketPanel;
 	private JPanel registroPanel;
+	private JPanel confirmacionPanel;
 
 	public JComboBox<String> cineComboCines;
 	private JComboBox<String> proyeccionComboFecha;
@@ -66,13 +67,22 @@ public class Menu {
 
 	private JPanel proyeccionPanelImagen;
 	private JLabel proyeccionLblImagen;
+	private JLabel confirmacionLblImagen;
+	private JPanel confirmacionPanelImagen;
 
-	private JLabel resumenLblSubtotal1;
-	private JLabel resumenLblDescuento1;
-	private JLabel resumencLblTotal1;
-	
+	private JLabel resumenLblTextSubtotal;
+	private JLabel resumenLblTextDescuento;
+	private JLabel resumenLblTextTotal;
+
 	private JButton registroBtnAtrasLogin;
 	private JButton registroBtnAtrasCine;
+
+	private JLabel confirmacionLblTextCine;
+	private JLabel confirmacionLblTextSala;
+	private JLabel confirmacionLblTextPeli;
+	private JLabel confirmacionLblTextFecha;
+	private JLabel confirmacionLblTextPrecio;
+	private JLabel confirmacionLblTextSesion;
 
 	private Controlador controlador = null;
 
@@ -112,11 +122,12 @@ public class Menu {
 		frame.setTitle("Cine Elorrieta");
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		
+
 		crearPanelBienvenida();
 		crearPanelSeleccionCine();
 		crearPanelSeleccionPelicula();
 		crearPanelSeleccionProyeccion();
+		crearPanelConfirmacion();
 		crearPanelResumenCompra();
 		crearPanelLogin();
 		crearPanelImpresionTicket();
@@ -125,6 +136,7 @@ public class Menu {
 		cinePanel.setVisible(false);
 		peliPanel.setVisible(false);
 		proyeccionPanel.setVisible(false);
+		confirmacionPanel.setVisible(false);
 		resumenPanel.setVisible(false);
 		loginPanel.setVisible(false);
 		ticketPanel.setVisible(false);
@@ -138,7 +150,7 @@ public class Menu {
 			public void mouseClicked(MouseEvent e) {
 				clientes = controlador.guardarArrayListClientes();
 				cines = controlador.guardarArrayListCines();
-				
+
 				cinePanel.setVisible(true);
 				bienvenidaPanel.setVisible(false);
 				controlador.anadirCinesAlCombo(cineComboCines, cines);
@@ -225,14 +237,15 @@ public class Menu {
 				double descuento = controlador.calcularDescuento(proyeccionesSeleccionadas, subtotal);
 				double total = controlador.calcularTotal(subtotal, descuento);
 
-				controlador.finalizarSesion(proyeccionesSeleccionadas, cinePanel, resumenPanel, frame, resumenTableModel,
-						resumenLblSubtotal1, resumenLblDescuento1, resumencLblTotal1, subtotal, descuento, total);
+				controlador.finalizarSesion(proyeccionesSeleccionadas, cinePanel, resumenPanel, frame,
+						resumenTableModel, resumenLblTextSubtotal, resumenLblTextDescuento, resumenLblTextTotal, subtotal,
+						descuento, total);
 			}
 		});
 		cineBtnFin.setBounds(792, 20, 169, 33);
 		cinePanel.add(cineBtnFin);
-		
-		JButton cineBtnInicioSesion= new JButton("REGISTRARME");
+
+		JButton cineBtnInicioSesion = new JButton("REGISTRARME");
 		cineBtnInicioSesion.setBackground(Color.WHITE);
 		cineBtnInicioSesion.setForeground(SystemColor.textHighlight);
 		cineBtnInicioSesion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
@@ -241,7 +254,7 @@ public class Menu {
 				if (clienteLogueado == null) {
 					registroPanel.setVisible(true);
 					cinePanel.setVisible(false);
-					
+
 					registroBtnAtrasLogin.setVisible(false);
 					registroBtnAtrasCine.setVisible(true);
 				}
@@ -332,7 +345,7 @@ public class Menu {
 		peliTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		peliTable.setShowGrid(false);
 
-		Object[] peliColumnasTabla = { "TÍTULO", "GÉNERO", "DUR (min)"};
+		Object[] peliColumnasTabla = { "TÍTULO", "GÉNERO", "DUR (min)" };
 
 		JTableHeader peliTableHeader = peliTable.getTableHeader();
 		peliTableHeader.setBackground(SystemColor.textHighlight);
@@ -387,6 +400,7 @@ public class Menu {
 		proyeccionPanel = new JPanel();
 		proyeccionPanel.setBounds(0, 0, 1000, 672);
 		proyeccionPanel.setBackground(new Color(66, 66, 66));
+		proyeccionPanel.setLayout(null);
 		frame.getContentPane().add(proyeccionPanel);
 
 		JButton proyeccionBtnAtras = new JButton("Atrás");
@@ -400,7 +414,6 @@ public class Menu {
 				proyeccionPanel.setVisible(false);
 			}
 		});
-		proyeccionPanel.setLayout(null);
 		proyeccionPanel.add(proyeccionBtnAtras);
 
 		JLabel proyeccionLblCabecera = new JLabel("Seleccione una fecha:");
@@ -426,9 +439,17 @@ public class Menu {
 		proyeccionTableSesiones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(proyeccionTableSesiones, proyecciones);
-				controlador.guardarSeleccionProyeccion(proyeccionSeleccionada, cinePanel, proyeccionPanel,
-						proyeccionesSeleccionadas);
+				proyeccionSeleccionada = controlador.guardarProyeccionSeleccionada(proyeccionTableSesiones,
+						proyecciones);
+
+				controlador.anadirImagen(confirmacionPanelImagen, confirmacionLblImagen,
+						proyeccionSeleccionada.getPelicula().getCaratula());
+				
+				controlador.asignarValoresALabelsSeleccion(proyeccionSeleccionada, confirmacionLblTextCine, confirmacionLblTextSala,
+						confirmacionLblTextPeli, confirmacionLblTextFecha, confirmacionLblTextSesion, confirmacionLblTextPrecio);
+
+				confirmacionPanel.setVisible(true);
+				proyeccionPanel.setVisible(false);
 			}
 		});
 		proyeccionTableSesiones.setRowHeight(25);
@@ -462,7 +483,7 @@ public class Menu {
 		proyeccionTableSesiones.setModel(proyeccionTableModel);
 
 		proyeccionTableSesiones.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-			
+
 			private static final long serialVersionUID = 1852554938143426518L;
 
 			@Override
@@ -492,13 +513,135 @@ public class Menu {
 		proyeccionPanel.add(proyeccionComboFecha);
 
 		proyeccionPanelImagen = new JPanel();
-		proyeccionPanelImagen.setBackground(new Color(254, 251, 0));
 		proyeccionPanelImagen.setBounds(500, 0, 500, 675);
 		proyeccionPanel.add(proyeccionPanelImagen);
 		proyeccionPanelImagen.setLayout(new BorderLayout(0, 0));
 
 		proyeccionLblImagen = new JLabel("");
 		proyeccionPanelImagen.add(proyeccionLblImagen, BorderLayout.CENTER);
+	}
+
+	private void crearPanelConfirmacion() {
+		confirmacionPanel = new JPanel();
+		confirmacionPanel.setBounds(0, 0, 1000, 672);
+		confirmacionPanel.setBackground(new Color(66, 66, 66));
+		frame.getContentPane().add(confirmacionPanel);
+		confirmacionPanel.setLayout(null);
+
+		JLabel confirmacionLblCabecera = new JLabel("¿Desea confirmar la pelicula seleccionada?");
+		confirmacionLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		confirmacionLblCabecera.setForeground(new Color(194, 220, 241));
+		confirmacionLblCabecera.setBounds(50, 43, 446, 56);
+		confirmacionPanel.add(confirmacionLblCabecera);
+
+		JLabel confirmacionLblCine = new JLabel("Cine:");
+		confirmacionLblCine.setBounds(70, 231, 80, 30);
+		confirmacionPanel.add(confirmacionLblCine);
+		confirmacionLblCine.setForeground(new Color(255, 255, 255));
+		confirmacionLblCine.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+
+		JLabel confirmacionLblSala = new JLabel("Sala:");
+		confirmacionLblSala.setBounds(70, 272, 80, 30);
+		confirmacionPanel.add(confirmacionLblSala);
+		confirmacionLblSala.setForeground(new Color(255, 255, 255));
+		confirmacionLblSala.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+
+		JLabel confirmacionLblPeli = new JLabel("Pelicula:");
+		confirmacionLblPeli.setBounds(70, 313, 80, 30);
+		confirmacionPanel.add(confirmacionLblPeli);
+		confirmacionLblPeli.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		confirmacionLblPeli.setForeground(new Color(255, 255, 255));
+
+		JLabel confirmacionLblFecha = new JLabel("Fecha:");
+		confirmacionLblFecha.setBounds(70, 354, 80, 30);
+		confirmacionPanel.add(confirmacionLblFecha);
+		confirmacionLblFecha.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		confirmacionLblFecha.setForeground(new Color(255, 255, 255));
+
+		JLabel confirmacionLblPrecio = new JLabel("Precio:");
+		confirmacionLblPrecio.setBounds(70, 395, 80, 30);
+		confirmacionPanel.add(confirmacionLblPrecio);
+		confirmacionLblPrecio.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		confirmacionLblPrecio.setForeground(new Color(255, 255, 255));
+
+		JLabel confirmacionLblSesion = new JLabel("Sesión:");
+		confirmacionLblSesion.setBounds(70, 436, 80, 30);
+		confirmacionPanel.add(confirmacionLblSesion);
+		confirmacionLblSesion.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		confirmacionLblSesion.setForeground(new Color(255, 255, 255));
+
+		confirmacionLblTextCine = new JLabel("");
+		confirmacionLblTextCine.setBounds(150, 231, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextCine);
+		confirmacionLblTextCine.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextCine.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		confirmacionLblTextSala = new JLabel("");
+		confirmacionLblTextSala.setBounds(150, 272, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextSala);
+		confirmacionLblTextSala.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextSala.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		confirmacionLblTextPeli = new JLabel("");
+		confirmacionLblTextPeli.setBounds(150, 313, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextPeli);
+		confirmacionLblTextPeli.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextPeli.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		confirmacionLblTextFecha = new JLabel("");
+		confirmacionLblTextFecha.setBounds(150, 354, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextFecha);
+		confirmacionLblTextFecha.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextFecha.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		confirmacionLblTextPrecio = new JLabel("");
+		confirmacionLblTextPrecio.setBounds(150, 395, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextPrecio);
+		confirmacionLblTextPrecio.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextPrecio.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		confirmacionLblTextSesion = new JLabel("");
+		confirmacionLblTextSesion.setBounds(150, 436, 170, 30);
+		confirmacionPanel.add(confirmacionLblTextSesion);
+		confirmacionLblTextSesion.setForeground(new Color(255, 255, 255));
+		confirmacionLblTextSesion.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
+
+		JButton confirmacionBtnConfirmar = new JButton("Confirmar");
+		confirmacionBtnConfirmar.setForeground(SystemColor.textHighlight);
+		confirmacionBtnConfirmar.setBackground(Color.WHITE);
+		confirmacionBtnConfirmar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		confirmacionBtnConfirmar.setBounds(70, 567, 130, 29);
+		confirmacionBtnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				controlador.guardarProyeccionConfirmada(proyeccionSeleccionada, proyeccionesSeleccionadas);
+				cinePanel.setVisible(true);
+				confirmacionPanel.setVisible(false);
+			}
+		});
+		confirmacionPanel.add(confirmacionBtnConfirmar);
+
+		JButton confirmacionBtnAtras = new JButton("Atrás");
+		confirmacionBtnAtras.setBackground(SystemColor.textHighlight);
+		confirmacionBtnAtras.setForeground(Color.WHITE);
+		confirmacionBtnAtras.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		confirmacionBtnAtras.setBounds(6, 6, 80, 29);
+		confirmacionBtnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				proyeccionPanel.setVisible(true);
+				confirmacionPanel.setVisible(false);
+			}
+		});
+		confirmacionPanel.add(confirmacionBtnAtras);
+		
+		confirmacionPanelImagen = new JPanel();
+		confirmacionPanelImagen.setBounds(500, 0, 500, 675);
+		confirmacionPanel.add(confirmacionPanelImagen);
+		confirmacionPanelImagen.setLayout(new BorderLayout(0, 0));
+
+		confirmacionLblImagen = new JLabel("");
+		confirmacionPanelImagen.add(confirmacionLblImagen, BorderLayout.CENTER);
+
 	}
 
 	private void crearPanelResumenCompra() {
@@ -538,8 +681,8 @@ public class Menu {
 		resumenTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlador.eliminarProyeccionSel(proyeccionesSeleccionadas, resumenTable, resumenTableModel, resumenLblSubtotal1,
-						resumenLblDescuento1, resumencLblTotal1);
+				controlador.eliminarProyeccionSel(proyeccionesSeleccionadas, resumenTable, resumenTableModel,
+						resumenLblTextSubtotal, resumenLblTextDescuento, resumenLblTextTotal);
 			}
 		});
 		resumenTable.setRowHeight(25);
@@ -592,30 +735,30 @@ public class Menu {
 		resumenLblSubtotal.setBounds(750, 422, 110, 29);
 		resumenPanel.add(resumenLblSubtotal);
 
-		resumenLblSubtotal1 = new JLabel("");
-		resumenLblSubtotal1.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		resumenLblSubtotal1.setBounds(850, 422, 95, 29);
-		resumenPanel.add(resumenLblSubtotal1);
+		resumenLblTextSubtotal = new JLabel("");
+		resumenLblTextSubtotal.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		resumenLblTextSubtotal.setBounds(850, 422, 95, 29);
+		resumenPanel.add(resumenLblTextSubtotal);
 
 		JLabel resumenLblDescuento = new JLabel("Descuento:");
 		resumenLblDescuento.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		resumenLblDescuento.setBounds(750, 463, 110, 29);
 		resumenPanel.add(resumenLblDescuento);
 
-		resumenLblDescuento1 = new JLabel("");
-		resumenLblDescuento1.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		resumenLblDescuento1.setBounds(850, 463, 95, 29);
-		resumenPanel.add(resumenLblDescuento1);
+		resumenLblTextDescuento = new JLabel("");
+		resumenLblTextDescuento.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		resumenLblTextDescuento.setBounds(850, 463, 95, 29);
+		resumenPanel.add(resumenLblTextDescuento);
 
 		JLabel resumenLblTotal = new JLabel("TOTAL:");
 		resumenLblTotal.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		resumenLblTotal.setBounds(750, 504, 110, 29);
 		resumenPanel.add(resumenLblTotal);
 
-		resumencLblTotal1 = new JLabel("");
-		resumencLblTotal1.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		resumencLblTotal1.setBounds(850, 504, 95, 29);
-		resumenPanel.add(resumencLblTotal1);
+		resumenLblTextTotal = new JLabel("");
+		resumenLblTextTotal.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
+		resumenLblTextTotal.setBounds(850, 504, 95, 29);
+		resumenPanel.add(resumenLblTextTotal);
 
 		JButton resumenBtnCancelar = new JButton("Cancelar");
 		resumenBtnCancelar.setBackground(Color.BLACK);
@@ -657,17 +800,16 @@ public class Menu {
 		resumenLblDescr.setForeground(Color.WHITE);
 		resumenLblDescr.setBounds(70, 98, 566, 29);
 		resumenPanel.add(resumenLblDescr);
-		
+
 		JPanel resumenPanelImg = new JPanel();
 		resumenPanelImg.setBounds(800, 50, 100, 100);
 		resumenPanel.add(resumenPanelImg);
 		resumenPanelImg.setOpaque(false);
 		resumenPanelImg.setLayout(new BorderLayout(0, 0));
-		
 
 		JLabel resumenLblImg = new JLabel("");
 		resumenPanelImg.add(resumenLblImg, BorderLayout.CENTER);
-		
+
 		controlador.anadirImagen(resumenPanelImg, resumenLblImg, "img/carrito.png");
 
 		JPanel resumenPanelCabecera = new JPanel();
@@ -967,9 +1109,9 @@ public class Menu {
 		JButton registroBtnRegistrarme = new JButton("Registrarme");
 		registroBtnRegistrarme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controlador.registrarNuevoCliente(clientes, registroComboSexo, registroTextFieldNombre, registroTextFieldApellidos,
-						registroTextFieldDni, registroTextFieldDireccion, registroTextFieldUsuario, registroPasswordFieldContrasena,
-						registroPasswordFieldRepContrasena);
+				controlador.registrarNuevoCliente(clientes, registroComboSexo, registroTextFieldNombre,
+						registroTextFieldApellidos, registroTextFieldDni, registroTextFieldDireccion,
+						registroTextFieldUsuario, registroPasswordFieldContrasena, registroPasswordFieldRepContrasena);
 				clientes = controlador.guardarArrayListClientes();
 			}
 		});
@@ -991,7 +1133,7 @@ public class Menu {
 			}
 		});
 		registroPanel.add(registroBtnAtrasLogin);
-		
+
 		registroBtnAtrasCine = new JButton("Atrás");
 		registroBtnAtrasCine.setBackground(SystemColor.textHighlight);
 		registroBtnAtrasCine.setForeground(Color.WHITE);
@@ -1004,18 +1146,18 @@ public class Menu {
 			}
 		});
 		registroPanel.add(registroBtnAtrasCine);
-		
+
 		JPanel registroPanelImg = new JPanel();
 		registroPanelImg.setBackground(new Color(66, 66, 66));
 		registroPanelImg.setBounds(500, 0, 500, 675);
 		registroPanelImg.setLayout(new BorderLayout(0, 0));
 		registroPanel.add(registroPanelImg);
-		
+
 		JLabel rLblImg = new JLabel("");
 		registroPanelImg.add(rLblImg, BorderLayout.CENTER);
 
 		controlador.anadirImagen(registroPanelImg, rLblImg, "img/r_bg.jpg");
-		
+
 		registroBtnAtrasLogin.setVisible(false);
 		registroBtnAtrasCine.setVisible(false);
 	}
