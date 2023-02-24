@@ -33,11 +33,8 @@ import cine.bbdd.pojos.Pelicula;
 import cine.bbdd.pojos.Proyeccion;
 
 /**
- * Esta clase lleva a cabo una relacion entre la clases del apartado de la vista
- * y el gestor, gestionando el apartado lógico.
- * 
- * @author leire
- *
+ * Clase de la capa Controlador. Recibe peticiones de la Vista y ejecuta acciones contra la capa
+ * Modelo.
  */
 public class Controlador {
 
@@ -89,14 +86,11 @@ public class Controlador {
 
 	public ArrayList<Cine> guardarArrayListCines() {
 		GestorCine gestorCine = new GestorCine();
-		ArrayList<Cine> ret = gestorCine.getAllCines();
-		return ret;
+		return gestorCine.getAllCines();
 	}
 
 	public void anadirCinesAlCombo(JComboBox<String> combo, ArrayList<Cine> cines) {
-
 		combo.removeAllItems();
-
 		for (int i = 0; i < cines.size(); i++) {
 			combo.addItem(cines.get(i).getNombre());
 		}
@@ -482,10 +476,10 @@ public class Controlador {
 	public void reiniciarProyeccionesSeleccionadas(ArrayList<Proyeccion> proyeccionesSeleccionadas) {
 		proyeccionesSeleccionadas.removeAll(proyeccionesSeleccionadas);
 	}
-	
+
 	public Cliente desloguearCliente() {
 		Cliente ret = null;
-		
+
 		return ret;
 	}
 

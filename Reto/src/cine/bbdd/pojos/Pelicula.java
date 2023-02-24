@@ -10,7 +10,6 @@ import java.util.Objects;
  * @author leire
  *
  */
-
 public class Pelicula implements Serializable {
 
 	private static final long serialVersionUID = -8262918258353500416L;
