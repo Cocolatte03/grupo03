@@ -6,9 +6,6 @@ import java.util.Objects;
 
 /**
  * Esta clase describe la tabla pelicula.
- * 
- * @author leire
- *
  */
 public class Pelicula implements Serializable {
 

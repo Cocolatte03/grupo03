@@ -6,9 +6,6 @@ import java.util.Objects;
 
 /**
  * Esta clase describe la tabla entrada.
- * 
- * @author alexis
- *
  */
 public class Entrada implements Serializable {
 

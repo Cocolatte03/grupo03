@@ -14,9 +14,6 @@ import cine.bbdd.pojos.Proyeccion;
 
 /**
  * Este test prueba la clase Entrada
- * 
- * @author alexis
- *
  */
 public class EntradaTest {
 

@@ -12,9 +12,6 @@ import cine.bbdd.pojos.Sala;
 
 /**
  * Este test prueba la clase Sala
- * 
- * @author ainhoa
- *
  */
 public class SalaTest {
 

@@ -11,9 +11,6 @@ import cine.bbdd.pojos.Proyeccion;
 
 /**
  * Este test prueba la clase Pelicula
- * 
- * @author leire
- *
  */
 public class PeliculaTest {
 

@@ -11,9 +11,6 @@ import cine.bbdd.pojos.Entrada;
 
 /**
  * Este test prueba la clase Cliente
- * 
- * @author alexis
- *
  */
 
 public class ClienteTest {

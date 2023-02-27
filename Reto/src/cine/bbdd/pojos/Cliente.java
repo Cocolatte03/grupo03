@@ -6,9 +6,6 @@ import java.util.Objects;
 
 /**
  * Esta clase describe la tabla cliente.
- * 
- * @author alexis
- *
  */
 
 public class Cliente implements Serializable {

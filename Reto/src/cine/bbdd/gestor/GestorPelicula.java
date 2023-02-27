@@ -14,9 +14,6 @@ import cine.bbdd.utils.DBUtils;
 /**
  * Esta clase gestiona las consultas a la base de datos relacionadas con la
  * tabla pelicula.
- * 
- * @author leire
- *
  */
 public class GestorPelicula {
 	

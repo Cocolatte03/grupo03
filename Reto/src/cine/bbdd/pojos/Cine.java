@@ -6,9 +6,6 @@ import java.util.Objects;
 
 /**
  * Esta clase describe la tabla cine.
- * 
- * @author ainhoa
- *
  */
 public class Cine implements Serializable {
 

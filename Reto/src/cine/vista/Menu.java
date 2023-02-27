@@ -39,10 +39,7 @@ import cine.controlador.Controlador;
 import java.awt.SystemColor;
 
 /**
- * Esta clase contiene los elementos visuales de la interfaz.
- * 
- * @author leire
- *
+ * Clase que contiene los elementos visuales de la interfaz.
  */
 public class Menu {
 
@@ -168,7 +165,7 @@ public class Menu {
 		bienvenidaPanel.add(bienvenidaLblCabecera);
 
 		JPanel bienvenidaPanelLogo = new JPanel();
-		bienvenidaPanelLogo.setBounds(910, 40, 35, 30);
+		bienvenidaPanelLogo.setBounds(850, 550, 100, 100);
 		bienvenidaPanel.add(bienvenidaPanelLogo);
 		bienvenidaPanelLogo.setLayout(new BorderLayout(0, 0));
 		bienvenidaPanelLogo.setOpaque(false);

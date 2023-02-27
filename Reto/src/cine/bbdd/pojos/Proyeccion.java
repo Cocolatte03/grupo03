@@ -9,9 +9,6 @@ import java.util.Objects;
 /**
  * Esta clase describe la tabla proyeccion. Cabe recalcar el formato de la fecha
  * y hora, cuya libreria es java.time.
- * 
- * @author leire
- *
  */
 public class Proyeccion implements Serializable {
 

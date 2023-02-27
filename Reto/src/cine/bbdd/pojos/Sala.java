@@ -6,9 +6,6 @@ import java.util.Objects;
 
 /**
  * Esta clase describe la tabla sala.
- * 
- * @author ainhoa
- *
  */
 public class Sala implements Serializable {
 

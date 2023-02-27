@@ -26,6 +26,7 @@ import cine.bbdd.pojos.Sala;
 import cine.controlador.Controlador;
 import cine.controlador.fichero.GestorDeFicheros;
 
+
 public class MenuTest {
 
 	private static GestorCine gestorCine = null;
