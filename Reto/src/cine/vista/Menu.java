@@ -850,6 +850,20 @@ public class Menu {
 			}
 		});
 		loginPanel.add(loginBtnAtras);
+		
+		JButton loginBtnReinicar = new JButton("Reiniciar");
+		loginBtnReinicar.setBackground(SystemColor.textHighlight);
+		loginBtnReinicar.setForeground(Color.WHITE);
+		loginBtnReinicar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		loginBtnReinicar.setBounds(100, 6, 120, 29);
+		loginBtnReinicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginPanel.setVisible(false);
+				bienvenidaPanel.setVisible(true);
+				controlador.reiniciarProyeccionesSeleccionadas(proyeccionesSeleccionadas);
+			}
+		});
+		loginPanel.add(loginBtnReinicar);
 
 		JLabel loginLblUsuario = new JLabel("Usuario:");
 		loginLblUsuario.setForeground(Color.WHITE);

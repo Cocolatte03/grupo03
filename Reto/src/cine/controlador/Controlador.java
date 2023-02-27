@@ -239,19 +239,19 @@ public class Controlador {
 
 		String cine = proyeccion.getSala().getCine().getNombre();
 		lblCine.setText(cine);
-		
+
 		String fecha = proyeccion.getFecha().toString();
 		lblFecha.setText(fecha);
-		
+
 		String precio = "" + proyeccion.getPrecio();
 		lblPrecio.setText(precio);
-		
+
 		String sala = proyeccion.getSala().getNombre();
 		lblSala.setText(sala);
-		
+
 		String hora = proyeccion.getHora().toString();
 		lblHora.setText(hora);
-		
+
 		String pelicula = proyeccion.getPelicula().getTitulo();
 		lblPelicula.setText(pelicula);
 
