@@ -528,7 +528,7 @@ public class Menu {
 		JLabel confirmacionLblCabecera = new JLabel("¿Desea confirmar la pelicula seleccionada?");
 		confirmacionLblCabecera.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 		confirmacionLblCabecera.setForeground(new Color(194, 220, 241));
-		confirmacionLblCabecera.setBounds(50, 43, 446, 56);
+		confirmacionLblCabecera.setBounds(50, 150, 446, 56);
 		confirmacionPanel.add(confirmacionLblCabecera);
 
 		JLabel confirmacionLblCine = new JLabel("Cine:");
@@ -852,8 +852,8 @@ public class Menu {
 		loginPanel.add(loginBtnAtras);
 		
 		JButton loginBtnReinicar = new JButton("Reiniciar");
-		loginBtnReinicar.setBackground(SystemColor.textHighlight);
-		loginBtnReinicar.setForeground(Color.WHITE);
+		loginBtnReinicar.setBackground(Color.WHITE);
+		loginBtnReinicar.setForeground(SystemColor.textHighlight);
 		loginBtnReinicar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		loginBtnReinicar.setBounds(100, 6, 120, 29);
 		loginBtnReinicar.addActionListener(new ActionListener() {
