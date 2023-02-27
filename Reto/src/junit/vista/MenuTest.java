@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import cine.bbdd.gestor.GestorCine;
 import cine.bbdd.gestor.GestorCliente;
+import cine.bbdd.gestor.GestorEntrada;
 import cine.bbdd.gestor.GestorPelicula;
 import cine.bbdd.gestor.GestorProyeccion;
 import cine.bbdd.pojos.Cine;
@@ -33,6 +34,7 @@ public class MenuTest {
 	private static GestorPelicula gestorPelicula = null;
 	private static GestorProyeccion gestorProyeccion = null;
 	private static GestorCliente gestorCliente = null;
+	private static GestorEntrada gestorEntrada = null;
 	private static Controlador controlador = null;
 
 	@BeforeClass
@@ -41,6 +43,7 @@ public class MenuTest {
 		gestorPelicula = new GestorPelicula();
 		gestorProyeccion = new GestorProyeccion();
 		gestorCliente = new GestorCliente();
+		gestorEntrada = new GestorEntrada();
 		controlador = new Controlador();
 	}
 
@@ -498,6 +501,39 @@ public class MenuTest {
 		File file = new File("src/cine/tickets/entradas_" + fechaFormateada + "_" + idCliente + ".txt");
 
 		assertTrue(file.getAbsoluteFile().exists());
+	}
+	
+	/**
+	 * Comprueba si se genera un insert en la base de datos con las entradas correctas
+	 */
+	@Test
+	public void testInsertEntrada() {
+		ArrayList<Cine> cines = gestorCine.getAllCines();
+		Cine cine = cines.get(0);
+
+		ArrayList<Pelicula> peliculas = gestorPelicula.getPeliculasPorCine(cine);
+		Pelicula pelicula = peliculas.get(0);
+
+		ArrayList<Proyeccion> proyecciones = gestorProyeccion.getProyeccionesPorCineYPeliculaAgrupadasPorFecha(cine,
+				pelicula);
+
+		LocalDate fecha = proyecciones.get(0).getFecha();
+
+		ArrayList<Proyeccion> proyecciones1 = gestorProyeccion.getProyeccionesPorFechaConSesionPeliculaYCine(cine,
+				pelicula, fecha.toString());
+
+		ArrayList<Proyeccion> proyeccionesSeleccionadas = new ArrayList<Proyeccion>();
+		Proyeccion proyeccionSeleccionada = proyecciones1.get(0);
+		proyeccionesSeleccionadas.add(proyeccionSeleccionada);
+
+		ArrayList<Cliente> clientes = gestorCliente.getAllClientes();
+		Cliente cliente = controlador.guardarCliente(clientes, "leiretxula");
+		controlador.crearEntradas(proyeccionesSeleccionadas, cliente);
+		LocalDateTime fechaCompra = LocalDateTime.now();
+		
+		boolean seHaGeneradoInsert = gestorEntrada.seHaGeneradoInsertEntrada(proyeccionSeleccionada, cliente, fechaCompra);
+		
+		assertTrue(seHaGeneradoInsert);
 	}
 
 	/**
