@@ -374,10 +374,6 @@ public class MenuTest {
 		}
 
 		double subtotalEsperado = 11.9;
-		/*
-		 * for (int j = 0; j < proyeccionesSeleccionadas.size(); j++) { sumaEsperada +=
-		 * proyeccionesSeleccionadas.get(j).getPrecio(); }
-		 */
 
 		double subtotal = controlador.calcularSubtotal(proyeccionesSeleccionadas);
 
